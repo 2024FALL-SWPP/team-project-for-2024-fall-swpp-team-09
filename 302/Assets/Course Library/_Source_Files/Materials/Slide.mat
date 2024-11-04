@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Slide
-  m_Shader: {fileID: 4800000, guid: a2f8aea0132b39744ad8e5580c97c8bc, type: 3}
+  m_Shader: {fileID: 4800000, guid: 795bbb59d3ff1fa4cbfc31cb86f341c9, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -41,7 +41,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: be9e5163fee92fc4586b100f81c79e20, type: 3}
+        m_Texture: {fileID: 2800000, guid: 74cb9af2535d9a840a591f698e77040d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
