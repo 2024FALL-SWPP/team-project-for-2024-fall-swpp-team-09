@@ -65,8 +65,8 @@ public class LaptopScreenController : MonoBehaviour
         int defaultXWidth = defaultXMax - defaultXMin;
         int defaultYWidth = defaultYMax - defaultYMin;
 
-        for (int x = 0; x < xWidth; x++) {
-            for (int y = 0; y < yWidth; y++) {
+        for (int x = 0; x < screenXWidth; x++) {
+            for (int y = 0; y < screenYWidth; y++) {
                 int xSlide = (int)((x + 0.5) * defaultXWidth / screenXWidth + defaultXMin);
                 int ySlide = (int)((y + 0.5) * defaultYWidth / screenYWidth + defaultYMin);
                 Color color = defaults[Index].GetPixel(xSlide, ySlide);
@@ -105,15 +105,15 @@ public class LaptopScreenController : MonoBehaviour
             _inputCount++;
             _inputIndex = _inputIndex * 10 + index;
 
-            if (_inputIndex >= defaultTextures.Length) {
+            if (_inputIndex >= defaults.Length) {
                 _inputCount = 1;
                 _inputIndex = index;
             }
 
             if (_inputCount >= _inputCountMax) {
-                if (_inputIndex < defaultTextures.Length) {
-                    Index = _inputIndex;
-                    ResetSlide();
+                if (_inputIndex < defaults.Length) {
+                    _index = _inputIndex;
+                    ResetScreen();
                 }
 
                 _inputCount = 0;
