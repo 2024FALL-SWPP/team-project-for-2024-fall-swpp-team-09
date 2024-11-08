@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(Rigidbody))]
@@ -31,11 +32,18 @@ public class PlayerController : MonoBehaviour
     [Header("Footsteps")]
     public float walkStepInterval = 0.5f;
     public float runStepInterval = 0.3f;
+
+    [Header("Sleep Animation")]
+    public float sleepAnimationDuration = 3f;
+    public float wakeUpAnimationDuration = 3f;
+    public float sleepCameraAngle = 60f; // 완전히 아래를 보는 각도
+    public float sleepCameraHeight = 0.3f; // 엎드렸을 때의 카메라 높이
     
     private Camera playerCamera;
     private Rigidbody rb;
     private CapsuleCollider capsuleCollider;
     private AudioSource audioSource;
+    private ScreenFader screenFader;
     private float verticalRotation;
     private float currentSpeed;
     private float stepTimer;
@@ -43,9 +51,20 @@ public class PlayerController : MonoBehaviour
     private Vector3 originalCameraPos;
     private Vector3 moveDirection;
     private bool isMoving;
+    private bool isAnimating = false;
     #endregion
 
     #region Unity Messages
+    private void Awake()
+    {
+        screenFader = FindObjectOfType<ScreenFader>();
+        if (screenFader == null)
+        {
+            GameObject faderObj = new GameObject("ScreenFader");
+            screenFader = faderObj.AddComponent<ScreenFader>();
+        }
+    }
+
     private void Start()
     {
         SetupComponents();
@@ -55,13 +74,19 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        HandleInput();
-        HandleCamera();
+        if (!isAnimating)
+        {
+            HandleInput();
+            HandleCamera();
+        }
     }
 
     private void FixedUpdate()
     {
-        HandleMovement();
+        if (!isAnimating)
+        {
+            HandleMovement();
+        }
     }
     #endregion
 
@@ -75,7 +100,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         
-        // AudioSource 설정
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.spatialBlend = 0f;
         audioSource.playOnAwake = false;
@@ -94,32 +118,41 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Input & Movement
-private void HandleInput()
-{
-    float horizontal = Input.GetAxisRaw("Horizontal");
-    float vertical = Input.GetAxisRaw("Vertical");
-    Vector3 input = new Vector3(horizontal, 0f, vertical).normalized;
-    
-    bool isRunning = Input.GetKey(KeyCode.LeftShift);
-    currentSpeed = isRunning ? runSpeed : walkSpeed;
-    
-    // 키보드 입력으로 움직임 체크
-    if (input.magnitude >= 0.1f)
+    private void HandleInput()
     {
-        moveDirection = input;
-        isMoving = true;
-    }
-    else
-    {
-        moveDirection = Vector3.zero;
-        isMoving = false;
-        if (audioSource.isPlaying)
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        Vector3 input = new Vector3(horizontal, 0f, vertical).normalized;
+        
+        bool isRunning = Input.GetKey(KeyCode.LeftShift);
+        currentSpeed = isRunning ? runSpeed : walkSpeed;
+        
+        if (input.magnitude >= 0.1f)
         {
-            audioSource.Stop();
+            moveDirection = input;
+            isMoving = true;
         }
-        stepTimer = 0f;
+        else
+        {
+            moveDirection = Vector3.zero;
+            isMoving = false;
+            if (audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
+            stepTimer = 0f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Sleep(); 
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            GameManager.Instance.SetStageClear();  // 스테이지 클리어 설정
+            Sleep();  // 잠자기
+        }
     }
-}
 
     private void HandleMovement()
     {
@@ -149,19 +182,15 @@ private void HandleInput()
     #region Camera
     private void HandleCamera()
     {
-        // 마우스 입력
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        // 수직 회전 (고개 끄덕임)
         verticalRotation -= mouseY;
         verticalRotation = Mathf.Clamp(verticalRotation, minVerticalAngle, maxVerticalAngle);
         playerCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
         
-        // 수평 회전 (전체 몸 회전)
         transform.Rotate(Vector3.up * mouseX, Space.World);
         
-        // 카메라 흔들림
         if (isMoving)
         {
             bool isRunning = Input.GetKey(KeyCode.LeftShift);
@@ -192,60 +221,153 @@ private void HandleInput()
     }
     #endregion
 
-#region Audio
-private void HandleFootsteps()
-{
-    if (!isMoving)
+    #region Sleep Functions
+    public void Sleep()
     {
+        if (!isAnimating)
+        {
+            StartCoroutine(SleepAnimation());
+        }
+    }
+
+    public void WakeUp()
+    {
+        if (!isAnimating)
+        {
+            StartCoroutine(WakeUpAnimation());
+        }
+    }
+
+    private IEnumerator SleepAnimation()
+    {
+        isAnimating = true;
+        
+        // 움직임 비활성화
+        enabled = false;
+        
+        float elapsedTime = 0f;
+        float startVerticalRotation = verticalRotation;
+        float startHeight = playerCamera.transform.localPosition.y;
+        
+        // 화면 어두워지기 시작
+        screenFader.StartFade(1f, sleepAnimationDuration);
+
+        while (elapsedTime < sleepAnimationDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / sleepAnimationDuration;
+            
+            // 부드러운 보간을 위해 Smoothstep 사용
+            float smoothT = t * t * (3f - 2f * t);
+            
+            // 카메라 각도 변경
+            verticalRotation = Mathf.Lerp(startVerticalRotation, sleepCameraAngle, smoothT);
+            playerCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
+            
+            // 카메라 높이 변경
+            Vector3 newPos = playerCamera.transform.localPosition;
+            newPos.y = Mathf.Lerp(startHeight, sleepCameraHeight, smoothT);
+            playerCamera.transform.localPosition = newPos;
+
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(1.5f);
+        isAnimating = false;
+        
+        // GameManager에게 씬 전환 신호
+        GameManager.Instance.Sleep();
+    }
+
+    private IEnumerator WakeUpAnimation()
+    {
+        isAnimating = true;
+        
+        float elapsedTime = 0f;
+        float startVerticalRotation = sleepCameraAngle;
+        float startHeight = sleepCameraHeight;
+        
+        // 화면이 밝아지기 시작
+        screenFader.StartFade(0f, wakeUpAnimationDuration);
+
+        while (elapsedTime < wakeUpAnimationDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / wakeUpAnimationDuration;
+            
+            // 부드러운 보간을 위해 Smoothstep 사용
+            float smoothT = t * t * (3f - 2f * t);
+            
+            // 카메라 각도 변경
+            verticalRotation = Mathf.Lerp(startVerticalRotation, 0f, smoothT);
+            playerCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
+            
+            // 카메라 높이 변경
+            Vector3 newPos = playerCamera.transform.localPosition;
+            newPos.y = Mathf.Lerp(startHeight, cameraHeight, smoothT);
+            playerCamera.transform.localPosition = newPos;
+
+            yield return null;
+        }
+
+        isAnimating = false;
+        enabled = true; // 움직임 다시 활성화
+    }
+    #endregion
+
+    #region Audio
+    private void HandleFootsteps()
+    {
+        if (!isMoving)
+        {
+            if (audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
+            stepTimer = 0f;
+            return;
+        }
+        
+        bool isRunning = Input.GetKey(KeyCode.LeftShift);
+        
         if (audioSource.isPlaying)
+        {
+            audioSource.volume = isRunning ? runVolume : walkVolume;
+            audioSource.pitch = isRunning ? runPitch : walkPitch;
+        }
+
+        float currentStepInterval = isRunning ? runStepInterval : walkStepInterval;
+        stepTimer += Time.deltaTime;
+        
+        if (stepTimer >= currentStepInterval && !audioSource.isPlaying)
+        {
+            PlayFootstepSound();
+            stepTimer = 0f;
+        }
+    }
+
+    private void PlayFootstepSound()
+    {
+        if (footstepSound == null || audioSource == null) return;
+        
+        bool isRunning = Input.GetKey(KeyCode.LeftShift);
+        
+        audioSource.clip = footstepSound;
+        audioSource.volume = isRunning ? runVolume : walkVolume;
+        audioSource.pitch = isRunning ? runPitch : walkPitch;
+        audioSource.loop = false;
+        
+        audioSource.Play();
+    }
+
+    private void OnDisable()
+    {
+        if (audioSource != null && audioSource.isPlaying)
         {
             audioSource.Stop();
         }
-        stepTimer = 0f;
-        return;
     }
-    
-    bool isRunning = Input.GetKey(KeyCode.LeftShift);
-    
-    // 현재 재생 중인 소리의 피치와 볼륨을 실시간으로 조정
-    if (audioSource.isPlaying)
-    {
-        audioSource.volume = isRunning ? runVolume : walkVolume;
-        audioSource.pitch = isRunning ? runPitch : walkPitch;
-    }
-
-    float currentStepInterval = isRunning ? runStepInterval : walkStepInterval;
-    stepTimer += Time.deltaTime;
-    
-    if (stepTimer >= currentStepInterval && !audioSource.isPlaying)
-    {
-        PlayFootstepSound();
-        stepTimer = 0f;
-    }
-}
-
-private void PlayFootstepSound()
-{
-    if (footstepSound == null || audioSource == null) return;
-    
-    bool isRunning = Input.GetKey(KeyCode.LeftShift);
-    
-    audioSource.clip = footstepSound;
-    audioSource.volume = isRunning ? runVolume : walkVolume;
-    audioSource.pitch = isRunning ? runPitch : walkPitch;
-    audioSource.loop = false;
-    
-    audioSource.Play();
-}
-
-private void OnDisable()
-{
-    if (audioSource != null && audioSource.isPlaying)
-    {
-        audioSource.Stop();
-    }
-}
-#endregion
+    #endregion
 
     #region Interaction
     private void OnCollisionEnter(Collision collision)
