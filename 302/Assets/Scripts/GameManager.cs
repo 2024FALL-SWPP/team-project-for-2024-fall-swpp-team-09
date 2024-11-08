@@ -67,12 +67,24 @@ public class GameManager : MonoBehaviour
                 GameClear();
                 return;
             }
+
+            // Added by 박 상 윤
+            // 다음 스테이지에 대한 이상현상 확인 및 생성
+            // 스테이지 클리어 시, 업데이트 된 currentStage에 맞추어 이상현상을 생성해야 하므로
+            // AnomalyManager의 이상현상 Instantiate 용 함수를 호출
+            AnomalyManager.Instance.CheckAndInstantiateAnomaly();
         }
         else
         {
             // 스테이지 클리어하지 못한 상태로 잠들기
             Debug.Log("스테이지 클리어 실패!");
             currentStage = 1;  // 스테이지 초기화
+
+            // Added by 박 상 윤
+            // 이상현상 리스트 재생성 호출
+            // 스테이지 실패 시, 이상현상 리스트를 초기화, 재생성 해야 하므로
+            // AnomalyManager의 Stage Failure시 작동하는 함수 호출
+            AnomalyManager.Instance.OnStageFailure();
         }
 
         currentStageClear = false;  // 클리어 상태 초기화
