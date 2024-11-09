@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Anomaly3_noHeadSitGirlManager : InteractableObject, IInteractable
+public class Anomaly3_noHeadSitGirl : InteractableObject, IInteractable
 {
     private bool hasInteracted = false;  // Ensures only one interaction occurs
 

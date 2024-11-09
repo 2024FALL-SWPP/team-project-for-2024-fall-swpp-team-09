@@ -29885,7 +29885,7 @@ MonoBehaviour:
   - {fileID: 1964576861}
   - {fileID: 907157290}
   - {fileID: 583470962}
-  checkSpecificAnomaly: 1
+  checkSpecificAnomaly: 0
   SpecificAnomalyNum: 3
 --- !u!4 &1964216256
 Transform:
