@@ -7749,6 +7749,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e8452d6febdb74d3baa023ccec6ad5d2, type: 3}
   m_PrefabInstance: {fileID: 524454693}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &525215288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 525215289}
+  m_Layer: 0
+  m_Name: noHeadSitGirlPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &525215289
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525215288}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -1.72, y: -0.92, z: -6.15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1001 &554526890
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13029,6 +13060,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbd18baab98f449ca317b70a293321b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  headlessSchoolgirlPrefab: {fileID: 4931291677343464230, guid: 30233d2ccbd511e4fab58553448c1bd4, type: 3}
+  spawnLocation: {fileID: 525215289}
+  chairPrefab: {fileID: 1412398827}
 --- !u!1001 &822436791
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21726,6 +21760,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0bfae6ced1c6045458b9f634e638f34c, type: 3}
   m_PrefabInstance: {fileID: 1704202298}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1412398827 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8009453923108019191, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+  m_PrefabInstance: {fileID: 677000530}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1412558968
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29846,6 +29885,8 @@ MonoBehaviour:
   - {fileID: 1964576861}
   - {fileID: 907157290}
   - {fileID: 583470962}
+  checkSpecificAnomaly: 0
+  SpecificAnomalyNum: 3
 --- !u!4 &1964216256
 Transform:
   m_ObjectHideFlags: 0

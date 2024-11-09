@@ -33,7 +33,7 @@ public class InteractionController : MonoBehaviour
         // 모든 레이어에 대한 레이캐스트 먼저 체크
         if (Physics.Raycast(ray, out hit, interactionRange))
         {
-            Debug.Log($"Hit something: {hit.collider.gameObject.name} on layer: {hit.collider.gameObject.layer}");
+            // Debug.Log($"Hit something: {hit.collider.gameObject.name} on layer: {hit.collider.gameObject.layer}");
         }
 
         // Interactable 레이어에 대한 레이캐스트

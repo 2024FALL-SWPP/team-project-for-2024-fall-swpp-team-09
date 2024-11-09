@@ -11,6 +11,8 @@ public class AnomalyManager : MonoBehaviour
     private List<int> anomalyList = new List<int>();    // 이상현상 리스트
     private const int AnomalyCount = 8;                 // 사이즈 8
     private System.Random random = new System.Random();
+    public bool checkSpecificAnomaly;
+    public int SpecificAnomalyNum;
 
     // 하나의 AnomalyManager 만 보장
     private void Awake()
@@ -24,6 +26,13 @@ public class AnomalyManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;  // 아래 코드를 실행하지 않도록 return 추가
+        }
+
+        // 프리팹이 설정되어 있는지 확인
+        if (anomalyPrefabs == null || anomalyPrefabs.Length == 0)
+        {
+            Debug.LogError("Anomaly prefabs are missing! Please assign prefabs in the Inspector.");
         }
     }
 
@@ -35,30 +44,34 @@ public class AnomalyManager : MonoBehaviour
         for (int i = 0; i < AnomalyCount; i++)
         {
             int anomaly;
-            do
-            {
-                anomaly = GenerateRandomAnomaly();
-            } while (i > 0 && anomaly == anomalyList[i - 1]); // 연속 방지
-
+            if(!checkSpecificAnomaly) {
+                do
+                {
+                    anomaly = GenerateRandomAnomaly();
+                } while (i > 0 && anomaly == anomalyList[i - 1]); // 연속 방지
+            } else {
+                anomaly = SpecificAnomalyNum;
+            }
+            
             anomalyList.Add(anomaly);
         }
         
         Debug.Log($"[AnomalyManager] Generated Anomaly List: {string.Join(", ", anomalyList)}");
     }
 
-    // 50% 로 0, 나머지 확률로 1~31
+    // 50% 확률로 0, 나머지 확률로 1~31의 이상현상을 생성
     private int GenerateRandomAnomaly()
     {
         return random.Next(0, 100) < 50 ? 0 : random.Next(1, 31);
     }
 
-    // 이상현상 리스트 재 생성
+    // 스테이지 실패 시 이상현상 리스트 재 생성
     public void ResetAnomaliesOnFailure()
     {
         GenerateAnomalyList();
     }
 
-    // 현재 스테이지를 바탕으로, 어떤 이상현상을 로드할지 결정
+    // 현재 스테이지에 맞는 이상현상을 로드
     public void CheckAndInstantiateAnomaly()
     {
         int stageIndex = GameManager.Instance.GetCurrentStage() - 1;
@@ -72,13 +85,18 @@ public class AnomalyManager : MonoBehaviour
         int anomaly = anomalyList[stageIndex];
         Debug.Log($"[AnomalyManager] Current Stage: {GameManager.Instance.GetCurrentStage()}, Anomaly Number: {anomaly}");
 
-        // anomalyNManager Instantiate, 호출
-        Instantiate(anomalyPrefabs[anomaly]);
-        
+        // anomalyPrefab 확인 후 Instantiate
+        if (anomaly >= 0 && anomaly < anomalyPrefabs.Length && anomalyPrefabs[anomaly] != null)
+        {
+            Instantiate(anomalyPrefabs[anomaly]);
+        }
+        else
+        {
+            Debug.LogError($"Anomaly prefab for anomaly {anomaly} is missing or not assigned in the prefab list.");
+        }
     }
 
-    // 스테이지 실패 시, gameManager가 호출하는 함수
-    // 이상현상 초기화 함수 호출
+    // 스테이지 실패 시 호출되는 함수
     public void OnStageFailure()
     {
         ResetAnomaliesOnFailure();
