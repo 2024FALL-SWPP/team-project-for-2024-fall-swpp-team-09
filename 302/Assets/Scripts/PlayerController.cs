@@ -37,9 +37,10 @@ public class PlayerController : MonoBehaviour
     public float sleepAnimationDuration = 3f;
     public float wakeUpAnimationDuration = 3f;
     public float sleepCameraAngle = 60f; // 완전히 아래를 보는 각도
-    public float sleepCameraHeight = 0.3f; // 엎드렸을 때의 카메라 높이
+    public float sleepCameraHeight = 3.0f; // 엎드렸을 때의 카메라 높이
     
     private Camera playerCamera;
+    private FireExtinguisher heldItem;
     private Rigidbody rb;
     private CapsuleCollider capsuleCollider;
     private AudioSource audioSource;
@@ -384,6 +385,19 @@ public class PlayerController : MonoBehaviour
         {
             // 상호작용 가능 영역 진입
         }
+    }
+    #endregion
+
+    #region FireExtinguisher
+    public void SetHeldItem(FireExtinguisher item)
+    {
+        heldItem = item;
+    }
+
+    // 현재 아이템을 들고 있는지 확인
+    public bool IsHoldingItem()
+    {
+        return heldItem != null;
     }
     #endregion
 }
