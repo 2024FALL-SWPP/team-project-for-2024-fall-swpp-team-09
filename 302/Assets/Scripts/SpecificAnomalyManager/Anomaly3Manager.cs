@@ -3,22 +3,22 @@ using UnityEngine;
 public class Anomaly3Manager : MonoBehaviour
 {
     public GameObject headlessSchoolgirlPrefab;  // Prefab for the headless schoolgirl
-    public Transform spawnLocation;  // Location to spawn the headless schoolgirl
     public GameObject chairPrefab;
 
     private void Start()
     {
+        Debug.Log("Anomaly 3 Started");
         RemoveChair();
         SpawnHeadlessSchoolgirl();
-        
     }
 
     // Spawns the headless schoolgirl prefab at the specified location
     private void SpawnHeadlessSchoolgirl()
     {
-        if (headlessSchoolgirlPrefab != null && spawnLocation != null)
+        if (headlessSchoolgirlPrefab != null)
         {
-            Instantiate(headlessSchoolgirlPrefab, spawnLocation.position, spawnLocation.rotation);
+            GameObject headlessSchoolgirlInstance = Instantiate(headlessSchoolgirlPrefab, transform.position, transform.rotation);
+            DontDestroyOnLoad(headlessSchoolgirlInstance);  // Prevents the object from being destroyed on scene load
         }
         else
         {
@@ -29,7 +29,6 @@ public class Anomaly3Manager : MonoBehaviour
     // Logic for removing the chair (if applicable)
     private void RemoveChair()
     {
-        // Example code to find and remove the chair object
         if (chairPrefab != null)
         {
             Destroy(chairPrefab);

@@ -23,13 +23,11 @@ public class Anomaly3_noHeadSitGirl : InteractableObject, IInteractable
         if (hasInteracted) return;  // Ensure interaction only happens once
 
         hasInteracted = true;
-        StartCoroutine(FadeOutAndDestroy(gameObject, 2f));  // Fades out over 2 seconds
-
-        GameManager.Instance.SetStageClear();
+        StartCoroutine(FadeOutAndClearStage(gameObject, 2f));  // Fades out over 2 seconds and then clears stage
     }
 
-    // Coroutine to gradually fade out and destroy the object
-    private IEnumerator FadeOutAndDestroy(GameObject obj, float duration)
+    // Coroutine to gradually fade out, destroy the object, and set the stage clear
+    private IEnumerator FadeOutAndClearStage(GameObject obj, float duration)
     {
         Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
         float elapsedTime = 0f;
@@ -55,5 +53,8 @@ public class Anomaly3_noHeadSitGirl : InteractableObject, IInteractable
         }
 
         Destroy(obj);  // Remove the object completely after fading out
+
+        // Mark the stage as clear after the object is fully faded out
+        GameManager.Instance.SetStageClear();
     }
 }

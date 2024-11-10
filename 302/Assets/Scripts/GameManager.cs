@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
             // 이상현상 리스트 재생성 호출
             // 스테이지 실패 시, 이상현상 리스트를 초기화, 재생성 해야 하므로
             // AnomalyManager의 Stage Failure시 작동하는 함수 호출
-            AnomalyManager.Instance.OnStageFailure();
+            AnomalyManager.Instance.ResetAnomaliesOnFailure();
         }
 
         currentStageClear = false;  // 클리어 상태 초기화
