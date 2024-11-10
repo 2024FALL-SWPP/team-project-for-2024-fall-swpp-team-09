@@ -1,53 +1,19 @@
 using UnityEngine;
 using System.Collections;
 
-public class Anomaly3_noHeadSitGirl : InteractableObject, IInteractable
+public class Anomaly10_abnormalTile : InteractableObject, IInteractable
 {
     private bool hasInteracted = false;  // Ensures only one interaction occurs
 
-    private Transform cameraTransform;  // Reference to the Main Camera's transform
-    private AudioSource audioSource;    // Reference to the AudioSource component
+    private AudioSource audioSource;  // Reference to the AudioSource component
 
     private void Start()
     {
-        // Find the main camera in the scene
-        GameObject mainCamera = GameObject.FindWithTag("MainCamera");
-        if (mainCamera != null)
-        {
-            cameraTransform = mainCamera.transform;
-        }
-        else
-        {
-            Debug.LogError("Main Camera not found! Ensure the main camera has the 'MainCamera' tag.");
-        }
-
-        // Get the AudioSource component
+        // Try to get the AudioSource component attached to this object
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
-            Debug.LogError("AudioSource component is missing on the prefab.");
-        }
-    }
-
-    private void Update()
-    {
-        if (cameraTransform == null || audioSource == null) return;
-
-        // Check the distance to the camera and play sound if within 5f
-        float distanceToCamera = Vector3.Distance(transform.position, cameraTransform.position);
-        if (distanceToCamera <= 5f)
-        {
-            if (!audioSource.isPlaying)  // Start playing if not already playing
-            {
-                audioSource.Play();
-            }
-        }
-        else
-        {
-            if (audioSource.isPlaying)  // Stop playing if out of range
-            {
-                audioSource.Stop();
-            }
+            Debug.LogError("AudioSource component is missing! Please attach an AudioSource to this object.");
         }
     }
 
@@ -63,7 +29,7 @@ public class Anomaly3_noHeadSitGirl : InteractableObject, IInteractable
         return !hasInteracted;  // Interaction is allowed only once
     }
 
-    // Handles interaction with the headless schoolgirl
+    // Handles interaction with the object
     public void OnInteract()
     {
         if (hasInteracted) return;  // Ensure interaction only happens once
@@ -75,6 +41,12 @@ public class Anomaly3_noHeadSitGirl : InteractableObject, IInteractable
     // Coroutine to gradually fade out, destroy the object, and set the stage clear
     private IEnumerator FadeOutAndClearStage(GameObject obj, float duration)
     {
+        // Play the sound once when the object starts fading out
+        if (audioSource != null)
+        {
+            audioSource.Play();  // Play the audio clip attached to the AudioSource
+        }
+        
         Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
         float elapsedTime = 0f;
 

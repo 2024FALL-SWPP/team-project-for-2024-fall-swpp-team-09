@@ -19,4 +19,5 @@ public class Anomaly3Manager : MonoBehaviour
             Debug.LogWarning("Prefab or spawn location not set for Anomaly3Manager.");
         }
     }
+
 }
