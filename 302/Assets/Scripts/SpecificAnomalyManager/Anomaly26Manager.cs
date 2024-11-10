@@ -112,10 +112,10 @@ public class Anomaly26Manager : MonoBehaviour
            while (Time.time - startTime < musicFadeTime)
            {
                float progress = (Time.time - startTime) / musicFadeTime;
-               backgroundMusic.volume = Mathf.Lerp(0f, 1f, progress);
+               backgroundMusic.volume = Mathf.Lerp(0f, 0.4f, progress);
                yield return null;
            }
-           backgroundMusic.volume = 1f;
+           backgroundMusic.volume = 0.4f;
        }
    }
 
