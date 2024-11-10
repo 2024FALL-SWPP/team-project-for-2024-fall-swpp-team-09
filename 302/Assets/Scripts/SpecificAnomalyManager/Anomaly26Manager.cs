@@ -6,8 +6,9 @@ public class Anomaly26Manager : MonoBehaviour
 {
    [Header("Fire Settings")]
    [SerializeField] private GameObject firePrefab;
-   [SerializeField] private int totalFiresToSpawn = 20;  
-   [SerializeField] private int maxConcurrentFires = 5;  
+   [SerializeField] private int totalFiresToSpawn = 30;  
+   [SerializeField] private int maxConcurrentFires = 15;  
+   [SerializeField] private float timeLimit = 30f;    
    
    [Header("Audio Settings")]
    [SerializeField] private AudioSource backgroundMusic;  
@@ -15,18 +16,16 @@ public class Anomaly26Manager : MonoBehaviour
    
    [Header("Spawn Settings")]
    [SerializeField] private float initialDelay = 10f;    
-   [SerializeField] private float spawnInterval = 3f;    
-   [SerializeField] private float spawnRadius = 10f;     
+   [SerializeField] private float spawnInterval = 1f;    
+   [SerializeField] private float spawnRadius = 15f;     
    
-   private List<Fire> activeFires = new List<Fire>();
    private bool isSpawningFires = false;
-   private int totalFiresCreated = 0;                    
-   private int totalFiresExtinguished = 0;               
+   private int totalFiresCreated = 0;
+   private float timeSinceFirstFire = 0f;
+   private bool timerStarted = false;
 
    private void OnEnable()
    {
-       totalFiresCreated = 0;
-       totalFiresExtinguished = 0;
        StartCoroutine(InitialFireSpawnDelay());
    }
 
@@ -37,13 +36,40 @@ public class Anomaly26Manager : MonoBehaviour
        StartCoroutine(FadeOutMusic());
    }
 
-   private IEnumerator InitialFireSpawnDelay()
+   private void Update()
    {
-       yield return new WaitForSeconds(initialDelay);
-       StartCoroutine(FadeInMusic());
-       CreateNewFire(GetRandomSpawnPosition());
-       StartCoroutine(SpawnFireRoutine());
+       if (totalFiresCreated > 0 && !timerStarted)
+       {
+           timerStarted = true;
+       }
+
+       if (timerStarted)
+       {
+           timeSinceFirstFire += Time.deltaTime;
+
+           if (timeSinceFirstFire >= timeLimit && GameObject.FindObjectsOfType<Fire>().Length > 0)
+           {
+               GameOver();
+           }
+       }
+
+       if (totalFiresCreated >= totalFiresToSpawn && 
+           GameObject.FindObjectsOfType<Fire>().Length == 0)
+       {
+           StartCoroutine(FadeOutMusic());
+           GameManager.Instance.SetStageClear();
+           this.enabled = false;
+       }
    }
+
+    private IEnumerator InitialFireSpawnDelay()
+    {
+    yield return new WaitForSeconds(initialDelay);
+    
+    StartCoroutine(FadeInMusic());  // 첫 불과 함께 음악 시작
+    CreateNewFire(GetRandomSpawnPosition());
+    StartCoroutine(SpawnFireRoutine());
+    }
 
    private IEnumerator SpawnFireRoutine()
    {
@@ -53,7 +79,8 @@ public class Anomaly26Manager : MonoBehaviour
        {
            yield return new WaitForSeconds(spawnInterval);
            
-           if (activeFires.Count < maxConcurrentFires && totalFiresCreated < totalFiresToSpawn)
+           if (GameObject.FindObjectsOfType<Fire>().Length < maxConcurrentFires && 
+               totalFiresCreated < totalFiresToSpawn)
            {
                CreateNewFire(GetRandomSpawnPosition());
            }
@@ -85,10 +112,10 @@ public class Anomaly26Manager : MonoBehaviour
            while (Time.time - startTime < musicFadeTime)
            {
                float progress = (Time.time - startTime) / musicFadeTime;
-               backgroundMusic.volume = Mathf.Lerp(0f, 1f, progress);
+               backgroundMusic.volume = Mathf.Lerp(0f, 0.4f, progress);
                yield return null;
            }
-           backgroundMusic.volume = 1f;
+           backgroundMusic.volume = 0.4f;
        }
    }
 
@@ -107,28 +134,7 @@ public class Anomaly26Manager : MonoBehaviour
            }
            
            backgroundMusic.Stop();
-           backgroundMusic.volume = startVolume;  // 볼륨 초기화
-       }
-   }
-
-   public void RegisterFire(Fire fire)
-   {
-       if (!activeFires.Contains(fire))
-       {
-           activeFires.Add(fire);
-       }
-   }
-
-   public void UnregisterFire(Fire fire)
-   {
-       activeFires.Remove(fire);
-       totalFiresExtinguished++;
-       
-       // 모든 불이 생성되었고, 모든 불이 꺼졌을 때 스테이지 클리어
-       if (totalFiresExtinguished >= totalFiresToSpawn)
-       {
-           StartCoroutine(FadeOutMusic());
-           GameManager.Instance.SetStageClear();
+           backgroundMusic.volume = startVolume;
        }
    }
 
@@ -142,9 +148,10 @@ public class Anomaly26Manager : MonoBehaviour
        totalFiresCreated++;
    }
 
-   private void OnDrawGizmosSelected()
+   private void GameOver()
    {
-       Gizmos.color = Color.red;
-       Gizmos.DrawWireSphere(transform.position, spawnRadius);
+       StartCoroutine(FadeOutMusic());
+       //GameManager.Instance.GameOver();
+       this.enabled = false;
    }
 }

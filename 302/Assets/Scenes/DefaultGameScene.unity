@@ -1546,7 +1546,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &131868639
 PrefabInstance:
@@ -14634,7 +14634,7 @@ RectTransform:
   m_Children:
   - {fileID: 924724806}
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -15596,71 +15596,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e8452d6febdb74d3baa023ccec6ad5d2, type: 3}
   m_PrefabInstance: {fileID: 1081794280}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1082669520
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3029320929590298613, guid: 12c307ec62a09ee4f99957817753d398, type: 3}
-      propertyPath: spawnRadius
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3029320929590298614, guid: 12c307ec62a09ee4f99957817753d398, type: 3}
-      propertyPath: m_RootOrder
-      value: 21
-      objectReference: {fileID: 0}
-    - target: {fileID: 3029320929590298614, guid: 12c307ec62a09ee4f99957817753d398, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3029320929590298614, guid: 12c307ec62a09ee4f99957817753d398, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3029320929590298614, guid: 12c307ec62a09ee4f99957817753d398, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3029320929590298614, guid: 12c307ec62a09ee4f99957817753d398, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3029320929590298614, guid: 12c307ec62a09ee4f99957817753d398, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3029320929590298614, guid: 12c307ec62a09ee4f99957817753d398, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3029320929590298614, guid: 12c307ec62a09ee4f99957817753d398, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3029320929590298614, guid: 12c307ec62a09ee4f99957817753d398, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3029320929590298614, guid: 12c307ec62a09ee4f99957817753d398, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3029320929590298614, guid: 12c307ec62a09ee4f99957817753d398, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3029320929590298615, guid: 12c307ec62a09ee4f99957817753d398, type: 3}
-      propertyPath: m_Name
-      value: AnomalyManager (26)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3029320929590298615, guid: 12c307ec62a09ee4f99957817753d398, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 12c307ec62a09ee4f99957817753d398, type: 3}
 --- !u!1 &1084129217
 GameObject:
   m_ObjectHideFlags: 0
@@ -28574,7 +28509,7 @@ MonoBehaviour:
   - {fileID: 3233071982878084982, guid: 5156428cd2b781d4dabf6a30befa7685, type: 3}
   - {fileID: 5605359256125054964, guid: 48c8f10abe45bef4098efae902701f34, type: 3}
   checkSpecificAnomaly: 1
-  SpecificAnomalyNum: 10
+  SpecificAnomalyNum: 26
   currentAnomalyInstance: {fileID: 0}
 --- !u!4 &1964216256
 Transform:
@@ -31608,7 +31543,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 07b6fca92581d435aacb86340be94ff5, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -36759,6 +36694,8 @@ MonoBehaviour:
   holdPosition: {x: 0.5, y: -0.3, z: 0.7}
   holdRotation: {x: -90, y: -90, z: 180}
   smoothTime: 0.1
+  nozzle: {fileID: 5060942477613140019}
+  extinguishRadius: 3
 --- !u!54 &8509963497930102777
 Rigidbody:
   m_ObjectHideFlags: 0
