@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezeRotation;
         
         capsuleCollider.height = cameraHeight * 1.2f;
-        capsuleCollider.radius = 0.3f;
+        capsuleCollider.radius = 0.1f;
         capsuleCollider.center = new Vector3(0, cameraHeight * 0.6f, 0);
     }
     #endregion
