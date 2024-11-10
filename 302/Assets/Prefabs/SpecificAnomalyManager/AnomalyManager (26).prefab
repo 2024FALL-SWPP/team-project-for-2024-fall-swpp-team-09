@@ -44,3 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86523d840a8fc451e9c7a83b2908d655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firePrefab: {fileID: 3501634238400481543, guid: 85afb2f3f9c2740fdba1ecc5e38d1352, type: 3}
+  maxFires: 10
+  initialFireCount: 2

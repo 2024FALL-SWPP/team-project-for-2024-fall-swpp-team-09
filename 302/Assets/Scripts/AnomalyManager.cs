@@ -12,7 +12,7 @@ public class AnomalyManager : MonoBehaviour
     private System.Random random = new System.Random();
     public bool checkSpecificAnomaly;
     public int SpecificAnomalyNum;
-    private GameObject currentAnomalyInstance;          // 현재 활성화된 이상현상 인스턴스
+    public GameObject currentAnomalyInstance;          // 현재 활성화된 이상현상 인스턴스
 
     // 하나의 AnomalyManager만 보장
     private void Awake()
