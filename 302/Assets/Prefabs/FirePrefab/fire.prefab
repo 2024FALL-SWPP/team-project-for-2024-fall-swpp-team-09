@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3501634238400481542}
   - component: {fileID: 3501634238400481541}
-  m_Layer: 0
+  - component: {fileID: -4486296928688697187}
+  - component: {fileID: 2989683413114826011}
+  m_Layer: 6
   m_Name: fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3501634238400481543}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3501634240125494418}
@@ -129,6 +131,32 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-4486296928688697187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3501634238400481543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a536df9df38a48a280122200dc4d502, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extinguishTime: 2
+--- !u!65 &2989683413114826011
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3501634238400481543}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.6851854, y: 95.648056, z: 12.735402}
+  m_Center: {x: -0.0070734024, y: 47.324036, z: 0.06556654}
 --- !u!1 &3501634239214589630
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +168,7 @@ GameObject:
   - component: {fileID: 3501634239214589629}
   - component: {fileID: 3501634239214589603}
   - component: {fileID: 3501634239214589628}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4952,7 +4980,7 @@ GameObject:
   - component: {fileID: 3501634240125494418}
   - component: {fileID: 3501634240125494416}
   - component: {fileID: 3501634240125494417}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: flames
   m_TagString: Untagged
   m_Icon: {fileID: 0}

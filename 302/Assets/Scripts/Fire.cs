@@ -1,56 +1,48 @@
 using UnityEngine;
-using System.Collections;
 
 public class Fire : MonoBehaviour
 {
-    [Header("Components")]
-    [SerializeField] private ParticleSystem fireParticles;
-    [SerializeField] private AudioSource fireSound;
-    
-    private Anomaly26Manager anomalyManager;
-    private bool isExtinguishing = false;
+   [SerializeField] private float extinguishTime = 2f;
+   
+   private Anomaly26Manager anomalyManager;
+   private float currentExtinguishTime = 0f;
+   private bool isBeingExtinguished = false;
 
-    private void Start()
-    {
-        anomalyManager = FindObjectOfType<Anomaly26Manager>();
-        if (anomalyManager)
-        {
-            anomalyManager.RegisterFire(this);
-        }
-    }
+   private void Start()
+   {
+       
+       anomalyManager = FindObjectOfType<Anomaly26Manager>();
+       if (anomalyManager)
+       {
+       }
+   }
 
-    public void Extinguish()
-    {
-        if (!isExtinguishing)
-        {
-            isExtinguishing = true;
-            StartCoroutine(FadeOutAndDestroy());
-            
-            if (anomalyManager)
-            {
-                anomalyManager.UnregisterFire(this);
-            }
-        }
-    }
+   private void Update()
+   {
+       if (isBeingExtinguished)
+       {
+           currentExtinguishTime -= Time.deltaTime;
+           isBeingExtinguished = false;
 
-    private IEnumerator FadeOutAndDestroy()
-    {
-        if (fireParticles)
-        {
-            var emission = fireParticles.emission;
-            var startRate = emission.rateOverTime.constant;
-            
-            for (float t = 0; t < 1; t += Time.deltaTime / 3f)
-            {
-                emission.rateOverTime = startRate * (1 - t);
-                if (fireSound)
-                {
-                    fireSound.volume = 1 - t;
-                }
-                yield return null;
-            }
-        }
-        
-        Destroy(gameObject);
-    }
+           if (currentExtinguishTime <= 0)
+           {
+               Invoke("DestroyFire", 0.1f);  // Destroy를 약간 지연
+           }
+       }
+   }
+
+   public void StartExtinguishing()
+   {
+       isBeingExtinguished = true;
+       
+       if (currentExtinguishTime <= 0)
+       {
+           currentExtinguishTime = extinguishTime;
+       }
+   }
+
+   private void DestroyFire()
+   {
+       Destroy(gameObject);
+   }
 }
