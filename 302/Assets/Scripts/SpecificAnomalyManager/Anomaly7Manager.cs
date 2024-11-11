@@ -1,18 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Anomaly7Manager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Russian Roulette Settings")]
+    [SerializeField] private GameObject gunPrefab;
+    [SerializeField] private Vector3 gunSpawnPosition = new Vector3(10.8f, 1.5f, 8.4f);
+    
+    private void OnEnable()
     {
-        
+        SpawnGun();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SpawnGun()
     {
-        
+        if (gunPrefab != null)
+        {
+            // 총 생성
+            GameObject gun = Instantiate(gunPrefab, gunSpawnPosition, Quaternion.identity);
+            gun.transform.parent = transform;
+        }
+        else
+        {
+            Debug.LogError("Gun Prefab is not assigned to Anomaly7Manager!");
+        }
     }
 }

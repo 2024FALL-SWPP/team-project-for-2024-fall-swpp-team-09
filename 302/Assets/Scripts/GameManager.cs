@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour
     {
         return currentStageClear;
     }
+    
     public GameState GetGameState()
     {
         return gameState;
@@ -149,4 +150,5 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
         }
     }
+    
 }

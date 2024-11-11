@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d5b8f13575f349eba2e1948d60d0fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunPrefab: {fileID: 4826762111571493392, guid: adbb51d3cd0514dc389a57410f394d52, type: 3}
+  gunSpawnPosition: {x: 10.8, y: 1.5, z: 8.4}
