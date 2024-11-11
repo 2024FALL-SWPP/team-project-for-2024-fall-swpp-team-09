@@ -38,6 +38,10 @@ public class PlayerController : MonoBehaviour
     public float wakeUpAnimationDuration = 3f;
     public float sleepCameraAngle = 60f; // 완전히 아래를 보는 각도
     public float sleepCameraHeight = 3.0f; // 엎드렸을 때의 카메라 높이
+    [Header("Death Animation")]
+    public float deathAnimationDuration = 2f;
+    public float deathCameraAngle = -90f; // 뒤로 넘어갈 때의 각도
+    public float deathCameraHeight = 0.3f; // 쓰러졌을 때의 카메라 높이
     
     private Camera playerCamera;
     private FireExtinguisher heldItem;
@@ -113,7 +117,7 @@ public class PlayerController : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezeRotation;
         
         capsuleCollider.height = cameraHeight * 1.2f;
-        capsuleCollider.radius = 0.1f;
+        capsuleCollider.radius = 0.15f;
         capsuleCollider.center = new Vector3(0, cameraHeight * 0.6f, 0);
     }
     #endregion
@@ -152,6 +156,11 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.Instance.SetStageClear();  // 스테이지 클리어 설정
             Sleep();  // 잠자기
+        }
+        // 테스트용 GameOver 키 추가
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            GameOver();
         }
     }
 
@@ -315,6 +324,57 @@ public class PlayerController : MonoBehaviour
         enabled = true; // 움직임 다시 활성화
     }
     #endregion
+
+    public void GameOver()
+    {
+        if (!isAnimating)  // isDead 체크 제거
+        {
+            StartCoroutine(DeathAnimation());
+        }
+    }
+
+    private IEnumerator DeathAnimation()
+    {
+        isAnimating = true;
+        enabled = false;
+        
+        float elapsedTime = 0f;
+        float startVerticalRotation = verticalRotation;
+        float startHeight = playerCamera.transform.localPosition.y;
+        Vector3 startPosition = playerCamera.transform.localPosition;
+        
+        screenFader.StartFade(1f, deathAnimationDuration * 0.8f);
+
+        while (elapsedTime < deathAnimationDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / deathAnimationDuration;
+            float smoothT = t * t * (3f - 2f * t);
+            
+            // 뒤로 넘어가는 효과
+            verticalRotation = Mathf.Lerp(startVerticalRotation, deathCameraAngle, smoothT);
+            playerCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
+            
+            Vector3 newPos = playerCamera.transform.localPosition;
+            newPos.y = Mathf.Lerp(startHeight, deathCameraHeight, smoothT);
+            newPos.z = Mathf.Lerp(startPosition.z, -0.5f, smoothT);
+            
+            // 초반 흔들림 효과
+            if (t < 0.3f)
+            {
+                float shake = Mathf.Sin(t * 50) * (0.3f - t) * 0.05f;
+                newPos += new Vector3(shake, shake, 0);
+            }
+            
+            playerCamera.transform.localPosition = newPos;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(1f);
+        isAnimating = false;
+        
+        GameManager.Instance.Sleep();
+    }
 
     #region Audio
     private void HandleFootsteps()
