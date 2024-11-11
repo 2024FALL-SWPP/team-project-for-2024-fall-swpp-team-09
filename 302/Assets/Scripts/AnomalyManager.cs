@@ -74,9 +74,7 @@ public class AnomalyManager : MonoBehaviour
         // 특정 인덱스에 해당하는 이상현상 프리팹만 인스턴스화
         if (anomaly >= 0 && anomaly < anomalyPrefabs.Length && anomalyPrefabs[anomaly] != null)
         {
-            Debug.Log("accessing anomaly " + anomalyPrefabs[anomaly]);
             currentAnomalyInstance = Instantiate(anomalyPrefabs[anomaly]);
-            Debug.Log("Instantiated!");
             if (currentAnomalyInstance == null)
             {
                 Debug.LogError("Failed to instantiate anomaly prefab.");
