@@ -2,11 +2,23 @@ using UnityEngine;
 
 public class ClockController : MonoBehaviour
 {
+    public static ClockController Instance { get; private set; }
+
     private Transform hourHand;
     private Transform minuteHand;
 
-    void Start()
+    private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         hourHand = transform.Find("H");
         minuteHand = transform.Find("M");
 
@@ -15,15 +27,16 @@ public class ClockController : MonoBehaviour
         minuteHand.localRotation = Quaternion.Euler(0, 0, 90);
     }
 
-    public void SetTime(int hour, int minute)
+    public void SetTime(int stage)
     {
-        // Ensure hour is in 12-hour format
-        hour %= 12;
+        // stage 1 at 7:00, stage 8 at 8:45
+        int hour = 7 + ((stage - 1) % 4); 
+        int minute = 15 * ((stage - 1) % 4);
 
         float minuteRotation = minute * 6f; // 6 degrees per minute
         float hourRotation = (hour * 30f) + (minute * 0.5f); // 30 degrees per hour + 0.5 degrees per minute
 
-        minuteHand.localRotation = Quaternion.Euler(0, 0, 90 + minuteRotation);
         hourHand.localRotation = Quaternion.Euler(0, 0, 90 + hourRotation);
+        minuteHand.localRotation = Quaternion.Euler(0, 0, 90 + minuteRotation);
     }
 }

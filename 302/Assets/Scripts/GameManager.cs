@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     // 스테이지 관리
     [SerializeField] private int currentStage = 1;
     [SerializeField] private bool currentStageClear = false;  // 현재 스테이지 클리어 여부
+    [SerializeField] private ClockController clockController;
     private const string DEFAULT_SCENE = "DefaultGameScene";
     private const string ENDING_SCENE = "EndingScene";
     public enum GameState
@@ -32,6 +33,12 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Start()
+    {
+        clockController = ClockController.Instance;
+        // 시계 바늘 7:00로 초기화
+        clockController.SetTime(currentStage);
+    }
     private void InitializeGame()
     {
         currentStage = 1;
@@ -52,6 +59,9 @@ public class GameManager : MonoBehaviour
         {
             // 스테이지 클리어한 상태로 잠들기
             currentStage++;
+            // 시계 바늘 업데이트
+            clockController.SetTime(currentStage);
+
             // 7단계(8:45) 이후 클리어 시 게임 클리어
             if (currentStage >= 9)
             {
@@ -69,6 +79,9 @@ public class GameManager : MonoBehaviour
             // 스테이지 실패 시, 이상현상 리스트를 초기화, 재생성 해야 하므로
             // AnomalyManager의 Stage Failure시 작동하는 함수 호출
             AnomalyManager.Instance.ResetAnomaliesOnFailure();
+            // Added by 서 지 희
+            // 시계 바늘 7:00로 초기화
+            clockController.SetTime(currentStage);
         }
         currentStageClear = false;  // 클리어 상태 초기화
         LoadDefaultScene();
