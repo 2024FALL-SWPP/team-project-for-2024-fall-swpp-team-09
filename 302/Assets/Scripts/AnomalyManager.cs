@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+
 public class AnomalyManager : MonoBehaviour
 {
     public static AnomalyManager Instance { get; private set; }
@@ -72,7 +74,9 @@ public class AnomalyManager : MonoBehaviour
         // 특정 인덱스에 해당하는 이상현상 프리팹만 인스턴스화
         if (anomaly >= 0 && anomaly < anomalyPrefabs.Length && anomalyPrefabs[anomaly] != null)
         {
+            Debug.Log("accessing anomaly " + anomalyPrefabs[anomaly]);
             currentAnomalyInstance = Instantiate(anomalyPrefabs[anomaly]);
+            Debug.Log("Instantiated!");
             if (currentAnomalyInstance == null)
             {
                 Debug.LogError("Failed to instantiate anomaly prefab.");
