@@ -563,8 +563,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
   interactionRange: 2
-  holdPosition: {x: 0.3, y: 0, z: 0.3}
-  holdRotation: {x: 0, y: 90, z: 0}
+  holdPosition: {x: 0.5, y: 0, z: 0.6}
+  holdRotation: {x: 0, y: -120, z: 0}
   animationDuration: 2
   returnDelay: 3
   finalPositionOffset: {x: 0, y: 0.1, z: 0}

@@ -15,8 +15,9 @@ public class Anomaly7Manager : MonoBehaviour
     {
         if (gunPrefab != null)
         {
-            // 총 생성
-            GameObject gun = Instantiate(gunPrefab, gunSpawnPosition, Quaternion.identity);
+            // 총 생성 (z축으로 -90도 회전)
+            Quaternion rotation = Quaternion.Euler(0f, 0f, -90f);
+            GameObject gun = Instantiate(gunPrefab, gunSpawnPosition, rotation);
             gun.transform.parent = transform;
         }
         else
