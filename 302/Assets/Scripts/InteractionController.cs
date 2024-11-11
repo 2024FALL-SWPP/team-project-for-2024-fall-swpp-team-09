@@ -39,7 +39,7 @@ public class InteractionController : MonoBehaviour
         // Interactable 레이어에 대한 레이캐스트
         if (Physics.Raycast(ray, out hit, interactionRange, interactableLayer))
         {
-            Debug.Log($"Hit interactable: {hit.collider.gameObject.name}");
+            // Debug.Log($"Hit interactable: {hit.collider.gameObject.name}");
             
             IInteractable interactable = hit.collider.GetComponent<IInteractable>();
             if (interactable != null && interactable.CanInteract())
