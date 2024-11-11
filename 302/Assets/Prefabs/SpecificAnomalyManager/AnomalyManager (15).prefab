@@ -44,3 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0985a816d99fa458084d0c29d8df4a16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spiderPrefab: {fileID: 8688803186435683820, guid: fd02805ee801de64a828e8190cac7784, type: 3}
+  spawnRadius: 0.5
+  spawnInterval: 1
+  moveSpeed: 2
+  fadeDistance: 10
+  isSpawningSpiders: 1
