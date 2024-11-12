@@ -19,6 +19,12 @@ public class Anomaly9Manager : MonoBehaviour
     private Light[] sceneLights;
     private float[] originalIntensities;
 
+    [Header("Main Spotlight Settings")]
+    public GameObject mainSpotlightPrefab;  // MainSpotlight 프리팹
+    public Vector3 spotlightPosition;       // 스포트라이트 생성 위치
+    public float spotlightRotation;         // 스포트라이트 Y축 회전값
+    private GameObject spawnedSpotlight;    // 생성된 스포트라이트 참조
+
     [Header("Dancing Girl Settings")]
     public GameObject dancingGirlPrefab;
 
@@ -95,6 +101,10 @@ public class Anomaly9Manager : MonoBehaviour
         DimSceneLights();
         SpawnLights();
         SpawnDancingGirls();
+        if (mainSpotlightPrefab != null)
+        {
+            spawnedSpotlight = Instantiate(mainSpotlightPrefab, spotlightPosition, Quaternion.Euler(0f, spotlightRotation, 0f));
+        }
         
         if (fadeInMusic)
             StartCoroutine(FadeInMusic());
