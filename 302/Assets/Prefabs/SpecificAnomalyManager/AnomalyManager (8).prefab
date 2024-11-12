@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7327451d79d164181b37686d02ca311a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  normalProfessorPrefab: {fileID: 8253366189145917135, guid: 4dbfb06eecc5e57499f6ea0d7a944a7d, type: 3}
+  micSoundProfessorPrefab: {fileID: 8253366189145917135, guid: 75a39b1d903b8ea44b089727e4979d46, type: 3}
