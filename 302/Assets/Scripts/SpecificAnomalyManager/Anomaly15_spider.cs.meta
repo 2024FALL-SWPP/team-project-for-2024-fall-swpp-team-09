@@ -3,7 +3,8 @@ guid: cafbcb7c95c9146b9a0208cdadd7bde0
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - spiderSoundClip: {fileID: 8300000, guid: 74aaa4878a705401091cff15bd1c8232, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

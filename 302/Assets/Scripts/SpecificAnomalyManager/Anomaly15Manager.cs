@@ -6,37 +6,21 @@ public class Anomaly15Manager : MonoBehaviour
     [Header("Spider Settings")]
     public GameObject spiderPrefab;
     private float spawnRadius = 0.5f;
-    private float spawnInterval = 1f;
+    private float spawnInterval = 0.3f;
     private float moveSpeed = 1f;
     private float fadeDistance = 2f;
-    private Vector3 basePosition = new Vector3(6.7f, 7.7f, -7.1f);
+    private Vector3 basePosition = new Vector3(6.9f, 7.7f, -7.1f);
 
     public bool isSpawningSpiders = true;
+    private GameObject interactionCube;
+    [Header("Audio Settings")]
+    public AudioClip spiderSoundClip;
 
     private void Start()
     {
-        // Create a transparent interaction cube at the basePosition
-        GameObject interactionCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        interactionCube.transform.position = basePosition;
-        interactionCube.transform.localScale = new Vector3(2f, 0.5f, 2f); // Adjust as needed
-
-        // Set transparency and material properties
-        Renderer cubeRenderer = interactionCube.GetComponent<Renderer>();
-        Material cubeMaterial = cubeRenderer.material;  // Get the material instance
-        cubeMaterial.color = new Color(1f, 1f, 1f, 0f);
-
-        // Set the layer to "Interactive" (Layer 3)
-        interactionCube.layer = 3;
-
-        // Disable collider if needed
-        Collider cubeCollider = interactionCube.GetComponent<Collider>();
-        if (cubeCollider != null)
-        {
-            cubeCollider.isTrigger = true;
-        }
-
-        // Assign Anomaly15_spider script to the cube
-        interactionCube.AddComponent<Anomaly15_spider>();
+        // Create and set up the interactive cube
+        interactionCube = CreateInteractionCube();
+        StartCoroutine(SetTransparency(interactionCube));
 
         // Start spawning spiders
         StartCoroutine(SpawnSpiderRoutine());
@@ -44,7 +28,6 @@ public class Anomaly15Manager : MonoBehaviour
 
     private void OnEnable()
     {
-        // Optional: Use OnEnable if you need to resume spawning spiders when re-enabled
         isSpawningSpiders = true;
     }
 
@@ -99,5 +82,45 @@ public class Anomaly15Manager : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    // Function to create and initialize the interaction cube
+    private GameObject CreateInteractionCube()
+    {
+        GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        cube.transform.position = basePosition;
+        cube.transform.localScale = new Vector3(2f, 0.5f, 2f); // Adjust as needed
+        cube.layer = 3;
+
+        // Assign Anomaly15_spider.cs component and other settings
+        Anomaly15_spider spiderScript = cube.AddComponent<Anomaly15_spider>();
+        spiderScript.spiderSoundClip = spiderSoundClip;
+        cube.AddComponent<Collider>();
+
+        return cube;
+    }
+
+    // Coroutine to set the transparency of the cube
+    private IEnumerator SetTransparency(GameObject cube)
+    {
+        yield return null; // Wait for one frame to ensure setup is complete
+
+        Renderer cubeRenderer = cube.GetComponent<Renderer>();
+
+        // Ensure it's using a unique material instance
+        cubeRenderer.material = new Material(Shader.Find("Standard"));
+        
+        // Set the rendering mode to Transparent
+        cubeRenderer.material.SetFloat("_Mode", 3); // 3 = Transparent
+        cubeRenderer.material.color = new Color(0f, 0f, 0f, 0f); // Black albedo with 0 alpha
+        cubeRenderer.material.renderQueue = 3000; // Force render in transparent queue
+
+        // Additional settings to enforce transparency
+        cubeRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        cubeRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        cubeRenderer.material.SetInt("_ZWrite", 0);
+        cubeRenderer.material.DisableKeyword("_ALPHATEST_ON");
+        cubeRenderer.material.EnableKeyword("_ALPHABLEND_ON");
+        cubeRenderer.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
     }
 }
