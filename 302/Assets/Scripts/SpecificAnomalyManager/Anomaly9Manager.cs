@@ -103,7 +103,7 @@ public class Anomaly9Manager : MonoBehaviour
         SpawnDancingGirls();
         if (mainSpotlightPrefab != null)
         {
-            spawnedSpotlight = Instantiate(mainSpotlightPrefab, spotlightPosition, Quaternion.Euler(0f, spotlightRotation, 0f));
+            spawnedSpotlight = Instantiate(mainSpotlightPrefab, spotlightPosition, Quaternion.Euler(90f, spotlightRotation, -90f));
         }
         
         if (fadeInMusic)
