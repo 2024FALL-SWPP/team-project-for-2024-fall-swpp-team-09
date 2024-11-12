@@ -44,3 +44,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 151767b4c46f34abc9196ebf7f65567e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anomalyDelay: 15
+  anomalyMusic: {fileID: 8300000, guid: 3a62a93bac5761b4ca36fbf644dc7b4c, type: 3}
+  musicVolume: 1
+  fadeInMusic: 1
+  fadeInDuration: 2
+  dimmedIntensity: 0.3
+  mainSpotlightPrefab: {fileID: 7363956104410813229, guid: 5d0016b8004d34eddaf2837252e8047e, type: 3}
+  spotlightPosition: {x: 17, y: 9, z: 0.75}
+  spotlightRotation: 0
+  dancingGirlPrefab: {fileID: 1448811781349319796, guid: 821dd1a43c3d7494a95a846f060d7994, type: 3}
+  lightPrefab: {fileID: 4405964056965767901, guid: cf8338d275ea64871b8cf47a24592944, type: 3}
+  numberOfLights: 4
+  radius: 5
+  lightHeight: 5
+  position1: {x: 0, y: 0, z: -4}
+  rotation1: 0
+  position2: {x: 5, y: 0, z: -4}
+  rotation2: 0
+  position3: {x: 10, y: 0, z: -4}
+  rotation3: 0
+  position4: {x: -5, y: 0, z: -4}
+  rotation4: 0
+  position5: {x: -10, y: 0, z: -4}
+  rotation5: 0
+  position6: {x: 0, y: 0, z: 6}
+  rotation6: 180
+  position7: {x: 5, y: 0, z: 6}
+  rotation7: 180
+  position8: {x: 10, y: 0, z: 6}
+  rotation8: 180
+  position9: {x: -5, y: 0, z: 6}
+  rotation9: 180
+  position10: {x: -10, y: 0, z: 6}
+  rotation10: 180

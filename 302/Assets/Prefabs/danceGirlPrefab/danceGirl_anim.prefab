@@ -232,6 +232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2256556365663862478}
   - component: {fileID: 1790848745872753759}
+  - component: {fileID: 3852182323383218830}
   m_Layer: 0
   m_Name: danceGirl_anim
   m_TagString: Untagged
@@ -280,6 +281,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &3852182323383218830
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448811781349319796}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7109456, y: 1.6806749, z: 0.35662246}
+  m_Center: {x: 0.0046617985, y: 0.9650665, z: -0.032635093}
 --- !u!1 &1471659224834506407
 GameObject:
   m_ObjectHideFlags: 0
