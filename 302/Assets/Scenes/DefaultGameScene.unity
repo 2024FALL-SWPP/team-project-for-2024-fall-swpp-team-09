@@ -28733,7 +28733,7 @@ MonoBehaviour:
   - {fileID: 5926823780813230199, guid: 5bf9e1701ea48f540b330029a3880fff, type: 3}
   - {fileID: 4663006683020231269, guid: 3559ad82fce6f684586971a1dd712a9f, type: 3}
   - {fileID: 8678062959089499939, guid: 6aadfcd777444a24180cf51012c6e89c, type: 3}
-  - {fileID: 8185269409052256407, guid: 61183184979bf8142b8991cca4996586, type: 3}
+  - {fileID: 8678062959089499939, guid: 930186d96d6de4c238bc984b91d359cd, type: 3}
   - {fileID: 190014940232167712, guid: af6931f30e5e2bf4597f5e1a4a4e011f, type: 3}
   - {fileID: 2594707081102709190, guid: 982ee2abcde355045b2d89f5d66b0980, type: 3}
   - {fileID: 5785941547889943525, guid: 5d9b132374d606b478ba6505789d0baa, type: 3}
@@ -28749,7 +28749,7 @@ MonoBehaviour:
   - {fileID: 3233071982878084982, guid: 5156428cd2b781d4dabf6a30befa7685, type: 3}
   - {fileID: 5605359256125054964, guid: 48c8f10abe45bef4098efae902701f34, type: 3}
   checkSpecificAnomaly: 1
-  SpecificAnomalyNum: 7
+  SpecificAnomalyNum: 16
   currentAnomalyInstance: {fileID: 8678062959089499939, guid: 6aadfcd777444a24180cf51012c6e89c, type: 3}
 --- !u!4 &1964216256
 Transform:
