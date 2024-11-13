@@ -62,4 +62,5 @@ MonoBehaviour:
   - {fileID: 661700201260497465, guid: 147a5b1985730a849bd4568b4c7dd68d, type: 3}
   - {fileID: 5839778339388796868, guid: e756aae9e6d5a2c4aa53edf63a90a73e, type: 3}
   - {fileID: 1761092321075197500, guid: 189843821322f8d46a0c044b91aecd8a, type: 3}
-  duration: 2
+  durationMove: 5
+  durationFade: 2
