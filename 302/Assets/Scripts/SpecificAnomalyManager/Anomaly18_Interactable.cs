@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Anomaly18_Interactable : InteractableObject
+public class Anomaly18_Interactable : InteractableObject, IInteractable
 {
     /*************
      * constants *
@@ -10,9 +10,9 @@ public class Anomaly18_Interactable : InteractableObject
 
     private string NAME = "Anomaly18_Interactable";
 
-    /**************
-     * properties *
-     **************/
+    /**********
+     * fields *
+     **********/
 
     // 해당 오브젝트를 생성한 이상현상 매니저
     public Anomaly18Manager Manager { get; set; }
@@ -33,8 +33,16 @@ public class Anomaly18_Interactable : InteractableObject
                 Debug.Log($"[{NAME}] Call `Anomaly18Manager.InteractionSuccess`");
                 Manager.InteractionSuccess();
             } else {
-                Debug.LogWarning($"[{NAME}] `Manager` is not initialized.");
+                Debug.LogWarning($"[{NAME}] `Manager` is not set.");
             }
         }
+    }
+
+    public bool tmpCanInteract;
+    public Anomaly18Manager tmpManager;
+    void Update()
+    {
+        tmpCanInteract = canInteract;
+        tmpManager = Manager;
     }
 }

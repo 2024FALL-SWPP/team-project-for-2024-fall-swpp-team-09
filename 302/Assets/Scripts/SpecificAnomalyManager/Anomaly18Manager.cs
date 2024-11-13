@@ -146,6 +146,7 @@ public class Anomaly18Manager : MonoBehaviour
     private bool InstantiatePrefabs()
     {
         bool res = true;
+        GameObject obj;
 
         if (prefabDesks != null) {
             Instantiate(prefabDesks);
@@ -157,8 +158,8 @@ public class Anomaly18Manager : MonoBehaviour
 
         foreach (GameObject prefab in prefabInteractables) {
             if (prefab != null) {
-                Instantiate(prefab);
-                prefab.GetComponent<Anomaly18_Interactable>().Manager = this;
+                obj = Instantiate(prefab);
+                obj.GetComponent<Anomaly18_Interactable>().Manager = this;
                 Debug.Log($"[{NAME}] Instantiate a prefab in `prefabInteractable` successfully.");
             } else {
                 Debug.LogWarning($"[{NAME}] Cannot find prefab in `prefabInteractables`.");
