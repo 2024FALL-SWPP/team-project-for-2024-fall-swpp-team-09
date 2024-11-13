@@ -37,12 +37,4 @@ public class Anomaly18_Interactable : InteractableObject, IInteractable
             }
         }
     }
-
-    public bool tmpCanInteract;
-    public Anomaly18Manager tmpManager;
-    void Update()
-    {
-        tmpCanInteract = canInteract;
-        tmpManager = Manager;
-    }
 }

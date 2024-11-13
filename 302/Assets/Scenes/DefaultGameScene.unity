@@ -18190,8 +18190,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 38.183743, y: 5.077183, z: 35.593533}
-  m_Center: {x: 0.28966713, y: -2.561228, z: 0.79449654}
+  m_Size: {x: 46.75, y: 5.077183, z: 35.593533}
+  m_Center: {x: -4.1, y: -2.561228, z: 0.79449654}
 --- !u!1001 &1103387605
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27034,6 +27034,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1675446299}
+  - component: {fileID: 1675446300}
   m_Layer: 0
   m_Name: WallBack
   m_TagString: Untagged
@@ -27059,6 +27060,18 @@ Transform:
   m_Father: {fileID: 344747221}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1675446300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675446298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33b91f25b1ae6fa4d9727b23d45aab6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1679000449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28330,6 +28343,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c86b485dde0624b17ac8e2fca13a9c18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1774626117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774626112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33b91f25b1ae6fa4d9727b23d45aab6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1775142295

@@ -38,7 +38,8 @@ public class Anomaly18Manager : MonoBehaviour
     public GameObject[] prefabInteractables;
 
     // 초기화 소요 시간
-    public float duration;
+    public float durationMove;
+    public float durationFade;
 
     // 게임 매니저
     private GameManager _manager;
@@ -46,6 +47,9 @@ public class Anomaly18Manager : MonoBehaviour
     // 벽, 시계 오브젝트
     private GameObject _objectWall;
     private GameObject _objectClock;
+
+    // 프리팹 오브젝트 리스트
+    private List<GameObject> _objects;
 
     /**********************
      * overridden methods *
@@ -122,6 +126,10 @@ public class Anomaly18Manager : MonoBehaviour
             res = false;
         }
 
+        // `_objects` 초기화
+        _objects = new List<GameObject>();
+        Debug.Log($"[{NAME}] Initialize `_objects` successfully.");
+
         return res;
     }
 
@@ -145,11 +153,13 @@ public class Anomaly18Manager : MonoBehaviour
     // - false: 생성 실패
     private bool InstantiatePrefabs()
     {
-        bool res = true;
         GameObject obj;
+        bool res = true;
+
+        _objects.Clear();
 
         if (prefabDesks != null) {
-            Instantiate(prefabDesks);
+            _objects.Add(Instantiate(prefabDesks));
             Debug.Log($"[{NAME}] Instantiate `prefabDesks` successfully.");
         } else {
             Debug.LogWarning($"[{NAME}] Cannot find `prefabDesks`.");
@@ -160,6 +170,7 @@ public class Anomaly18Manager : MonoBehaviour
             if (prefab != null) {
                 obj = Instantiate(prefab);
                 obj.GetComponent<Anomaly18_Interactable>().Manager = this;
+                _objects.Add(obj);
                 Debug.Log($"[{NAME}] Instantiate a prefab in `prefabInteractable` successfully.");
             } else {
                 Debug.LogWarning($"[{NAME}] Cannot find prefab in `prefabInteractables`.");
@@ -168,7 +179,7 @@ public class Anomaly18Manager : MonoBehaviour
         }
 
         if (prefabChairs != null) {
-            Instantiate(prefabChairs);
+            _objects.Add(Instantiate(prefabChairs));
             Debug.Log($"[{NAME}] Instantiate `prefabChairs` successfully.");
         } else {
             Debug.LogWarning($"[{NAME}] Cannot find `prefabChairs`.");
@@ -185,19 +196,19 @@ public class Anomaly18Manager : MonoBehaviour
     // - false: 초기화 실패
     private bool ResetAnomaly()
     {
-        Anomaly18_Object scriptWall, scriptClock;
-        Anomaly18_Prefab scriptDesks, scriptInteractable, scriptChairs;
+        Anomaly18_Object scriptObject;
+        Anomaly18_Prefab scriptPrefab;
         bool res = true;
 
         // `_objectWall` 초기화
-        scriptWall = _objectWall.GetComponent<Anomaly18_Object>();
-        if (scriptWall != null) {
+        scriptObject = _objectWall.GetComponent<Anomaly18_Object>();
+        if (scriptObject != null) {
             Debug.Log($"[{NAME}] Find `Anomaly18_Object` in `_objectWall` successfully.");
             StartCoroutine(
-                scriptWall.MoveAsync(
+                scriptObject.MoveAsync(
                     positionWall + directionWall * positionAnomaly,
                     directionWall * (positionNormal - positionAnomaly),
-                    duration
+                    durationMove
                 )
             );
         } else {
@@ -206,14 +217,14 @@ public class Anomaly18Manager : MonoBehaviour
         }
 
         // `_objectClock` 초기화
-        scriptClock = _objectClock.GetComponent<Anomaly18_Object>();
-        if (scriptClock != null) {
+        scriptObject = _objectClock.GetComponent<Anomaly18_Object>();
+        if (scriptObject != null) {
             Debug.Log($"[{NAME}] Find `Anomaly18_Object` in `_objectClock` successfully.");
             StartCoroutine(
-                scriptClock.MoveAsync(
+                scriptObject.MoveAsync(
                     positionClock + directionClock * positionAnomaly,
                     directionClock * (positionNormal - positionAnomaly),
-                    duration
+                    durationMove
                 )
             );
         } else {
@@ -221,46 +232,10 @@ public class Anomaly18Manager : MonoBehaviour
             res = false;
         }
 
-        // `prefabDesks` 초기화
-        if (prefabDesks != null) {
-            scriptDesks = prefabDesks.GetComponent<Anomaly18_Prefab>();
-            if (scriptDesks != null) {
-                Debug.Log($"[{NAME}] Find `Anomaly18_Prefab` in `prefabDesks` successfully.");
-                StartCoroutine(scriptDesks.FadeAsync(duration));
-            } else {
-                Debug.LogWarning($"[{NAME}] Cannot find `Anomaly18_Prefab` in `prefabDesks`.");
-                res = false;
-            }
-        } else {
-            res = false;
-        }
-
-        // `prefabInteractables` 초기화
-        foreach (GameObject prefab in prefabInteractables) {
-            if (prefab != null) {
-                scriptInteractable = prefab.GetComponent<Anomaly18_Prefab>();
-                if (scriptInteractable != null) {
-                    Debug.Log($"[{NAME}] Find `Anomaly18_Prefab` in `prefabInteractable` successfully.");
-                    StartCoroutine(scriptInteractable.FadeAsync(duration));
-                } else {
-                    Debug.LogWarning($"[{NAME}] Cannot find `Anomaly18_Prefab` in `prefabInteractable`.");
-                    res = false;
-                }
-            }
-        }
-
-        // `prefabChairs` 초기화
-        if (prefabChairs != null) {
-            scriptChairs = prefabChairs.GetComponent<Anomaly18_Prefab>();
-            if (scriptChairs != null) {
-                Debug.Log($"[{NAME}] Find `Anomaly18_Prefab` in `prefabChairs` successfully.");
-                StartCoroutine(scriptChairs.FadeAsync(duration));
-            } else {
-                Debug.LogWarning($"[{NAME}] Cannot find `Anomaly18_Prefab` in `prefabChairs`.");
-                res = false;
-            }
-        } else {
-            res = false;
+        // 프리팹 초기화
+        foreach (GameObject obj in _objects) {
+            scriptPrefab = obj.GetComponent<Anomaly18_Prefab>();
+            StartCoroutine(scriptPrefab.FadeAsync(durationFade));
         }
 
         return res;
