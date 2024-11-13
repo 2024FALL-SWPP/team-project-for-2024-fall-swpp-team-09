@@ -24710,6 +24710,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: door
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2be5899b29c0449a7b0556426ceb422a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2be5899b29c0449a7b0556426ceb422a, type: 3}
 --- !u!4 &1481598552 stripped
@@ -32255,7 +32259,7 @@ MonoBehaviour:
   - {fileID: 3233071982878084982, guid: 5156428cd2b781d4dabf6a30befa7685, type: 3}
   - {fileID: 5605359256125054964, guid: 48c8f10abe45bef4098efae902701f34, type: 3}
   checkSpecificAnomaly: 1
-  SpecificAnomalyNum: 8
+  SpecificAnomalyNum: 11
   currentAnomalyInstance: {fileID: 8678062959089499939, guid: 6aadfcd777444a24180cf51012c6e89c, type: 3}
 --- !u!4 &1964216256
 Transform:
