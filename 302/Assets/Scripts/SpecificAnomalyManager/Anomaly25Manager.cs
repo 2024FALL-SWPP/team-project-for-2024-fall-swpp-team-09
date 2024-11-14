@@ -8,6 +8,7 @@ public class Anomaly25Manager : MonoBehaviour
 
    void Start() {
        StartCoroutine(ActivateFloatingEffect());
+       CreateInvisibleCeiling();
    }
 
    IEnumerator ActivateFloatingEffect() {
@@ -25,6 +26,12 @@ public class Anomaly25Manager : MonoBehaviour
            rb.mass = 10f;
            StartCoroutine(StartFloating(obj));
        }
+   }
+    void CreateInvisibleCeiling() {
+    GameObject ceiling = new GameObject("InvisibleCeiling");
+   ceiling.transform.position = new Vector3(0, 7.5f, 0);
+   ceiling.transform.localScale = new Vector3(40f, 0.1f, 40f);
+   BoxCollider ceilingCollider = ceiling.AddComponent<BoxCollider>();
    }
 
    IEnumerator StartFloating(GameObject obj) {
