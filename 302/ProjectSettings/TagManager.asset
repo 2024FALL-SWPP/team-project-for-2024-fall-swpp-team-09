@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - FloorEmpty
+  - floatable
   layers:
   - Default
   - TransparentFX

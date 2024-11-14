@@ -433,10 +433,6 @@ public class PlayerController : MonoBehaviour
     #region Interaction
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("NPC"))
-        {
-            // NPC와의 충돌 처리
-        }
     }
 
     private void OnTriggerEnter(Collider other)

@@ -3081,9 +3081,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8773584364483337333}
   - component: {fileID: -7422413402872412774}
+  - component: {fileID: 8752356001195035242}
   m_Layer: 0
   m_Name: professor_normal
-  m_TagString: Untagged
+  m_TagString: floatable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3161,6 +3162,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8752356001195035242
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8253366189145917135}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.74174523, y: 1.94928, z: 0.4122137}
+  m_Center: {x: 0.008070409, y: 0.9127114, z: -0.021932364}
 --- !u!1 &8279582076143391115
 GameObject:
   m_ObjectHideFlags: 0
