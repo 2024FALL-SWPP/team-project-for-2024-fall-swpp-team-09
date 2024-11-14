@@ -44,3 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d6eccb4458474a3e897c4b033dda0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interval: 0.3
+  totalSeconds: 15
+  shakeSound: {fileID: 8300000, guid: e83e7f852a0cd4e2ea3527c5fbd744ec, type: 3}
+  successSound: {fileID: 8300000, guid: f9e1b03b4e9904940b64fc1687ce8e64, type: 3}
