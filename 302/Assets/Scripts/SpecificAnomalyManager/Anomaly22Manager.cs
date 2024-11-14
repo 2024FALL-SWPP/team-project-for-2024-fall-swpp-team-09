@@ -27,39 +27,35 @@ public class Anomaly22Manager : MonoBehaviour
 
         // Start the coroutine to add BoxColliders and AudioSource to all tiles
         StartCoroutine(AddBoxCollidersAndAssignAudioClip());
+        StartCoroutine(DestroyFloorBoxCollider());
     }
 
     void Start()
     {
         // Find GameManager and Player in the scene
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();  // Get GameManager component
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         player = GameObject.Find("Player").GetComponent<PlayerController>();
 
         // Start coroutines
         StartCoroutine(CountSeconds());
         StartCoroutine(TriggerRandomTileShakeAndFallWithInterval());
-        StartCoroutine(DestroyFloorBoxCollider());
-        
     }
 
     private IEnumerator DestroyFloorBoxCollider()
     {
-        yield return new WaitForSeconds(2f);  // Wait for 1 second
-
         // Remove the floor's BoxCollider
         BoxCollider boxCollider = floor.GetComponent<BoxCollider>();
         if (boxCollider != null)
         {
             Destroy(boxCollider);
         }
+        yield return null;
     }
 
     private IEnumerator AddBoxCollidersAndAssignAudioClip()
     {
         // Get all child objects of the floor GameObject
         Transform[] floorTilesArray = floor.GetComponentsInChildren<Transform>();
-
-        // Convert array to List<Transform>
         floorTiles = new List<Transform>(floorTilesArray);
 
         foreach (var tile in floorTiles)
@@ -74,24 +70,12 @@ public class Anomaly22Manager : MonoBehaviour
                 }
 
                 // Adjust the size of the BoxCollider to make it thicker in the Y axis (e.g., 3 units)
-                // Since the tile is rotated by -90 on the X-axis, we need to modify the collider's center and size in world space
-
                 // Get the original local size and center before modification
                 Vector3 originalSize = tileCollider.size;
                 Vector3 originalCenter = tileCollider.center;
 
-                // Modify the Y-axis size and center to make the collider thicker
                 tileCollider.size = new Vector3(originalSize.x, originalSize.y, originalSize.z * 20); // Change Y value to 3
-                tileCollider.center = new Vector3(originalCenter.x, originalCenter.y, originalCenter.z - originalSize.z * 10); // Adjust center for correct positioning
-
-                // Adjust the BoxCollider center based on world space if rotation is -90 on the X-axis
-                if (tile.rotation.eulerAngles.x == -90f)
-                {
-                    // Convert the collider's center and size from local space to world space
-                    tileCollider.center = tile.TransformPoint(tileCollider.center); // Convert to world space
-                    tileCollider.size = tile.TransformVector(tileCollider.size); // Adjust the size accordingly in world space
-                }
-
+                tileCollider.center = new Vector3(originalCenter.x, originalCenter.y, originalCenter.z - originalSize.z * 20); // Adjust center for correct positioning
                 // Add the Anomaly22_tile script and assign the shake sound
                 Anomaly22_tile tileScript = tile.gameObject.AddComponent<Anomaly22_tile>();
                 tileScript.shakeSound = shakeSound;  // Directly assign the shake sound
@@ -99,7 +83,6 @@ public class Anomaly22Manager : MonoBehaviour
         }
         yield return null;
     }
-
 
     private IEnumerator CountSeconds()
     {
@@ -115,7 +98,6 @@ public class Anomaly22Manager : MonoBehaviour
         // Check if the player has fallen below the y-axis threshold
         if (player.transform.position.y < -10f && !isPlayerDead)
         {
-            // Make the gameManager sleep without succeeding at this Anomaly(Game Over)
             StartCoroutine(HandleGameOver());
             isPlayerDead = true;
         }
@@ -125,7 +107,6 @@ public class Anomaly22Manager : MonoBehaviour
     {
         gameManager.Sleep();
         yield return new WaitForSeconds(5f);  // Delay before game over for player sleep animation
-
         player.GameOver();
     }
 
@@ -147,39 +128,35 @@ public class Anomaly22Manager : MonoBehaviour
             }
 
             // Call the ShakeAndFall function from Anomaly22_tile
-            tileScript.TriggerShakeAndFall();  // Now it will use the assigned audio source and sound
+            tileScript.TriggerShakeAndFall();
 
-            floorTiles.RemoveAt(randomIndex);
+            floorTiles.RemoveAt(randomIndex);  // Remove fallen tile from list
 
-            // Wait for the next interval
             yield return new WaitForSeconds(interval);
         }
 
-        // After surviving the 30 seconds, call success
         if (!isPlayerDead)
         {
             gameManager.SetStageClear();
             audioSource.PlayOneShot(successSound);  // Play success sound when the stage is cleared
-            StartCoroutine(RestoreAllTiles());  // Add this line to restore tiles after success
+            StartCoroutine(RestoreAllTiles());  // Restore all tiles after success
         }
     }
 
     private IEnumerator RestoreAllTiles()
     {
-        // Restore all tiles to y = 0 and remove the Anomaly22_tile script
+        Transform[] floorTilesArray = floor.GetComponentsInChildren<Transform>();
+        floorTiles = new List<Transform>(floorTilesArray);
+
         foreach (var tile in floorTiles)
         {
-            // Check if the Anomaly22_tile script is attached
             Anomaly22_tile tileScript = tile.GetComponent<Anomaly22_tile>();
-
-            // If the tile has the Anomaly22_tile script, call RestoreTile() on it
             if (tileScript != null)
             {
                 tileScript.RestoreTile();  // This will set Y position to 0 and destroy the script
             }
 
-            yield return null;
+            yield return null; 
         }
     }
-
 }

@@ -30,19 +30,9 @@ public class Anomaly22_tile : MonoBehaviour
     {
         if (!isFalling && !isRestoring)
         {
-            if (audioSource == null)
-            {
-                Debug.LogError("audio source가 없는데?");
-            } 
-            else if (shakeSound == null)
-            {
-                Debug.LogError("audio clip이 없는데?");
-            }
-            else
-            {
+            
                 audioSource.PlayOneShot(shakeSound);  // Play the sound once
                 StartCoroutine(ShakeAndFallRoutine());
-            }
         }
     }
 
