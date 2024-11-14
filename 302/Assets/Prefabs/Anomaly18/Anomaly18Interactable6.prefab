@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8782852498779966535}
   - component: {fileID: 4399770293107067348}
   - component: {fileID: 98983869469287544}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: leg_left_front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4497534062795700698}
   - component: {fileID: 6580047946927313896}
   - component: {fileID: 6001561760472893240}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ring_right_rear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 233645910588557874}
   - component: {fileID: 3694042276405652053}
   - component: {fileID: 3944150035023413722}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: leg_right_rear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 4717100443205917714}
   - component: {fileID: 3461778777261606638}
   - component: {fileID: 3750311772143007357}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: right_bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 3758326672658193711}
   - component: {fileID: 5419138794239795639}
   - component: {fileID: 8632250448730741928}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: plug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -427,7 +427,7 @@ GameObject:
   - component: {fileID: 4447484008536605620}
   - component: {fileID: 3248939476315829577}
   - component: {fileID: 4290553174312720533}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Anomaly18Interactable6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -488,7 +488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
-  interactionRange: 2
+  interactionRange: 0.3
 --- !u!114 &4290553174312720533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,7 +512,7 @@ GameObject:
   - component: {fileID: 7398593800802954818}
   - component: {fileID: 2478559462407785316}
   - component: {fileID: 679111105231640488}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ring_left_front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -595,7 +595,7 @@ GameObject:
   - component: {fileID: 7102781695554177644}
   - component: {fileID: 223276471867585069}
   - component: {fileID: 2620177283847557688}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ring_left_rear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -678,7 +678,7 @@ GameObject:
   - component: {fileID: 4714533147336949792}
   - component: {fileID: 3519700985376348344}
   - component: {fileID: 250455537536712499}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ring_right_front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -761,7 +761,7 @@ GameObject:
   - component: {fileID: 4186559212912557968}
   - component: {fileID: 5305327743224814798}
   - component: {fileID: 5391621708774323726}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -844,7 +844,7 @@ GameObject:
   - component: {fileID: 4996530500264114753}
   - component: {fileID: 8296287320491610579}
   - component: {fileID: 6741851569891920399}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: left_bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -927,7 +927,7 @@ GameObject:
   - component: {fileID: 8008152218178522903}
   - component: {fileID: 8605794180089416866}
   - component: {fileID: 5142012479793926024}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: leg_left_rear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1010,7 +1010,7 @@ GameObject:
   - component: {fileID: 8920352036650668155}
   - component: {fileID: 471814731446874650}
   - component: {fileID: 8529197301461942786}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: leg_right_front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1093,7 +1093,7 @@ GameObject:
   - component: {fileID: 3057429888514461162}
   - component: {fileID: 6738271964124997524}
   - component: {fileID: 5710131270327894678}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
