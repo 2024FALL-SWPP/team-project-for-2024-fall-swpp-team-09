@@ -25651,6 +25651,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: window
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0bfae6ced1c6045458b9f634e638f34c, type: 3}
+      propertyPath: m_TagString
+      value: sideGirl
+      objectReference: {fileID: 0}
     - target: {fileID: 8146791335228456992, guid: 0bfae6ced1c6045458b9f634e638f34c, type: 3}
       propertyPath: m_LocalScale.y
       value: 3.0447004
