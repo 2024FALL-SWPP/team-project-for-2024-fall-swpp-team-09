@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FloorEmpty
   - floatable
+  - sideGirl
   layers:
   - Default
   - TransparentFX
