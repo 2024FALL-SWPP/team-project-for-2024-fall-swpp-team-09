@@ -36,6 +36,7 @@ public class LaptopScreenController : MonoBehaviour
             }
         }
     }
+    [SerializeField] private int screenIndex = 0;
 
     // overridden methods
     void Start()
@@ -50,11 +51,13 @@ public class LaptopScreenController : MonoBehaviour
         _inputIndex = 0;
 
         ResetScreen();
+        
+        //ChangeScreen(screenIndex);
     }
 
     void Update()
     {
-        GetNumberInput();
+        //GetNumberInput();
     }
 
     // new methods
@@ -76,6 +79,12 @@ public class LaptopScreenController : MonoBehaviour
         }
 
         screen.Apply();
+    }
+
+    public void ChangeScreen(int newIndex)
+    {
+        Index = newIndex;
+        ResetScreen();
     }
 
     // no need for implementing the game

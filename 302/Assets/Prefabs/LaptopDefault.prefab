@@ -56,6 +56,8 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 3763901712daf724e98219ed7d5a1144, type: 3}
   - {fileID: 2800000, guid: d9838c3d7a03a904881c429980970d43, type: 3}
   - {fileID: 2800000, guid: 1867f418449eae247a7af1997d41849e, type: 3}
+  - {fileID: 2800000, guid: 2faafb8a58353d441825fae5ec461824, type: 3}
+  - {fileID: 2800000, guid: 81f018d47d6691b4394e30e01ccb868a, type: 3}
   screenXMin: 32
   screenXMax: 992
   screenYMin: 242
