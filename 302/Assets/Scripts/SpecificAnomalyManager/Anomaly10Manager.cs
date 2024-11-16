@@ -15,7 +15,7 @@ public class Anomaly10Manager : MonoBehaviour
     {
         if (abnormalTilePrefab != null)
         {
-            GameObject abnormalTileInstance = Instantiate(abnormalTilePrefab, transform.position, transform.rotation);
+            GameObject abnormalTileInstance = Instantiate(abnormalTilePrefab);
         }
         else
         {
