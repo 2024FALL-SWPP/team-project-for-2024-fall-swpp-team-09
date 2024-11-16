@@ -46,10 +46,15 @@ public class GameManager : MonoBehaviour
         gameState = GameState.Playing;
         LoadDefaultScene();
     }
+
     // 스테이지 클리어 조건 달성 시 호출
     public void SetStageClear()
     {
         currentStageClear = true;
+    }
+    public void SetStageNoClear()
+    {
+        currentStageClear = false;
     }
     // 플레이어가 Sleep 선택 시 호출
     public void Sleep()
@@ -90,6 +95,7 @@ public class GameManager : MonoBehaviour
         // 현재 currentStage에 맞추어 이상현상을 생성해야 하므로
         // AnomalyManager의 이상현상 Instantiate 용 함수를 호출
         StartCoroutine(InstantiateAnomalyAfterLoad());
+        StartCoroutine(FindAndChangeScreen());
     }
     private void LoadDefaultScene()
     {
@@ -150,5 +156,21 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
         }
     }
-    
+    private IEnumerator FindAndChangeScreen()
+    {
+    yield return new WaitForSeconds(0.1f); // 0.1초 대기
+
+    GameObject laptopObject = GameObject.FindWithTag("Laptop");
+    if (laptopObject != null)
+    {
+        LaptopScreenController controller = laptopObject.GetComponent<LaptopScreenController>();
+        if (controller != null)
+        {
+            controller.ChangeScreen(currentStage - 1);
+        }
+    } else {
+        Debug.Log("!!!!!");
+    }
+    }
+
 }
