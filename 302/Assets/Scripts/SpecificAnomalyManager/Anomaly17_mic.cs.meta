@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 92a48590260a449f0ab97d11dd053dc6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - micBrokenSoundClip: {fileID: 8300000, guid: 20161062c848847b79c3353eb373d8c3, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
