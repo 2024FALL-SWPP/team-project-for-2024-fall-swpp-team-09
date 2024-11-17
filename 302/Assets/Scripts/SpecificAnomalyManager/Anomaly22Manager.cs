@@ -105,9 +105,9 @@ public class Anomaly22Manager : MonoBehaviour
 
     private IEnumerator HandleGameOver()
     {
+        player.Sleep();
+        yield return new WaitForSeconds(5f); // Delay before triggering game over
         gameManager.Sleep();
-        yield return new WaitForSeconds(5f);  // Delay before game over for player sleep animation
-        player.GameOver();
     }
 
     private IEnumerator TriggerRandomTileShakeAndFallWithInterval()
