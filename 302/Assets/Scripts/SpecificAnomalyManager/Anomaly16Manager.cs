@@ -13,13 +13,6 @@ public class Anomaly16Manager : MonoBehaviour
         // Get the AudioSource component assigned in the Inspector
         audioSource = GetComponent<AudioSource>();
 
-        // Check if audioSource is assigned
-        if (audioSource == null)
-        {
-            Debug.LogError("AudioSource component is missing from Anomaly16Manager!");
-            return;
-        }
-
         CreateMarkerLineInstance();
         AddMarkerScript();
         SetLayerForInteraction();
