@@ -87,6 +87,10 @@ public class GameManager : MonoBehaviour
             // Added by 서 지 희
             // 시계 바늘 7:00로 초기화
             clockController.SetTime(currentStage);
+
+            // Added by 신 채 환
+            // 슬라이드 색인 배열 재생성
+            SlideManager.Instance.InitSlideList();
         }
         currentStageClear = false;  // 클리어 상태 초기화
         LoadDefaultScene();
@@ -96,6 +100,10 @@ public class GameManager : MonoBehaviour
         // AnomalyManager의 이상현상 Instantiate 용 함수를 호출
         StartCoroutine(InstantiateAnomalyAfterLoad());
         StartCoroutine(FindAndChangeScreen());
+
+        // Added by 신 채 환
+        // 슬라이드 초기화
+        StartCoroutine(InitializeSlideAfterLoad());
     }
     private void LoadDefaultScene()
     {
@@ -116,6 +124,15 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);  // 장면 로드 완료 후 잠깐 대기
         AnomalyManager.Instance.CheckAndInstantiateAnomaly();
     }
+
+    // Added by 신채환
+    private IEnumerator InitializeSlideAfterLoad()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        SlideManager.Instance.SetSlide(currentStage);
+    }
+
     private void GameClear()
     {
         gameState = GameState.GameClear;

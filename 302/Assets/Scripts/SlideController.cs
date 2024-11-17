@@ -62,16 +62,7 @@ public class SlideController : MonoBehaviour
 
     void Update()
     {
-        GetNumberInput();
         UpdateTrickling();
-
-        if (Input.GetKeyDown(KeyCode.R)) {
-            ResetSlide();
-        }
-
-        if (Input.GetKeyDown(KeyCode.S)) {
-            StartTrickling();
-        }
     }
 
     // new methods
