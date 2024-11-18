@@ -437,10 +437,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        /*
         if (other.CompareTag("InteractionZone"))
         {
             // 상호작용 가능 영역 진입
         }
+        */
     }
     #endregion
 

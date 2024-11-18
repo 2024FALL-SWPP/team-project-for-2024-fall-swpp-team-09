@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf3259c18316d40cc8480a306dee7396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetObjectName: clock
+  clockPrefab: {fileID: 791923717464669601, guid: 64c3e9afb26debe44847a16a22c4dae8, type: 3}
