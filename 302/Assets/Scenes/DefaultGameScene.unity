@@ -46904,6 +46904,14 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5222646732025225428, guid: e98bfaaf0938845d098edce033f7e7a2, type: 3}
+      propertyPath: defaults.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5222646732025225428, guid: e98bfaaf0938845d098edce033f7e7a2, type: 3}
+      propertyPath: defaults.Array.data[11]
+      value: 
+      objectReference: {fileID: 2800000, guid: b9b7cd7a3c69b0644ab7a24201fc2938, type: 3}
     - target: {fileID: 6482429499626390066, guid: e98bfaaf0938845d098edce033f7e7a2, type: 3}
       propertyPath: m_Name
       value: Laptop
