@@ -2,23 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaptopFaceController : MonoBehaviour
+public class LaptopFaceController : LaptopScreenController
 {
-    // fields
-    public Texture2D screen;
-    public Texture2D defaultScreen;
+    /**********
+     * fields *
+     **********/
 
     public GameObject player;
-
-    public int screenXMin;
-    public int screenXMax;
-    public int screenYMin;
-    public int screenYMax;
-
-    public int defaultXMin;
-    public int defaultXMax;
-    public int defaultYMin;
-    public int defaultYMax;
 
     private int[] X0DATA = new int[] {
         394, 391, 389, 387, 386, 385, 384, 383, 382, 381, 380, 379, 379, 378, 378, 377, 377,
@@ -46,55 +36,57 @@ public class LaptopFaceController : MonoBehaviour
         306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322
     };
 
-    private int TANGENT_MAX = 20;
-    private float TANGENT_CONST = 10.0f;
-    private int ORIGIN_X = 32;
+    private int TANGENT_MAX = 25;
+    private float TANGENT_CONST = 12.5f;
+    private int ORIGIN_X = 38;
     private int ORIGIN_Y = 242;
 
     private Color _colour;
     private bool _isGazing;
     private int _tangent;
 
-    // overridden methods
+    /**********************
+     * overridden methods *
+     **********************/
+
+    // Start is called on the frame when a script is enabled just
+    // before any of the Update methods are called the first time.
     void Start()
     {
-        _colour = defaultScreen.GetPixel(401, 297);
+        _colour = defaults[0].GetPixel(407, 297);
         _isGazing = false;
         _tangent = 0;
 
         ResetScreen();
     }
 
+    // Update is called every frame, if the MonoBehaviour is enabled.
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S)) {
-            _isGazing = true;
-        }
-
-        if (Input.GetKeyDown(KeyCode.R)) {
-            _isGazing = false;
-
-            ResetScreen();
-        }
-
         if (_isGazing) {
             UpdateGazing();
         }
     }
 
-    // new methods
-    public void ResetScreen()
+    /***************
+     * new methods *
+     ***************/
+
+    // 화면을 초기화하는 메서드
+    public override void ResetScreen()
     {
         int screenXWidth = screenXMax - screenXMin;
         int screenYWidth = screenYMax - screenYMin;
         int defaultXWidth = defaultXMax - defaultXMin;
         int defaultYWidth = defaultYMax - defaultYMin;
 
+        _isGazing = false;
+
         for (int x = 0; x < screenXWidth; x++) {
             for (int y = 0; y < screenYWidth; y++) {
                 int xSlide = (int)((x + 0.5) * defaultXWidth / screenXWidth + defaultXMin);
                 int ySlide = (int)((y + 0.5) * defaultYWidth / screenYWidth + defaultYMin);
-                Color color = defaultScreen.GetPixel(xSlide, ySlide);
+                Color color = defaults[0].GetPixel(xSlide, ySlide);
 
                 screen.SetPixel(x + screenXMin, y + screenYMin, color);
             }
@@ -103,6 +95,13 @@ public class LaptopFaceController : MonoBehaviour
         screen.Apply();
     }
 
+    // 쳐다보기 시작하는 메서드
+    public void StartGazing()
+    {
+        _isGazing = true;
+    }
+
+    // 쳐다보기 화면을 갱신하는 메서드
     private void UpdateGazing()
     {
         Vector3 forward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
