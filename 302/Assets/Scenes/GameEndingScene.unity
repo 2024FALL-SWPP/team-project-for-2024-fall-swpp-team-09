@@ -22611,8 +22611,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1118218538}
-  - component: {fileID: 1118218537}
   - component: {fileID: 1118218536}
+  - component: {fileID: 1118218539}
   m_Layer: 0
   m_Name: EndingManager
   m_TagString: Untagged
@@ -22716,25 +22716,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1118218537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1118218535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c984b3f304c1f4cf39dc349346f66bb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clockCamera: {fileID: 429070650}
-  endingAudioSource: {fileID: 1118218536}
-  endingMusic: {fileID: 8300000, guid: 3d2ba3f51ecf9409cae4f80bd2ca3631, type: 3}
-  moveSpeed: 0.001
-  player: {fileID: 1169446209}
-  fadeImage: {fileID: 1496156668}
-  fadeSpeed: 1
 --- !u!4 &1118218538
 Transform:
   m_ObjectHideFlags: 0
@@ -22750,6 +22731,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1118218539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118218535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a4af468d20e7ac468e837c0fb357359, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clockCamera: {fileID: 429070650}
+  endingAudioSource: {fileID: 1118218536}
+  endingMusic: {fileID: 8300000, guid: 3d2ba3f51ecf9409cae4f80bd2ca3631, type: 3}
+  moveSpeed: 0.001
+  player: {fileID: 1169446209}
+  fadeImage: {fileID: 1496156668}
+  fadeSpeed: 1
 --- !u!1001 &1119523402
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36158,10 +36158,10 @@ MonoBehaviour:
   creditUI: {fileID: 1477365615}
   endingAudioSource: {fileID: 1825529824}
   endingMusic: {fileID: 8300000, guid: 9aebf01d2434545beaed16f416873b82, type: 3}
-  musicDuration: 30
-  musicFadeSpeed: 1
   doorSoundSource: {fileID: 1825529824}
   doorOpenSound: {fileID: 8300000, guid: be32529d7bbab4893b4a94fe8899b8a1, type: 3}
+  musicDuration: 30
+  musicFadeSpeed: 1
 --- !u!65 &1825529826
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -7,10 +7,10 @@ public class EndingManager : MonoBehaviour
     [SerializeField] private GameObject clockCamera;
     [SerializeField] private AudioSource endingAudioSource;
     [SerializeField] private AudioClip endingMusic;
-    [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private float moveSpeed = 0.001f;
     [SerializeField] private GameObject player;
     [SerializeField] private Image fadeImage;
-    [SerializeField] private float fadeSpeed = 2f;
+    [SerializeField] private float fadeSpeed = 1f;
 
     private Vector3 targetPosition = new Vector3(-15.3f, 7.25f, 0f);
     private bool isMoving = false;
