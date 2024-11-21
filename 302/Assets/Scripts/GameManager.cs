@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool currentStageClear = false;  // 현재 스테이지 클리어 여부
     [SerializeField] private ClockController clockController;
     private const string DEFAULT_SCENE = "DefaultGameScene";
-    private const string ENDING_SCENE = "EndingScene";
+    private const string ENDING_SCENE = "GameEndingScene";
     public enum GameState
     {
         Playing,
