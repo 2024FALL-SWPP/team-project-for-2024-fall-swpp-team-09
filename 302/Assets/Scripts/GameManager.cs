@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     // 스테이지 관리
-    [SerializeField] private int currentStage = 1;
+    [SerializeField] private int currentStage = 0;
     [SerializeField] private bool currentStageClear = false;  // 현재 스테이지 클리어 여부
     [SerializeField] private ClockController clockController;
     private const string DEFAULT_SCENE = "DefaultGameScene";
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     }
     private void InitializeGame()
     {
-        currentStage = 1;
+        currentStage = 0;
         currentStageClear = false;
         gameState = GameState.Playing;
         LoadDefaultScene();

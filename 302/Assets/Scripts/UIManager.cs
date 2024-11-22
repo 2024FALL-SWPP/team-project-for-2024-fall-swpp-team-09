@@ -6,34 +6,74 @@ public class UIManager : MonoBehaviour
 {
     public GameObject titleText;             // 타이틀 텍스트 오브젝트
     public Button startButton;               // 시작 버튼
-    public GameObject difficultyButtonGroup; // 난이도 버튼 그룹
-    public Button normalButton;              // 노말 난이도 버튼
-    public Button hardButton;                // 하드 난이도 버튼
-    private int difficultyLevel;             // 난이도 변수
+    private StartingCameraController startingCameraController;
+
+    private AsyncOperation sceneLoadOperation; // 비동기 씬 로드 작업
 
     void Start()
     {
-        // 초기 설정
-        difficultyButtonGroup.SetActive(false); // 난이도 선택 그룹 숨기기
+        startingCameraController = FindObjectOfType<StartingCameraController>();
+        if (startingCameraController == null)
+        {
+            Debug.LogError("StartingCameraController not found in the scene!");
+        }
+        else
+        {
+            startingCameraController.OnFadeComplete += OnFadeComplete; // 애니메이션 완료 이벤트 연결
+        }
 
-        // 버튼에 이벤트 연결
-        startButton.onClick.AddListener(OnStartButtonClicked);                // Start 버튼
-        normalButton.onClick.AddListener(() => SetDifficultyAndStartGame(0)); // Normal 버튼
-        hardButton.onClick.AddListener(() => SetDifficultyAndStartGame(1));   // Hard 버튼
+        startButton.onClick.AddListener(OnStartButtonClicked); // Start 버튼
     }
 
-    // 시작 버튼 클릭 시 호출
     private void OnStartButtonClicked()
     {
         titleText.SetActive(false);                 // 타이틀 텍스트 숨기기
         startButton.gameObject.SetActive(false);    // 시작 버튼 숨기기
-        difficultyButtonGroup.SetActive(true);      // 난이도 선택 그룹 표시
+
+        // 비동기 씬 로드 시작
+        StartCoroutine(PreloadDefaultScene());
+
+        if (startingCameraController != null)
+        {
+            startingCameraController.PlayFadeSequence(); // 화면 어두워졌다 밝아지는 애니메이션 실행
+        }
     }
 
-    // 난이도 설정 및 씬 전환
-    private void SetDifficultyAndStartGame(int difficulty)
+    private System.Collections.IEnumerator PreloadDefaultScene()
     {
-        difficultyLevel = difficulty; // 난이도 설정
-        SceneManager.LoadScene("DefaultGameScene"); // 씬 전환
+        Debug.Log("Starting to preload DefaultGameScene...");
+        sceneLoadOperation = SceneManager.LoadSceneAsync("DefaultGameScene");
+        sceneLoadOperation.allowSceneActivation = false; // 씬 전환은 막아둠
+
+        while (!sceneLoadOperation.isDone)
+        {
+            // 진행도 출력
+            Debug.Log($"Scene Load Progress: {sceneLoadOperation.progress * 100}%");
+
+            // 진행도가 90% 이상이면 준비 완료 상태
+            if (sceneLoadOperation.progress >= 0.9f)
+            {
+                Debug.Log("Scene preload completed. Waiting for animation.");
+                break;
+            }
+            yield return null;
+        }
+    }
+
+    private void OnFadeComplete()
+    {
+        Debug.Log("Fade animation complete. Activating preloaded scene.");
+        if (sceneLoadOperation != null)
+        {
+            sceneLoadOperation.allowSceneActivation = true; // 씬 전환 허용
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (startingCameraController != null)
+        {
+            startingCameraController.OnFadeComplete -= OnFadeComplete; // 이벤트 연결 해제
+        }
     }
 }
