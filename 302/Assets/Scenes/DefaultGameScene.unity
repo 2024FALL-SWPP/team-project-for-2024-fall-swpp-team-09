@@ -42822,7 +42822,7 @@ MonoBehaviour:
   - {fileID: 5650449145146738954, guid: 11a50fb479ce40a4698c9b8f9816f567, type: 3}
   - {fileID: 3233071982878084982, guid: 5156428cd2b781d4dabf6a30befa7685, type: 3}
   - {fileID: 5605359256125054964, guid: 48c8f10abe45bef4098efae902701f34, type: 3}
-  checkSpecificAnomaly: 1
+  checkSpecificAnomaly: 0
   SpecificAnomalyNum: 21
   currentAnomalyInstance: {fileID: 8678062959089499939, guid: 6aadfcd777444a24180cf51012c6e89c, type: 3}
 --- !u!4 &1964216256
@@ -44861,6 +44861,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 776868654}
     m_Modifications:
+    - target: {fileID: 3702516718297403109, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Size.x
+      value: 0.014028949
+      objectReference: {fileID: 0}
+    - target: {fileID: 3702516718297403109, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Center.x
+      value: 0.005311755
+      objectReference: {fileID: 0}
+    - target: {fileID: 3702516718297403109, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Center.y
+      value: -0.00002318687
+      objectReference: {fileID: 0}
+    - target: {fileID: 3702516718297403109, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Center.z
+      value: 0.006553769
+      objectReference: {fileID: 0}
     - target: {fileID: 7236329420339151181, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
       propertyPath: m_RootOrder
       value: 0

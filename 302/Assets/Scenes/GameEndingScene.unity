@@ -36160,7 +36160,7 @@ MonoBehaviour:
   endingMusic: {fileID: 8300000, guid: 9aebf01d2434545beaed16f416873b82, type: 3}
   doorSoundSource: {fileID: 1825529824}
   doorOpenSound: {fileID: 8300000, guid: be32529d7bbab4893b4a94fe8899b8a1, type: 3}
-  musicDuration: 30
+  musicDuration: 50
   musicFadeSpeed: 1
 --- !u!65 &1825529826
 BoxCollider:
