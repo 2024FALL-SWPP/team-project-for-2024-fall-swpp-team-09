@@ -18,6 +18,15 @@ public class EndingManager : MonoBehaviour
 
     public void OnEnable()
     {
+        GameObject[] objects = GameObject.FindObjectsOfType<GameObject>();
+        foreach (GameObject obj in objects)
+        {
+            if (obj.scene.name == "DontDestroyOnLoad")
+            {
+                Destroy(obj);
+            }
+        }
+        
         if(fadeImage != null)
         {
             Color c = fadeImage.color;
