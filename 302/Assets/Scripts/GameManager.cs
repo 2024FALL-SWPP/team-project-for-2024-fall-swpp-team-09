@@ -46,6 +46,9 @@ public class GameManager : MonoBehaviour
         gameState = GameState.Playing;
         LoadDefaultScene();
     }
+    public void SetCurrentStage(int stage){
+        currentStage = stage;
+    }
 
     // 스테이지 클리어 조건 달성 시 호출
     public void SetStageClear()
