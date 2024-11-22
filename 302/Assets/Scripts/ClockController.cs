@@ -32,6 +32,13 @@ public class ClockController : MonoBehaviour
         // stage 1 at 7:00, stage 8 at 8:45
         int hour = 7 + ((stage - 1) % 4); 
         int minute = 15 * ((stage - 1) % 4);
+        
+        // Added by 박상윤
+        // 0스테이지는 기존과 다르게 그냥 대입
+        if(stage == 0) {
+            hour = 6;
+            minute = 50;
+        }
 
         float minuteRotation = minute * 6f; // 6 degrees per minute
         float hourRotation = (hour * 30f) + (minute * 0.5f); // 30 degrees per hour + 0.5 degrees per minute
