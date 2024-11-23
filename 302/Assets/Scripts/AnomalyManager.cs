@@ -64,9 +64,15 @@ public class AnomalyManager : MonoBehaviour
     public void CheckAndInstantiateAnomaly()
     {
         int stageIndex = GameManager.Instance.GetCurrentStage() - 1;
-        if (stageIndex < 0 || stageIndex >= anomalyList.Count)
+        if (stageIndex >= anomalyList.Count)
         {
             Debug.LogError("Invalid stage index in anomaly list.");
+            return;
+        } 
+        else if (stageIndex == -1)
+        {
+            Debug.Log($"[AnomalyManager] Current Stage : {GameManager.Instance.GetCurrentStage()}");
+            currentAnomalyInstance = Instantiate(anomalyPrefabs[0]);
             return;
         }
         int anomaly = anomalyList[stageIndex];
