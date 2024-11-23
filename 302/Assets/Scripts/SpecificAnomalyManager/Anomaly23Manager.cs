@@ -95,7 +95,7 @@ public class Anomaly23Manager : MonoBehaviour
         // 노트북 화면
         if (_scriptLaptop != null) {
             _indexLaptop = _scriptLaptop.Index;
-            _scriptLaptop.ChangeScreen(11);
+            _scriptLaptop.ChangeScreen(12);
         } else {
             res = false;
         }

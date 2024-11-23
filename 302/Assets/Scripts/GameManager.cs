@@ -38,6 +38,10 @@ public class GameManager : MonoBehaviour
         clockController = ClockController.Instance;
         // 시계 바늘 7:00로 초기화
         clockController.SetTime(currentStage);
+
+        // Added by 신 채 환
+        // 슬라이드 초기화
+        StartCoroutine(InitializeSlideAfterLoad());
     }
     private void InitializeGame()
     {
@@ -185,7 +189,9 @@ public class GameManager : MonoBehaviour
         LaptopScreenController controller = laptopObject.GetComponent<LaptopScreenController>();
         if (controller != null)
         {
-            controller.ChangeScreen(currentStage - 1);
+            controller.ChangeScreen(currentStage);
+            // modified by 신채환
+            // 0단계 추가에 따른 화면 색인 변경 반영
         }
     } else {
         Debug.Log("!!!!!");
