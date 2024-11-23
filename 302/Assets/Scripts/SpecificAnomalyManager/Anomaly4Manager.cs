@@ -87,8 +87,10 @@ public class Anomaly4Manager : MonoBehaviour
        LaptopScreenController mainController = mainLaptop.GetComponent<LaptopScreenController>();
        if(mainController != null)
        {
-           mainController.ChangeScreen(9);
-           Debug.Log("Changed main laptop screen to 9");
+           mainController.ChangeScreen(10);
+           Debug.Log("Changed main laptop screen to 10");
+           // modified by 신채환
+           // 0단계 추가에 따른 화면 색인 변경 반영
        }
 
        // 5개 랩탑 화면 변경
@@ -97,8 +99,10 @@ public class Anomaly4Manager : MonoBehaviour
            LaptopScreenController controller = laptop.GetComponent<LaptopScreenController>();
            if(controller != null)
            {
-               controller.ChangeScreen(10);
-               Debug.Log($"Changed screen to 10 for laptop: {laptop.name}");
+               controller.ChangeScreen(11);
+               Debug.Log($"Changed screen to 11 for laptop: {laptop.name}");
+               // modified by 신채환
+               // 0단계 추가에 따른 화면 색인 변경 반영
            }
        }
 
@@ -106,7 +110,9 @@ public class Anomaly4Manager : MonoBehaviour
        Debug.Log("Final screen change after 10 seconds");
 
        // 모든 랩탑 원래 화면으로 복귀
-       int originalScreen = GameManager.Instance.GetCurrentStage() - 1;
+       int originalScreen = GameManager.Instance.GetCurrentStage();
+            // modified by 신채환
+            // 0단계 추가에 따른 화면 색인 변경 반영
        
        // mainLaptop 포함
        if(mainController != null)

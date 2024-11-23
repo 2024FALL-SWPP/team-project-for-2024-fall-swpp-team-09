@@ -25,6 +25,10 @@ public class SlideManager : MonoBehaviour
     // 무작위성
     private SlideRandom _random;
 
+    // 오브젝트
+    private GameObject _objectLeft;
+    private GameObject _objectRight;
+
     // 슬라이드 컨트롤러
     private SlideController _controllerLeft;
     private SlideController _controllerRight;
@@ -74,15 +78,20 @@ public class SlideManager : MonoBehaviour
     public void SetSlide(int stage)
     {
         if (FindSlides()) {
-            int index = _slideList[stage - 1];
+            if (stage > 0) {
+                int index = _slideList[stage - 1];
 
-            _controllerLeft.Index = index;
-            _controllerRight.Index = index;
+                _controllerLeft.Index = index;
+                _controllerRight.Index = index;
 
-            _controllerLeft.ResetSlide();
-            _controllerRight.ResetSlide();
+                _controllerLeft.ResetSlide();
+                _controllerRight.ResetSlide();
 
-            Debug.Log($"[{NAME}] Set slides with No. {index} slide.");
+                Debug.Log($"[{NAME}] Set slides with No. {index} slide.");
+            } else {
+                _objectLeft.SetActive(false);
+                _objectRight.SetActive(false);
+            }
         }
     }
 
@@ -118,8 +127,17 @@ public class SlideManager : MonoBehaviour
     {
         bool res = true;
 
+        // `_objectLeft` 찾기
+        _objectLeft = GameObject.Find(nameLeft);
+        if (_objectLeft != null) {
+            Debug.Log($"[{NAME}] Find `_objectLeft` successfully.");
+        } else {
+            Debug.LogWarning($"[{NAME}] Cannot find `_objectLeft`.");
+            res = false;
+        }
+
         // `_controllerLeft` 찾기
-        _controllerLeft = GameObject.Find(nameLeft).GetComponent<SlideController>();
+        _controllerLeft = _objectLeft.GetComponent<SlideController>();
         if (_controllerLeft != null) {
             Debug.Log($"[{NAME}] Find `_controllerLeft` successfully.");
         } else {
@@ -127,8 +145,17 @@ public class SlideManager : MonoBehaviour
             res = false;
         }
 
+        // `_objectRight` 찾기
+        _objectRight = GameObject.Find(nameRight);
+        if (_objectRight != null) {
+            Debug.Log($"[{NAME}] Find `_objectRight` successfully.");
+        } else {
+            Debug.LogWarning($"[{NAME}] Cannot find `_objectRight`.");
+            res = false;
+        }
+
         // `_controllerRight` 찾기
-        _controllerRight = GameObject.Find(nameRight).GetComponent<SlideController>();
+        _controllerRight = _objectRight.GetComponent<SlideController>();
         if (_controllerRight != null) {
             Debug.Log($"[{NAME}] Find `_controllerRight` successfully.");
         } else {

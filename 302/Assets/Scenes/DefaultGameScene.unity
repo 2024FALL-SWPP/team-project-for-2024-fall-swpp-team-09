@@ -1250,6 +1250,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 3763901712daf724e98219ed7d5a1144, type: 3}
   - {fileID: 2800000, guid: d9838c3d7a03a904881c429980970d43, type: 3}
   - {fileID: 2800000, guid: 1867f418449eae247a7af1997d41849e, type: 3}
+  - {fileID: 2800000, guid: a6ffe9b42b1b7cc41ba277bbc40201b2, type: 3}
   - {fileID: 2800000, guid: 2faafb8a58353d441825fae5ec461824, type: 3}
   - {fileID: 2800000, guid: 81f018d47d6691b4394e30e01ccb868a, type: 3}
   screenXMin: 32
@@ -8353,6 +8354,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 3763901712daf724e98219ed7d5a1144, type: 3}
   - {fileID: 2800000, guid: d9838c3d7a03a904881c429980970d43, type: 3}
   - {fileID: 2800000, guid: 1867f418449eae247a7af1997d41849e, type: 3}
+  - {fileID: 2800000, guid: a6ffe9b42b1b7cc41ba277bbc40201b2, type: 3}
   - {fileID: 2800000, guid: 2faafb8a58353d441825fae5ec461824, type: 3}
   - {fileID: 2800000, guid: 81f018d47d6691b4394e30e01ccb868a, type: 3}
   screenXMin: 32
@@ -16168,6 +16170,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 3763901712daf724e98219ed7d5a1144, type: 3}
   - {fileID: 2800000, guid: d9838c3d7a03a904881c429980970d43, type: 3}
   - {fileID: 2800000, guid: 1867f418449eae247a7af1997d41849e, type: 3}
+  - {fileID: 2800000, guid: a6ffe9b42b1b7cc41ba277bbc40201b2, type: 3}
   - {fileID: 2800000, guid: 2faafb8a58353d441825fae5ec461824, type: 3}
   - {fileID: 2800000, guid: 81f018d47d6691b4394e30e01ccb868a, type: 3}
   screenXMin: 32
@@ -43045,8 +43048,8 @@ MonoBehaviour:
   - {fileID: 5650449145146738954, guid: 11a50fb479ce40a4698c9b8f9816f567, type: 3}
   - {fileID: 3233071982878084982, guid: 5156428cd2b781d4dabf6a30befa7685, type: 3}
   - {fileID: 5605359256125054964, guid: 48c8f10abe45bef4098efae902701f34, type: 3}
-  checkSpecificAnomaly: 1
-  SpecificAnomalyNum: 30
+  checkSpecificAnomaly: 0
+  SpecificAnomalyNum: 0
   currentAnomalyInstance: {fileID: 8678062959089499939, guid: 6aadfcd777444a24180cf51012c6e89c, type: 3}
 --- !u!4 &1964216256
 Transform:
@@ -43889,6 +43892,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 3763901712daf724e98219ed7d5a1144, type: 3}
   - {fileID: 2800000, guid: d9838c3d7a03a904881c429980970d43, type: 3}
   - {fileID: 2800000, guid: 1867f418449eae247a7af1997d41849e, type: 3}
+  - {fileID: 2800000, guid: a6ffe9b42b1b7cc41ba277bbc40201b2, type: 3}
   - {fileID: 2800000, guid: 2faafb8a58353d441825fae5ec461824, type: 3}
   - {fileID: 2800000, guid: 81f018d47d6691b4394e30e01ccb868a, type: 3}
   screenXMin: 32
@@ -47424,10 +47428,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5222646732025225428, guid: e98bfaaf0938845d098edce033f7e7a2, type: 3}
       propertyPath: defaults.Array.size
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5222646732025225428, guid: e98bfaaf0938845d098edce033f7e7a2, type: 3}
+      propertyPath: defaults.Array.data[9]
+      value: 
+      objectReference: {fileID: 2800000, guid: a6ffe9b42b1b7cc41ba277bbc40201b2, type: 3}
+    - target: {fileID: 5222646732025225428, guid: e98bfaaf0938845d098edce033f7e7a2, type: 3}
+      propertyPath: defaults.Array.data[10]
+      value: 
+      objectReference: {fileID: 2800000, guid: 2faafb8a58353d441825fae5ec461824, type: 3}
+    - target: {fileID: 5222646732025225428, guid: e98bfaaf0938845d098edce033f7e7a2, type: 3}
       propertyPath: defaults.Array.data[11]
+      value: 
+      objectReference: {fileID: 2800000, guid: 81f018d47d6691b4394e30e01ccb868a, type: 3}
+    - target: {fileID: 5222646732025225428, guid: e98bfaaf0938845d098edce033f7e7a2, type: 3}
+      propertyPath: defaults.Array.data[12]
       value: 
       objectReference: {fileID: 2800000, guid: b9b7cd7a3c69b0644ab7a24201fc2938, type: 3}
     - target: {fileID: 6482429499626390066, guid: e98bfaaf0938845d098edce033f7e7a2, type: 3}
@@ -47552,6 +47568,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 3763901712daf724e98219ed7d5a1144, type: 3}
   - {fileID: 2800000, guid: d9838c3d7a03a904881c429980970d43, type: 3}
   - {fileID: 2800000, guid: 1867f418449eae247a7af1997d41849e, type: 3}
+  - {fileID: 2800000, guid: a6ffe9b42b1b7cc41ba277bbc40201b2, type: 3}
   - {fileID: 2800000, guid: 2faafb8a58353d441825fae5ec461824, type: 3}
   - {fileID: 2800000, guid: 81f018d47d6691b4394e30e01ccb868a, type: 3}
   screenXMin: 32
