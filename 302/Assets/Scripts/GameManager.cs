@@ -67,8 +67,6 @@ public class GameManager : MonoBehaviour
         {
             // 스테이지 클리어한 상태로 잠들기
             currentStage++;
-            // 시계 바늘 업데이트
-            clockController.SetTime(currentStage);
 
             // 7단계(8:45) 이후 클리어 시 게임 클리어
             if (currentStage >= 9)
@@ -87,9 +85,6 @@ public class GameManager : MonoBehaviour
             // 스테이지 실패 시, 이상현상 리스트를 초기화, 재생성 해야 하므로
             // AnomalyManager의 Stage Failure시 작동하는 함수 호출
             AnomalyManager.Instance.ResetAnomaliesOnFailure();
-            // Added by 서 지 희
-            // 시계 바늘 7:00로 초기화
-            clockController.SetTime(currentStage);
 
             // Added by 신 채 환
             // 슬라이드 색인 배열 재생성
@@ -103,6 +98,10 @@ public class GameManager : MonoBehaviour
         // AnomalyManager의 이상현상 Instantiate 용 함수를 호출
         StartCoroutine(InstantiateAnomalyAfterLoad());
         StartCoroutine(FindAndChangeScreen());
+
+        // Added by 서 지 희
+        // LoadDefaultScene() 호출 다음에 시계 조정
+        clockController.SetTime(currentStage);
 
         // Added by 신 채 환
         // 슬라이드 초기화
