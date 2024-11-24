@@ -32689,7 +32689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7818679666940816582, guid: 4d46f98ccb1d8ad49b2d916d1094b33e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.65
+      value: -1.02
       objectReference: {fileID: 0}
     - target: {fileID: 7818679666940816582, guid: 4d46f98ccb1d8ad49b2d916d1094b33e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -35659,11 +35659,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675446298}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33b91f25b1ae6fa4d9727b23d45aab6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  position: {x: 0, y: 0, z: 0}
+  direction: {x: -1, y: 0, z: 0}
+  valueNormal: 0
+  valueAnomaly: 6.6
+  duration: 5
 --- !u!1001 &1679000449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37583,11 +37588,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1774626112}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33b91f25b1ae6fa4d9727b23d45aab6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  position: {x: -18.5, y: 7.06, z: 1.84}
+  direction: {x: -1, y: 0, z: 0}
+  valueNormal: 0
+  valueAnomaly: 6.6
+  duration: 5
 --- !u!1001 &1775142295
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40965,14 +40975,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1875637178}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18e2c46eaa68afe458ec364512f84534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
-  interactionRange: 1
-  objectCamera: {fileID: 592683968}
+  nameCameraMain: Main Camera
+  prompt: 
+  distanceInteractionMax: 5
 --- !u!65 &1875637180
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -45707,7 +45717,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7818679666940816582, guid: 4d46f98ccb1d8ad49b2d916d1094b33e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -23.97
+      value: -23.88
       objectReference: {fileID: 0}
     - target: {fileID: 7818679666940816582, guid: 4d46f98ccb1d8ad49b2d916d1094b33e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -47768,7 +47778,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5403613182878368489}
   m_LocalRotation: {x: 0, y: 0.7072302, z: 0.7069834, w: 0}
-  m_LocalPosition: {x: 18.499, y: 0, z: -12.269}
+  m_LocalPosition: {x: 18.499, y: 0.138, z: -12.269}
   m_LocalScale: {x: 120, y: 120, z: 120}
   m_ConstrainProportionsScale: 0
   m_Children:

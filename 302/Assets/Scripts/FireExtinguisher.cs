@@ -121,7 +121,9 @@ private void CheckFireCollision()
         }
     }
 
-    public override bool CanInteract()
+    // modified by 신채환
+    // CanInteract 메서드가 거리를 인자로 받도록 변경
+    public override bool CanInteract(float distance)
     {
         return !isHeld;
     }

@@ -33,10 +33,12 @@ public class Anomaly11_openeddoor : InteractableObject, IInteractable
     }
 
     // Determines if interaction is currently possible
-    public bool CanInteract()
+    public bool CanInteract(float distance)
     {
         return movingPart != null && !hasInteracted;
     }
+    // modified by 신채환
+    // CanInteract 메서드가 거리를 인자로 받도록 변경
 
     // Handles interaction with the opened door
     public void OnInteract()
