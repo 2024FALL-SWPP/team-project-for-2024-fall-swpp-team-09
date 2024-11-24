@@ -1,130 +1,88 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Anomaly2_Laptop : InteractableObject
+[RequireComponent(typeof(LaptopFaceController))]
+public class Anomaly2_Laptop : SCH_AnomalyInteractable
 {
-    /*************
-     * constants *
-     *************/
-
-    private const string NAME = "Anomaly2_Laptop";
-
     /**********
      * fields *
      **********/
 
-    // 오브젝트
-    public GameObject objectCamera;
-
-    // 노트북 스크립트
-    private LaptopFaceController _scriptLaptop;
-
-    // 상호작용 전인지 여부
-    private bool _beforeInteraction;
+    // 노트북 컨트롤러
+    private LaptopFaceController _script;
 
     /**************
      * properties *
      **************/
 
-    public Anomaly2Manager Manager { get; set; }
+    // 클래스 이름
+    public override string Name { get; } = "Anomaly2_Laptop";
 
-    /**********************
-     * overridden methods *
-     **********************/
+    /*********************************
+     * implementation: SCH_Behaviour *
+     *********************************/
 
-    // Start is called on the frame when a script is enabled just
-    // before any of the Update methods are called the first time.
-    void Start()
+    // 필드를 초기화하는 메서드
+    protected override bool InitFields()
     {
-        if (!InitFields()) {
-            return;
-        }
-    }
+        bool res = base.InitFields();
 
-    // Update is called every frame, if the MonoBehaviour is enabled.
-    void Update()
-    {
-        if (_beforeInteraction) {
-            UpdateCanInteract();
-        }
-    }
-
-    // 상호작용 시 실행될 메서드
-    public override void OnInteract()
-    {
-        base.OnInteract();
-
-        if (Manager != null) {
-            Debug.Log($"[{NAME}] Call `Anomaly2Manager.InteractionSuccess`");
-            Manager.InteractionSuccess();
-
-            ResetAnomaly();
-            _beforeInteraction = false;
-            canInteract = false;
+        // _script
+        _script = GetComponent<LaptopFaceController>();
+        if (_script != null) {
+            Log("Initialize `_script`: success");
         } else {
-            Debug.LogWarning($"[{NAME}] `Manager` is not set.");
+            Log("Initialize `_script`: failed", mode: 1);
+            res = false;
         }
+
+        return res;
     }
 
-    /***************
-     * new methods *
-     ***************/
+    /*************************************
+     * implementation: SCH_AnomalyObject *
+     *************************************/
 
     // 이상현상을 시작하는 메서드
-    public bool SetAnomaly()
+    protected override bool SetAnomaly()
     {
-        bool res = true;
+        bool res = base.SetAnomaly();
 
         // 노트북 화면
-        if (_scriptLaptop != null) {
-            _scriptLaptop.StartGazing();
+        if (_script != null) {
+            _script.StartGazing();
+            Log("Set laptop screen: success");
         } else {
+            Log("Set laptop screen: failed", mode: 1);
             res = false;
         }
 
-        gameObject.layer = 3;  // 상호작용 레이어
+        // 노트북 레이어(3: 상호작용 레이어)
+        gameObject.layer = 3;
+        Log("Set laptop layer: success");
 
         return res;
-    }
-
-    // Private fields를 초기화하는 메서드
-    private bool InitFields()
-    {
-        bool res = true;
-
-        // `_scriptLaptop` 초기화
-        _scriptLaptop = gameObject.GetComponent<LaptopFaceController>();
-        if (_scriptLaptop != null) {
-            Debug.Log($"[{NAME}] Find `_scriptLaptop` successfully.");
-        } else {
-            Debug.LogWarning($"[{NAME}] Cannot find `_scriptLaptop`.");
-            res = false;
-        }
-
-        return res;
-    }
-
-    // `canInteract`를 갱신하는 메서드
-    private void UpdateCanInteract()
-    {
-        float distance = (objectCamera.transform.position - transform.position).magnitude;
-
-        canInteract = distance <= interactionRange;
     }
 
     // 이상현상을 초기화하는 메서드
-    private bool ResetAnomaly()
+    public override bool ResetAnomaly()
     {
-        bool res = true;
+        bool res = base.ResetAnomaly();
 
-        if (_scriptLaptop != null) {
-            _scriptLaptop.ResetScreen();
+        // 노트북 화면
+        if (_script != null) {
+            _script.ResetScreen();
+            Log("Reset laptop screen: success");
         } else {
+            Log("Reset laptop screen: failed", mode: 1);
             res = false;
         }
 
-        gameObject.layer = 0;  // 일반 레이어
+        // 노트북 레이어(0: 일반 레이어)
+        gameObject.layer = 0;
+        Log("Reset laptop layer: success");
+
+        // 실행 종료
+        enabled = false;
 
         return res;
     }

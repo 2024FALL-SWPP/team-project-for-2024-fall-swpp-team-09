@@ -1,110 +1,65 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Anomaly2Manager : MonoBehaviour
+public class Anomaly2Manager : SCH_AnomalyManager
 {
-    /*************
-     * constants *
-     *************/
-
-    private const string NAME = "Anomaly2Manager";
-
     /**********
      * fields *
      **********/
 
-    // 오브젝트의 이름
-    public string nameGameManager;
+    // 오브젝트 이름
     public string nameLaptop;
 
-    // 게임 메니저
-    private GameManager _manager;
+    // 오브젝트
+    private SCH_AnomalyObject _objectLaptop;
 
-    // 노트북 스크립트
-    private Anomaly2_Laptop _scriptLaptop;
+    /**************
+     * properties *
+     **************/
 
-    /**********************
-     * overridden methods *
-     **********************/
+    // 클래스 이름
+    public override string Name { get; } = "Anomaly2Manager";
 
-    // Start is called on the frame when a script is enabled just
-    // before any of the Update methods are called the first time.
-    void Start()
+    /*********************************
+     * implementation: SCH_Behaviour *
+     *********************************/
+
+    // 필드를 초기화하는 메서드
+    protected override bool InitFields()
     {
-        if (!InitFields()) {
-            return;
-        }
+        bool res = base.InitFields();
 
-        if (!SetAnomaly()) {
-            return;
-        }
-    }
-
-    /***************
-     * new methods *
-     ***************/
-
-    // 상호작용 성공 시 처리 메서드
-    public void InteractionSuccess()
-    {
-        _manager.SetStageClear();
-
-        if (!ResetAnomaly()) {
-            return;
-        }
-    }
-
-    // Private fields를 초기화하는 메서드
-    private bool InitFields()
-    {
-        bool res = true;
-
-        // `_manager` 초기화
-        _manager = GameObject.Find(nameGameManager).GetComponent<GameManager>();
-        if (_manager != null) {
-            Debug.Log($"[{NAME}] Find `_manager` successfully.");
+        // _objectLaptop
+        _objectLaptop = GameObject.Find(nameLaptop).GetComponent<SCH_AnomalyObject>();
+        if (_objectLaptop != null) {
+            _objects.Add(_objectLaptop);
+            Log("Initialize `_objectLaptop`: success");
         } else {
-            Debug.LogWarning($"[{NAME}] Cannot find `_manager`.");
-            res = false;
-        }
-
-        // `_scriptLaptop` 초기화
-        _scriptLaptop = GameObject.Find(nameLaptop).GetComponent<Anomaly2_Laptop>();
-        if (_scriptLaptop != null) {
-            Debug.Log($"[{NAME}] Find `_scriptLaptop` successfully.");
-        } else {
-            Debug.LogWarning($"[{NAME}] Cannot find `_scriptLaptop`.");
+            Log("Initialize `_objectLaptop`: failed", mode: 1);
             res = false;
         }
 
         return res;
     }
+
+    /**************************************
+     * implementation: SCH_AnomalyManager *
+     **************************************/
 
     // 이상현상을 시작하는 메서드
-    private bool SetAnomaly()
+    protected override bool SetAnomaly()
     {
-        bool res = true;
+        bool res = base.SetAnomaly();
 
         // 노트북 화면
-        if (_scriptLaptop != null) {
-            _scriptLaptop.enabled = true;
-            _scriptLaptop.Manager = this;
-            res &= _scriptLaptop.SetAnomaly();
+        if (_objectLaptop != null) {
+            _objectLaptop.enabled = true;
+            _objectLaptop.Manager = this;
+            Log("Set `_objectLaptop`: success");
         } else {
+            Log("Set `_objectLaptop`: failed", mode: 1);
             res = false;
         }
 
-        if (res) {
-            Debug.Log($"[{NAME}] Anomaly is set.");
-        }
-
         return res;
-    }
-
-    // 이상현상을 초기화하는 메서드
-    private bool ResetAnomaly()
-    {
-        return true;
     }
 }

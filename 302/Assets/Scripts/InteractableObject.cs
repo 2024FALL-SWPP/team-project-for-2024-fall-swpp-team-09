@@ -24,7 +24,9 @@ public class InteractableObject : MonoBehaviour, IInteractable
         Debug.Log($"Interacting with {gameObject.name}");
     }
 
-    public virtual bool CanInteract()
+    // modified by 신채환
+    // CanInteract 메서드가 거리를 인자로 받도록 변경
+    public virtual bool CanInteract(float distance)
     {
         return canInteract;
     }
