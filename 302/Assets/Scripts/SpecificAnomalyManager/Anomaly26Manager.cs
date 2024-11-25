@@ -8,7 +8,7 @@ public class Anomaly26Manager : MonoBehaviour
    [SerializeField] private GameObject firePrefab;
    [SerializeField] private int totalFiresToSpawn = 30;  
    [SerializeField] private int maxConcurrentFires = 15;  
-   [SerializeField] private float timeLimit = 30f;    
+   [SerializeField] private float timeLimit = 45f;    
    
    [Header("Audio Settings")]
    [SerializeField] private AudioSource backgroundMusic;  

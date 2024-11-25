@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallyGlasses : InteractableObject
+public class Anomaly14_WallyGlasses : InteractableObject
 {
     private bool hasInteracted = false; 
 
