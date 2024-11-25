@@ -11,6 +11,7 @@ public class AnomalyManager : MonoBehaviour
     private const int AnomalyCount = 8;                 // 사이즈 8
     private System.Random random = new System.Random();
     public bool checkSpecificAnomaly;
+    public bool checkIntersect;
     public int SpecificAnomalyNum;
     public GameObject currentAnomalyInstance;          // 현재 활성화된 이상현상 인스턴스
     // 하나의 AnomalyManager만 보장
@@ -48,7 +49,8 @@ public class AnomalyManager : MonoBehaviour
             }
             else
             {
-                anomaly = SpecificAnomalyNum;
+                if(checkIntersect && i%2==1) anomaly = 0;
+                else anomaly = SpecificAnomalyNum;
             }
             anomalyList.Add(anomaly);
         }
