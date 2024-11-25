@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Gun : InteractableObject
+public class Anomaly7_Gun : InteractableObject
 {
     [Header("Gun Settings")]
     [SerializeField] private Vector3 holdPosition = new Vector3(0.6f, 0f, 0.6f);
