@@ -7,18 +7,12 @@ public class SCH_AnomalyInteractable : SCH_AnomalyObject, IInteractable
      * fields *
      **********/
 
-    // 오브젝트 이름
-    public string nameCameraMain;
-
     // 가변 수치
     public string prompt;
     public float distanceInteractionMax;
 
-    // 오브젝트
-    protected GameObject _objectCameraMain;
-
     // 기타 수치
-    protected bool _canInteract;
+    protected bool canInteract;
 
     /**************
      * properties *
@@ -50,13 +44,13 @@ public class SCH_AnomalyInteractable : SCH_AnomalyObject, IInteractable
             Log("Call `Manager.InteractionSuccess`: failed", mode: 1);
         }
 
-        _canInteract = false;
+        canInteract = false;
     }
 
     // 현재 상호작용 가능한지 여부 반환
     public bool CanInteract(float distance)
     {
-        return _canInteract && distance <= distanceInteractionMax;
+        return canInteract && distance <= distanceInteractionMax;
     }
 
     /*********************************
@@ -68,18 +62,9 @@ public class SCH_AnomalyInteractable : SCH_AnomalyObject, IInteractable
     {
         bool res = base.InitFields();
 
-        // _objectCameraMain
-        _objectCameraMain = GameObject.Find(nameCameraMain);
-        if (_objectCameraMain != null) {
-            Log("Initialize `_objectCameraMain`: success");
-        } else {
-            Log("Initialize `_objectCameraMain`: failed", mode: 1);
-            res = false;
-        }
-
-        // _canInteract
-        _canInteract = true;
-        Log("Initialize `_canInteract`: success");
+        // canInteract
+        canInteract = true;
+        Log("Initialize `canInteract`: success");
 
         return res;
     }

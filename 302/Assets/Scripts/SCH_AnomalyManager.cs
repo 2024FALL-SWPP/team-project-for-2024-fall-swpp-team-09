@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SCH_AnomalyManager : SCH_Behaviour
+public class SCH_AnomalyManager : SCH_AnomalyObject
 {
     /**********
      * fields *
      **********/
 
     // 이상현상 오브젝트 리스트
-    protected List<SCH_AnomalyObject> _objects;
+    protected List<SCH_AnomalyObject> objects;
 
     /**************
      * properties *
@@ -16,23 +16,6 @@ public class SCH_AnomalyManager : SCH_Behaviour
 
     // 클래스 이름
     public override string Name { get; } = "SCH_AnomalyManager";
-
-    /************
-     * messeges *
-     ************/
-
-    // This function is called when the object becomes enabled and active.
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-
-        Log("Call `SetAnomaly` begin");
-        if (SetAnomaly()) {
-            Log("Call `SetAnomaly` end: success");
-        } else {
-            Log("Call `SetAnomaly` end: failed", mode: 1);
-        }
-    }
 
     /*********************************
      * implementation: SCH_Behaviour *
@@ -43,9 +26,35 @@ public class SCH_AnomalyManager : SCH_Behaviour
     {
         bool res = base.InitFields();
 
-        // _objects
-        _objects = new List<SCH_AnomalyObject>();
-        Log("Initialize `_objects`: success");
+        // Manager
+        Manager = this;
+        Log("Initialize `Manager`: success");
+
+        // objects
+        objects = new List<SCH_AnomalyObject>();
+        Log("Initialize `objects`: success");
+
+        return res;
+    }
+
+    /*************************************
+     * implementation: SCH_AnomalyObject *
+     *************************************/
+
+    // 이상현상을 초기화하는 메서드
+    public override bool ResetAnomaly()
+    {
+        bool res = base.ResetAnomaly();
+
+        foreach (SCH_AnomalyObject obj in objects) {
+            Log("Call `obj.ResetAnomaly` begin");
+            if (obj.ResetAnomaly()) {
+                Log("Call `obj.ResetAnomaly` end: success");
+            } else {
+                Log("Call `obj.ResetAnomaly` end: failed", mode: 1);
+                res = false;
+            }
+        }
 
         return res;
     }
@@ -69,30 +78,6 @@ public class SCH_AnomalyManager : SCH_Behaviour
         } else {
             Log("Call `ResetAnomaly` end: failed", mode: 1);
             res = false;
-        }
-
-        return res;
-    }
-
-    // 이상현상을 시작하는 메서드
-    protected virtual bool SetAnomaly()
-    {
-        return true;
-    }
-
-    // 이상현상을 초기화하는 메서드
-    protected virtual bool ResetAnomaly()
-    {
-        bool res = true;
-
-        foreach (SCH_AnomalyObject obj in _objects) {
-            Log("Call `obj.ResetAnomaly` begin");
-            if (obj.ResetAnomaly()) {
-                Log("Call `obj.ResetAnomaly` end: success");
-            } else {
-                Log("Call `obj.ResetAnomaly` end: failed", mode: 1);
-                res = false;
-            }
         }
 
         return res;

@@ -46,7 +46,7 @@ public class Anomaly1Manager : SCH_AnomalyManager
             SCH_AnomalyObject obj = Instantiate(prefabGirl).GetComponent<SCH_AnomalyObject>();
 
             obj.Manager = this;
-            _objects.Add(obj);
+            objects.Add(obj);
             Log("Set `prefabGirl`: success");
         } else {
             Log("Set `prefabGirl`: failed", mode: 1);
