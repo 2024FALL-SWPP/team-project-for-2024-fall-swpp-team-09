@@ -1,24 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Anomaly23_Ghost : MonoBehaviour
+[RequireComponent(typeof(Animator))]
+public class Anomaly23_Ghost : SCH_AnomalyObject
 {
-    /*************
-     * constants *
-     *************/
-
-    private const string NAME = "Anomaly23Manager";
-
     /**********
      * fields *
      **********/
 
-    // 오브젝트의 이름
+    // 오브젝트 이름
     public string namePlayer;
     public string nameCamera;
 
-    // 수치
+    // 가변 수치
     public Vector3 position;
     public float speedInit;
     public float speedDelta;
@@ -32,45 +26,33 @@ public class Anomaly23_Ghost : MonoBehaviour
     private GameObject _objectPlayer;
     private GameObject _objectCamera;
 
-    // 수치
+    // 내부 수치
     private float _timeStart;
-
-    // 플래그
     private bool _isChasing;
 
     /**************
      * properties *
      **************/
 
-    public Anomaly23Manager Manager { get; set; }
+    public override string Name { get; } = "Anomaly23_Ghost";
 
-    /**********************
-     * overridden methods *
-     **********************/
-
-    // Start is called on the frame when a script is enabled just
-    // before any of the Update methods are called the first time.
-    void Start()
-    {
-        if (!InitFields()) {
-            return;
-        }
-
-        transform.position = position;
-    }
+    /************
+     * messages *
+     ************/
 
     // OnCollisionEnter is called when this collider/rigidbody
     // has begun touching another rigidbody/collider.
     void OnCollisionEnter(Collision other)
     {
         if (other.collider.CompareTag("Player") && _isChasing) {
-            PlayerController scriptPlayer = _objectPlayer.GetComponent<PlayerController>();
+            PlayerController script = _objectPlayer.GetComponent<PlayerController>();
 
-            if (scriptPlayer != null) {
-                Debug.Log($"[{NAME}] Find `scriptPlayer` successfully.");
-                scriptPlayer.GameOver();
+            if (script != null) {
+                Log("Call `script.GameOver` begin");
+                script.GameOver();
+                Log("Call `script.GameOver` end");
             } else {
-                Debug.LogWarning($"[{NAME}] Cannot find `scriptPlayer`.");
+                Log("Call `script.GameOver`: failed", mode: 1);
             }
         }
     }
@@ -92,72 +74,94 @@ public class Anomaly23_Ghost : MonoBehaviour
                 _animator.SetFloat("Speed", speed);
             } else {
                 _isChasing = false;
+
+                Log("Call `Manager.InteractionSuccess` begin");
                 Manager.InteractionSuccess();
-                StartCoroutine(FadeAsync());
+                Log("Call `Manager.InteractionSuccess` end");
+
+                Log("Call `BlowAsync` asynchronously");
+                StartCoroutine(BlowAsync());
             }
         }
     }
 
-    /***************
-     * new methods *
-     ***************/
+    /*********************************
+     * implementation: SCH_Behaviour *
+     *********************************/
 
-    // Private fields를 초기화하는 메서드
-    private bool InitFields()
+    // 필드를 초기화하는 메서드
+    protected override bool InitFields()
     {
-        bool res = true;
+        bool res = base.InitFields();
 
-        // `_animator` 초기화
-        _animator = gameObject.GetComponent<Animator>();
+        // _animator
+        _animator = GetComponent<Animator>();
         if (_animator != null) {
-            Debug.Log($"[{NAME}] Find `_animator` successfully.");
+            Log("Initialize `_animator`: success");
         } else {
-            Debug.LogWarning($"[{NAME}] Cannot find `_animator`.");
+            Log("Initialize `_animator`: failed", mode: 1);
             res = false;
         }
 
-        // `_objectPlayer` 초기화
+        // _objectPlayer
         _objectPlayer = GameObject.Find(namePlayer);
         if (_objectPlayer != null) {
-            Debug.Log($"[{NAME}] Find `_objectPlayer` successfully.");
+            Log("Initialize `_objectPlayer`: success");
         } else {
-            Debug.LogWarning($"[{NAME}] Cannot find `_objectPlayer`.");
+            Log("Initialize `_objectPlayer`: failed", mode: 1);
             res = false;
         }
 
-        // `_objectCamera` 초기화
+        // _objectCamera
         _objectCamera = GameObject.Find(nameCamera);
         if (_objectCamera != null) {
-            Debug.Log($"[{NAME}] Find `_objectCamera` successfully.");
+            Log("Initialize `_objectCamera`: success");
         } else {
-            Debug.LogWarning($"[{NAME}] Cannot find `_objectCamera`.");
+            Log("Initialize `_objectCamera`: failed", mode: 1);
             res = false;
         }
 
-        // `_timeStart` 초기화
+        // _timeStart
         _timeStart = Time.time;
-        Debug.Log($"[{NAME}] Initialize `_timeStart` successfully: {_timeStart}.");
+        Log($"Initialize `_timeStart`: success: {_timeStart}");
 
-        // `_isChasing` 초기화
+        // _isChasing
         _isChasing = true;
-        Debug.Log($"[{NAME}] Initialize `_isChasing` successfully: {_isChasing}.");
+        Log("Initialize `_isChasing`: success");
 
         return res;
     }
 
-    // 소멸 메서드
-    private IEnumerator FadeAsync()
+    /*************************************
+     * implementation: SCH_AnomalyObject *
+     *************************************/
+
+    // 이상현상을 시작하는 메서드
+    protected override bool SetAnomaly()
     {
-        Renderer[] renderers = gameObject.GetComponentsInChildren<Renderer>();
-        GhostRandom myRandom = new GhostRandom();
+        bool res = base.SetAnomaly();
+
+        transform.position = position;
+        Log("Set position: success");
+
+        return res;
+    }
+
+    /***********
+     * methods *
+     ***********/
+
+    // 지속시간 동안 바람빠지다가 사라지는 메서드
+    private IEnumerator BlowAsync()
+    {
+        SCH_Random random = new SCH_Random();
         float timeStart = Time.time;
         float time;
-        float scale;
 
         yield return new WaitForSeconds(0.1f);
 
         while ((time = Time.time - timeStart) < durationFade) {
-            scale = (float)(myRandom.LogNormalDist(0.0, 1.0) * 2.0);
+            float scale = (float)(random.LogNormalDist(0.0, 1.0) * 1.5);
 
             transform.rotation = Random.rotation;
             transform.localScale = new Vector3(scale, scale, scale);
@@ -166,36 +170,5 @@ public class Anomaly23_Ghost : MonoBehaviour
         }
 
         Destroy(gameObject);
-    }
-}
-
-// 난수 클래스
-class GhostRandom : System.Random
-{
-    private double NORMAL_MAGICCONST = 4.0 * System.Math.Exp(-0.5) / System.Math.Sqrt(2.0);
-
-    // implement methods with python's implementation
-    // https://github.com/python/cpython/blob/3.13/Lib/random.py
-
-    public double NormalDist(double mu = 0.0, double sigma = 0.0)
-    {
-        double u1, u2, z, zz;
-
-        while (true) {
-            u1 = Sample();
-            u2 = 1.0 - Sample();
-            z = NORMAL_MAGICCONST * (u1 - 0.5) / u2;
-            zz = z * z / 4.0;
-            if (zz <= -System.Math.Log(u2)) {
-                break;
-            }
-        }
-
-        return mu + z * sigma;
-    }
-
-    public double LogNormalDist(double mu, double sigma)
-    {
-        return System.Math.Exp(NormalDist(mu, sigma));
     }
 }

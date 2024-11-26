@@ -1,15 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SlideManager : MonoBehaviour
+public class SlideManager : SCH_Behaviour
 {
-    /*************
-     * constants *
-     *************/
-
-    private const string NAME = "SlideManager";
-
     /**********
      * fields *
      **********/
@@ -23,7 +15,7 @@ public class SlideManager : MonoBehaviour
     public int numStage;
 
     // 무작위성
-    private SlideRandom _random;
+    private SCH_Random _random;
 
     // 오브젝트
     private GameObject _objectLeft;
@@ -40,11 +32,15 @@ public class SlideManager : MonoBehaviour
      * properties *
      **************/
 
+    // 클래스 인자
     public static SlideManager Instance { get; private set; }
 
-    /**********************
-     * overridden methods *
-     **********************/
+    // 클래스 이름
+    public override string Name { get; } = "SlideManager";
+
+    /************
+     * messages *
+     ************/
 
     // Unity calls Awake when an enabled script instance is being loaded.
     private void Awake()
@@ -63,6 +59,35 @@ public class SlideManager : MonoBehaviour
         }
     }
 
+    /*********************************
+     * implementation: SCH_Behaviour *
+     *********************************/
+
+    // 필드를 초기화하는 메서드
+    protected override bool InitFields()
+    {
+        bool res = base.InitFields();
+
+        // _random
+        _random = new SCH_Random();
+        Log("Initialize `_random`: success");
+
+        // 슬라이드 초기화
+        Log("Call `FindSlides` begin");
+        if (FindSlides()) {
+            Log("Call `FindSlides` end: success");
+        } else {
+            Log("Call `FindSlides` end: failed", mode: 1);
+            res = false;
+        }
+
+        // _slideList
+        _slideList = new int[numStage];
+        Log("Initialize `_slideList`: success");
+
+        return res;
+    }
+
     /***************
      * new methods *
      ***************/
@@ -71,7 +96,7 @@ public class SlideManager : MonoBehaviour
     public void InitSlideList()
     {
         _slideList = _random.Combination(numSlide, numStage);
-        Debug.Log($"[{NAME}] Set `_slideList`: [{string.Join(", ", _slideList)}]");
+        Log($"Set `_slideList`: success: [{string.Join(", ", _slideList)}]");
     }
 
     // 슬라이드를 초기화하는 메서드
@@ -87,7 +112,7 @@ public class SlideManager : MonoBehaviour
                 _controllerLeft.ResetSlide();
                 _controllerRight.ResetSlide();
 
-                Debug.Log($"[{NAME}] Set slides with No. {index} slide.");
+                Log($"Set slide: success: {index}");
             } else {
                 _objectLeft.SetActive(false);
                 _objectRight.SetActive(false);
@@ -95,34 +120,7 @@ public class SlideManager : MonoBehaviour
         }
     }
 
-    // Private fields를 초기화하는 메서드
-    //
-    // 반환 값
-    // - true: 초기화 성공
-    // - false: 초기화 실패
-    private bool InitFields()
-    {
-        bool res = true;
-
-        // `_random` 초기화
-        _random = new SlideRandom();
-        Debug.Log($"[{NAME}] Initialized `_random` successfully.");
-
-        // 슬라이드 초기화
-        res &= FindSlides();
-
-        // `_slideList` 초기화
-        _slideList = new int[numStage];
-        Debug.Log($"[{NAME}] Initialized `_slideList` successfully.");
-
-        return res;
-    }
-
     // 슬라이드를 찾는 메서드
-    //
-    // 반환 값
-    // - true: 찾기 성공
-    // - false: 찾기 실패
     private bool FindSlides()
     {
         bool res = true;
@@ -130,70 +128,39 @@ public class SlideManager : MonoBehaviour
         // `_objectLeft` 찾기
         _objectLeft = GameObject.Find(nameLeft);
         if (_objectLeft != null) {
-            Debug.Log($"[{NAME}] Find `_objectLeft` successfully.");
+            Log("Find `_objectLeft`: success");
         } else {
-            Debug.LogWarning($"[{NAME}] Cannot find `_objectLeft`.");
+            Log("Find `_objectLeft`: failed", mode: 1);
             res = false;
         }
 
         // `_controllerLeft` 찾기
         _controllerLeft = _objectLeft.GetComponent<SlideController>();
         if (_controllerLeft != null) {
-            Debug.Log($"[{NAME}] Find `_controllerLeft` successfully.");
+            Log("Find `_controllerLeft`: success");
         } else {
-            Debug.LogWarning($"[{NAME}] Cannot find `_controllerLeft`.");
+            Log("Find `_controllerLeft`: failed", mode: 1);
             res = false;
         }
 
         // `_objectRight` 찾기
         _objectRight = GameObject.Find(nameRight);
         if (_objectRight != null) {
-            Debug.Log($"[{NAME}] Find `_objectRight` successfully.");
+            Log("Find `_objectRight`: success");
         } else {
-            Debug.LogWarning($"[{NAME}] Cannot find `_objectRight`.");
+            Log("Find `_objectRight`: failed", mode: 1);
             res = false;
         }
 
         // `_controllerRight` 찾기
         _controllerRight = _objectRight.GetComponent<SlideController>();
         if (_controllerRight != null) {
-            Debug.Log($"[{NAME}] Find `_controllerRight` successfully.");
+            Log("Find `_controllerRight`: success");
         } else {
-            Debug.LogWarning($"[{NAME}] Cannot find `_controllerRight`.");
+            Log("Find `_controllerRight`: failed", mode: 1);
             res = false;
         }
 
         return res;
-    }
-}
-
-// 무작위 조합을 생성하는 클래스
-class SlideRandom : System.Random
-{
-    // 무작위 조합을 생성하는 메서드
-    public int[] Combination(int n, int r)
-    {
-        int[] candidates = new int[n];
-        int[] result = new int[r];
-
-        for (int i = 0; i < n; i++) {
-            candidates[i] = i;
-        }
-
-        for (int i = 0; i < r; i++) {
-            int index = Next(i, n);
-
-            result[i] = candidates[index];
-            if (index != i) {
-                int tmp = candidates[i];
-
-                candidates[i] = candidates[index];
-                candidates[index] = tmp;
-            }
-        }
-
-        System.Array.Sort(result);
-
-        return result;
     }
 }

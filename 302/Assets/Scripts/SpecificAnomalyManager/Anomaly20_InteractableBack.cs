@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Anomaly20_InteractableBack : Anomaly20_Interactable
@@ -8,21 +6,28 @@ public class Anomaly20_InteractableBack : Anomaly20_Interactable
      * fields *
      **********/
 
-    // `z` 좌표 범위
+    // 가변 수치
     public float zMin;
     public float zMax;
 
-    // `x` 좌표
+    // 내부 수치
     private float _x;
 
-    /**********************
-     * overridden methods *
-     **********************/
+    /**************
+     * properties *
+     **************/
+
+    // 클래스 이름
+    public override string Name { get; } = "Anomaly20_InteractableBack";
+
+    /************
+     * messages *
+     ************/
 
     // Update is called every frame, if the MonoBehaviour is enabled.
     void Update()
     {
-        float z = _objectPlayer.transform.position.z;
+        float z = objectPlayer.transform.position.z;
 
         if (z >= zMin && z <= zMax) {
             transform.position = new Vector3(_x, transform.position.y, z);
@@ -31,16 +36,18 @@ public class Anomaly20_InteractableBack : Anomaly20_Interactable
         }
     }
 
-    // Protected fields를 초기화하는 함수
-    //
-    // 반환 값
-    // - true: 초기화 성공
-    // - false: 초기화 실패
+    /*********************************
+     * implementation: SCH_Behaviour *
+     *********************************/
+
+    // 필드를 초기화하는 메서드
     protected override bool InitFields()
     {
         bool res = base.InitFields();
 
-        _x = _objectBoard.transform.position.x + 0.01f;
+        // _x
+        _x = objectBoard.transform.position.x + 0.01f;
+        Log("Initialize `_x`: success");
 
         return res;
     }

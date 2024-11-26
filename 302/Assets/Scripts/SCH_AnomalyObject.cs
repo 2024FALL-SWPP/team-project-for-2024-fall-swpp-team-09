@@ -13,7 +13,7 @@ public class SCH_AnomalyObject : SCH_Behaviour
     public SCH_AnomalyManager Manager { get; set; }
 
     /************
-     * messeges *
+     * messages *
      ************/
 
     // This function is called when the object becomes enabled and active.

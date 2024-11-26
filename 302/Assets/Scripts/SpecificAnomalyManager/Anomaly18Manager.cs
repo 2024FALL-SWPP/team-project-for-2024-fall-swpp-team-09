@@ -36,7 +36,7 @@ public class Anomaly18Manager : SCH_AnomalyManager
         // _objectWall
         _objectWall = GameObject.Find(nameWall).GetComponent<SCH_AnomalyObject>();
         if (_objectWall != null) {
-            _objects.Add(_objectWall);
+            objects.Add(_objectWall);
             Log("Initialize `_objectWall`: success");
         } else {
             Log("Initialize `_objectWall`: failed", mode: 1);
@@ -46,7 +46,7 @@ public class Anomaly18Manager : SCH_AnomalyManager
         // _objectClock
         _objectClock = GameObject.Find(nameClock).GetComponent<SCH_AnomalyObject>();
         if (_objectClock != null) {
-            _objects.Add(_objectClock);
+            objects.Add(_objectClock);
             Log("Initialize `_objectClock`: success");
         } else {
             Log("Initialize `_objectClock`: failed", mode: 1);
@@ -90,7 +90,7 @@ public class Anomaly18Manager : SCH_AnomalyManager
             SCH_AnomalyObject obj = Instantiate(prefab).GetComponent<SCH_AnomalyObject>();
 
             obj.Manager = this;
-            _objects.Add(obj);
+            objects.Add(obj);
             Log($"Set `{prefab.name}`: success");
         }
 

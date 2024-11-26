@@ -31,7 +31,7 @@ public class Anomaly2Manager : SCH_AnomalyManager
         // _objectLaptop
         _objectLaptop = GameObject.Find(nameLaptop).GetComponent<SCH_AnomalyObject>();
         if (_objectLaptop != null) {
-            _objects.Add(_objectLaptop);
+            objects.Add(_objectLaptop);
             Log("Initialize `_objectLaptop`: success");
         } else {
             Log("Initialize `_objectLaptop`: failed", mode: 1);
