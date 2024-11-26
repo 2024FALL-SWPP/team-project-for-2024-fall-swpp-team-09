@@ -37,6 +37,9 @@ public class AnomalyManager : MonoBehaviour
     private void GenerateAnomalyList()
     {
         anomalyList.Clear();
+        HashSet<int> uniqueNumbers = new HashSet<int>();
+        bool hasHighAnomaly = false;
+
         for (int i = 0; i < AnomalyCount; i++)
         {
             int anomaly;
@@ -45,7 +48,13 @@ public class AnomalyManager : MonoBehaviour
                 do
                 {
                     anomaly = GenerateRandomAnomaly();
-                } while (i > 0 && anomaly == anomalyList[i - 1]); // 연속 방지
+                } while (i > 0 && anomaly == anomalyList[i - 1] // 연속 방지
+                        || (anomaly != 0 && !uniqueNumbers.Add(anomaly))); // 중복 방지
+                
+                if (anomaly >= 21)
+                {
+                    hasHighAnomaly = true;
+                }
             }
             else
             {
@@ -54,13 +63,20 @@ public class AnomalyManager : MonoBehaviour
             }
             anomalyList.Add(anomaly);
         }
+
+        if(!hasHighAnomaly)
+        {
+            int randomIndex = random.Next(0, AnomalyCount);
+            int highAnomaly = random.Next(21, 32);
+            anomalyList[randomIndex] = highAnomaly;
+        }
         Debug.Log($"[AnomalyManager] Generated Anomaly List: {string.Join(", ", anomalyList)}");
         CheckAndInstantiateAnomaly();
     }
-    // 50% 확률로 0, 나머지 확률로 1~31의 이상현상을 생성
+    // 20% 확률로 0, 나머지 확률로 1~31의 이상현상을 생성
     private int GenerateRandomAnomaly()
     {
-        return random.Next(0, 100) < 50 ? 0 : random.Next(1, 31);
+        return random.Next(0, 100) < 20 ? 0 : random.Next(1, 31);
     }
     // 현재 스테이지에 맞는 이상현상을 로드
     public void CheckAndInstantiateAnomaly()
