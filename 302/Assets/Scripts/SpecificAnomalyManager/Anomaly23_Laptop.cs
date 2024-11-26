@@ -1,30 +1,27 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SlideController))]
-public class Anomaly19_Slide : SCH_AnomalyInteractable
+[RequireComponent(typeof(LaptopScreenController))]
+public class Anomaly23_Laptop : SCH_AnomalyObject
 {
     /**********
      * fields *
      **********/
 
-    // 오브젝트
-    public GameObject objectCamera;
-
     // 가변 수치
-    public float thresholdDistance;
+    public int anomalyScreenIndex;
 
-    // 슬라이드 컨트롤러
-    private SlideController _script;
+    // 노트북 컨트롤러
+    private LaptopScreenController _script;
 
     // 내부 수치
-    private bool _isTrickling;
+    private int _index;
 
     /**************
      * properties *
      **************/
 
     // 클래스 이름
-    public override string Name { get; } = "Anomaly19_Slide";
+    public override string Name { get; } = "Anomaly23_Laptop";
 
     /************
      * messages *
@@ -33,9 +30,8 @@ public class Anomaly19_Slide : SCH_AnomalyInteractable
     // Update is called every frame, if the MonoBehaviour is enabled.
     void Update()
     {
-        if (!_isTrickling && DistanceToCamera() <= thresholdDistance) {
-            _script.StartTrickling();
-            _isTrickling = true;
+        if (_script != null && _script.Index != anomalyScreenIndex) {
+            _script.ChangeScreen(anomalyScreenIndex);
         }
     }
 
@@ -49,7 +45,7 @@ public class Anomaly19_Slide : SCH_AnomalyInteractable
         bool res = base.InitFields();
 
         // _script
-        _script = GetComponent<SlideController>();
+        _script = GetComponent<LaptopScreenController>();
         if (_script != null) {
             Log("Initialize `_script`: success");
         } else {
@@ -57,9 +53,9 @@ public class Anomaly19_Slide : SCH_AnomalyInteractable
             res = false;
         }
 
-        // _isTrickling
-        _isTrickling = false;
-        Log("Initialize `_isTrickling`: success");
+        // _index
+        _index = 0;
+        Log("Initialize `_index`: success");
 
         return res;
     }
@@ -73,9 +69,15 @@ public class Anomaly19_Slide : SCH_AnomalyInteractable
     {
         bool res = base.SetAnomaly();
 
-        // 슬라이드 레이어(3: 상호작용 레이어)
-        gameObject.layer = 3;
-        Log("Set slide layer: success");
+        // 노트북 화면
+        if (_script != null) {
+            _index = _script.Index;
+            _script.ChangeScreen(anomalyScreenIndex);
+            Log("Set laptop screen: success");
+        } else {
+            Log("Set laptop screen: failed", mode: 1);
+            res = false;
+        }
 
         return res;
     }
@@ -85,28 +87,18 @@ public class Anomaly19_Slide : SCH_AnomalyInteractable
     {
         bool res = base.ResetAnomaly();
 
-        // 슬라이드 레이어(0: 일반 레이어)
-        gameObject.layer = 0;
-        Log("Reset slide layer: success");
-
-        // 슬라이드 화면
-        Log("Call `_script.ResetSlide` begin");
-        _script.ResetSlide();
-        Log("Call `_script.ResetSlide` end: success");
+        // 노트북 화면
+        if (_script != null) {
+            _script.ChangeScreen(_index);
+            Log("Reset laptop screen: success");
+        } else {
+            Log("Reset laptop screen: failed", mode: 1);
+            res = false;
+        }
 
         // 실행 종료
         enabled = false;
 
         return res;
-    }
-
-    /***********
-     * methods *
-     ***********/
-
-    // 카메라와의 거리를 구하는 메서드
-    private float DistanceToCamera()
-    {
-        return (objectCamera.transform.position - transform.position).magnitude;
     }
 }

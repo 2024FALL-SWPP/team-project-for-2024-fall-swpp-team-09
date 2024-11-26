@@ -4919,6 +4919,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1809372938388778512, guid: 474138867ca9be144953fa0ca636b7c9, type: 3}
   m_PrefabInstance: {fileID: 241118524}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &243047807 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6482429499626390066, guid: e98bfaaf0938845d098edce033f7e7a2, type: 3}
+  m_PrefabInstance: {fileID: 2208074503459508080}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &243047810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243047807}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d755543348868a045964c1da73713696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anomalyScreenIndex: 12
 --- !u!1001 &245510671
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22951,9 +22969,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2960778f4e9343349a587d3d39be1a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
-  interactionRange: 2
-  nameCamera: Main Camera
+  prompt: 
+  distanceInteractionMax: 0
+  objectCamera: {fileID: 0}
   thresholdDistance: 10
 --- !u!1001 &1027390622
 PrefabInstance:
@@ -40988,7 +41006,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18e2c46eaa68afe458ec364512f84534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameCameraMain: Main Camera
   prompt: 
   distanceInteractionMax: 5
 --- !u!65 &1875637180

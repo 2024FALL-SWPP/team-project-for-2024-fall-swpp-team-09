@@ -773,9 +773,9 @@ MonoBehaviour:
   namePlayer: Player
   nameCamera: Main Camera
   position: {x: 24, y: 2, z: 0}
-  speedInit: 2
-  speedDelta: 4
-  durationChase: 20
+  speedInit: 1
+  speedDelta: 5
+  durationChase: 25
   durationFade: 5
 --- !u!1 &6612614341887459618
 GameObject:

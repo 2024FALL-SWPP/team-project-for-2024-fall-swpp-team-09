@@ -132,6 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   namePlayer: Player
+  duration: 2
 --- !u!1 &3565635857044313825
 GameObject:
   m_ObjectHideFlags: 0

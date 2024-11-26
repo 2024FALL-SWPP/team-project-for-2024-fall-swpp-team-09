@@ -10,7 +10,7 @@ public class SCH_Behaviour : MonoBehaviour
     public virtual string Name { get; } = "SCH_Behaviour";
 
     /************
-     * messeges *
+     * messages *
      ************/
 
     // This function is called when the object becomes enabled and active.
