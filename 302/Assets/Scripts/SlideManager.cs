@@ -112,7 +112,7 @@ public class SlideManager : SCH_Behaviour
                 _controllerLeft.ResetSlide();
                 _controllerRight.ResetSlide();
 
-                Log("Set slide: success: {index}");
+                Log($"Set slide: success: {index}");
             } else {
                 _objectLeft.SetActive(false);
                 _objectRight.SetActive(false);
