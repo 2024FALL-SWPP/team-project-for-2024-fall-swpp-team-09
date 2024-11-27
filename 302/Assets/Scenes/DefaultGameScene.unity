@@ -1261,7 +1261,6 @@ MonoBehaviour:
   defaultXMax: 960
   defaultYMin: 0
   defaultYMax: 540
-  isFlipped: 0
 --- !u!1001 &82428849
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8383,7 +8382,6 @@ MonoBehaviour:
   defaultXMax: 960
   defaultYMin: 0
   defaultYMax: 540
-  isFlipped: 0
 --- !u!1001 &379039655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16199,7 +16197,6 @@ MonoBehaviour:
   defaultXMax: 960
   defaultYMin: 0
   defaultYMax: 540
-  isFlipped: 0
 --- !u!1001 &731527619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22970,7 +22967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: 
-  distanceInteractionMax: 0
+  distanceInteractionMax: 4
   objectCamera: {fileID: 0}
   thresholdDistance: 10
 --- !u!1001 &1027390622
@@ -43939,7 +43936,6 @@ MonoBehaviour:
   defaultXMax: 960
   defaultYMin: 0
   defaultYMax: 540
-  isFlipped: 0
 --- !u!1001 &2000714622
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47615,7 +47611,6 @@ MonoBehaviour:
   defaultXMax: 960
   defaultYMin: 0
   defaultYMax: 540
-  isFlipped: 0
 --- !u!23 &2527128357563912376
 MeshRenderer:
   m_ObjectHideFlags: 0
