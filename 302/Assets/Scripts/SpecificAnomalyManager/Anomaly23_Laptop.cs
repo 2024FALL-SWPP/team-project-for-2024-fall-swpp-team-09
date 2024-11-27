@@ -31,6 +31,7 @@ public class Anomaly23_Laptop : SCH_AnomalyObject
     void Update()
     {
         if (_script != null && _script.Index != anomalyScreenIndex) {
+            _index = _script.Index;
             _script.ChangeScreen(anomalyScreenIndex);
         }
     }
