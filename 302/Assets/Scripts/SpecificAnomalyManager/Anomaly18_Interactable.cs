@@ -1,40 +1,83 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Anomaly18_Interactable : InteractableObject, IInteractable
+public class Anomaly18_Interactable : SCH_AnomalyInteractable
 {
-    /*************
-     * constants *
-     *************/
-
-    private string NAME = "Anomaly18_Interactable";
-
     /**********
      * fields *
      **********/
 
-    // 해당 오브젝트를 생성한 이상현상 매니저
-    public Anomaly18Manager Manager { get; set; }
+    // 가변 수치
+    public float duration;
 
-    /**********************
-     * overridden methods *
-     **********************/
+    /**************
+     * properties *
+     **************/
 
-    // 상호작용 시 실행될 메서드
-    public override void OnInteract()
+    // 클래스 이름
+    public override string Name { get; } = "Anomaly18_Prefab";
+
+    /*************************************
+     * implementation: SCH_AnomalyObject *
+     *************************************/
+
+    // 이상현상을 초기화하는 메서드
+    public override bool ResetAnomaly()
     {
-        if (canInteract) {
-            canInteract = false;
+        bool res = base.ResetAnomaly();
 
-            base.OnInteract();
+        Log("Call `FadeAsync` asynchronously");
+        StartCoroutine(FadeAsync());
 
-            if (Manager != null) {
-                Debug.Log($"[{NAME}] Call `Anomaly18Manager.InteractionSuccess`");
-                Manager.InteractionSuccess();
-            } else {
-                Debug.LogWarning($"[{NAME}] `Manager` is not set.");
+        return res;
+    }
+
+    /***********
+     * methods *
+     ***********/
+
+    // 지속시간 동안 투명해지다가 사라지는 메서드
+    private IEnumerator FadeAsync()
+    {
+        Collider[] colliders = GetComponentsInChildren<Collider>();
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        Color color;
+        float timeStart = Time.time;
+        float time, alpha;
+
+        foreach (Collider collider in colliders) {
+            collider.enabled = false;
+        }
+
+        foreach (Renderer renderer in renderers) {
+            foreach (Material material in renderer.materials) {
+                material.renderQueue = 3000;
+                material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                material.DisableKeyword("_ALPHATEST_ON");
+                material.EnableKeyword("_ALPHABLEND_ON");
+                material.SetFloat("_Mode", 2);
+                material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                material.SetInt("_ZWrite", 0);
             }
         }
+
+        yield return null;
+
+        while ((time = Time.time - timeStart) < duration) {
+            alpha = 1.0f - time / duration;
+
+            foreach (Renderer renderer in renderers) {
+                foreach (Material material in renderer.materials) {
+                    color = material.color;
+                    color.a = alpha;
+                    material.color = color;
+                }
+            }
+
+            yield return null;
+        }
+
+        Destroy(gameObject);
     }
 }

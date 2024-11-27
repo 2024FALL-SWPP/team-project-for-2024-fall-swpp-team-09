@@ -148,12 +148,18 @@ public class PlayerController : MonoBehaviour
             stepTimer = 0f;
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.I))
         {
             Sleep(); 
         }
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.O))
         {
+            GameManager.Instance.SetStageClear();  // 스테이지 클리어 설정
+            Sleep();  // 잠자기
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            GameManager.Instance.SetCurrentStage(8);
             GameManager.Instance.SetStageClear();  // 스테이지 클리어 설정
             Sleep();  // 잠자기
         }

@@ -1,15 +1,20 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
-public class SlideController : MonoBehaviour
+public class SlideController : SCH_Behaviour
 {
-    // fields
+    /**********
+     * fields *
+     **********/
+
+    // 텍스처
     public Texture2D slideTexture;
     public Texture2D[] defaultTextures;
 
-    private MyRandom _myRandom;
+    // 난수
+    private SCH_Random _random;
+
+    // 내부 수치
     private List<int> _trickleXMinList;
     private List<int> _trickleXMaxList;
     private List<float> _trickleYPrevList;
@@ -18,11 +23,14 @@ public class SlideController : MonoBehaviour
 
     private bool _isTrickling;
 
-    private int _inputCountMax;
-    private int _inputCount;
-    private int _inputIndex;
+    /**************
+     * properties *
+     **************/
 
-    // properties
+    // 클래스 이름
+    public override string Name { get; } = "SlideController";
+
+    // 화면 색인
     private int _index = 0;
     public int Index {
         get => _index;
@@ -35,37 +43,56 @@ public class SlideController : MonoBehaviour
         }
     }
 
-    // overridden methods
-    void Start()
-    {
-        // init. fields for trickling
-        _trickleXMinList = new List<int>();
-        _trickleXMaxList = new List<int>();
-        _trickleYPrevList = new List<float>();
-        _trickleYCurrList = new List<float>();
-        _trickleSpeedList = new List<int>();
-        _myRandom = new MyRandom();
+    /************
+     * messages *
+     ************/
 
-        _isTrickling = false;
-
-        // init. fields for changing slides (no need for implementing the game)
-        _inputCountMax = 0;
-        for (int l = defaultTextures.Length; l > 0; l /= 10) {
-            _inputCountMax++;
-        }
-
-        _inputCount = 0;
-        _inputIndex = 0;
-
-        ResetSlide();
-    }
-
+    // Update is called every frame, if the MonoBehaviour is enabled.
     void Update()
     {
         UpdateTrickling();
     }
 
-    // new methods
+    /********************************
+     * implmentation: SCH_Behaviour *
+     ********************************/
+
+    // 필드를 초기화하는 메서드
+    protected override bool InitFields()
+    {
+        bool res = base.InitFields();
+
+        // 난수
+        _random = new SCH_Random();
+        Log("Initialize `_random`: success");
+
+        // 흘러내림 관련 필드
+        _trickleXMinList = new List<int>();
+        Log("Initialize `_trickleXMinList`: success");
+
+        _trickleXMaxList = new List<int>();
+        Log("Initialize `_trickleXMinList`: success");
+
+        _trickleYPrevList = new List<float>();
+        Log("Initialize `_trickleYPrevList`: success");
+
+        _trickleYCurrList = new List<float>();
+        Log("Initialize `_trickleYCurrList`: success");
+
+        _trickleSpeedList = new List<int>();
+        Log("Initialize `_trickleSpeedList`: success");
+
+        _isTrickling = false;
+        Log("Initialize `_isTrickling`: success");
+
+        return res;
+    }
+
+    /***************
+     * new methods *
+     ***************/
+
+    // 슬라이드를 초기화하는 메서드
     public void ResetSlide()
     {
         _isTrickling = false;
@@ -74,7 +101,7 @@ public class SlideController : MonoBehaviour
         slideTexture.Apply();
     }
 
-    // randomly choose the location, width, speed of tricklings
+    // 흘러내림을 시작하는 메서드
     public void StartTrickling()
     {
         if (!_isTrickling) {
@@ -84,8 +111,8 @@ public class SlideController : MonoBehaviour
             _trickleYCurrList.Clear();
             _trickleSpeedList.Clear();
             for (int i = 0; i < 8192; i++) {
-                int x = _myRandom.Next(2048);
-                int y = _myRandom.Next(8, 2048);
+                int x = _random.Next(2048);
+                int y = _random.Next(8, 2048);
 
                 if (slideTexture.GetPixel(x, y) == Color.black
                     && slideTexture.GetPixel(x, y - 8) == Color.white)
@@ -102,14 +129,14 @@ public class SlideController : MonoBehaviour
                         }
                     }
 
-                    xMax = (int)_myRandom.TriangularDist(x, xMax, x);
-                    xMin = (int)_myRandom.TriangularDist(xMin, x, x);
+                    xMax = (int)_random.TriangularDist(x, xMax, x);
+                    xMin = (int)_random.TriangularDist(xMin, x, x);
 
                     _trickleXMaxList.Add(xMax);
                     _trickleXMinList.Add(xMin);
                     _trickleYPrevList.Add(y);
                     _trickleYCurrList.Add(y);
-                    _trickleSpeedList.Add((int)(_myRandom.LogNormalDist(0.0, 1.0) * (xMax - xMin)));
+                    _trickleSpeedList.Add((int)(_random.LogNormalDist(0.0, 1.0) * (xMax - xMin)));
                 }
             }
 
@@ -117,12 +144,12 @@ public class SlideController : MonoBehaviour
         }
     }
 
-    // update the slide trickling
+    // 흘러내림 상태를 갱신하는 메서드
     private void UpdateTrickling()
     {
-        int xMin, xMax, yMin, yMax;
-
         if (_isTrickling) {
+            int xMin, xMax, yMin, yMax;
+
             for (int idx = 0; idx < _trickleXMinList.Count; idx++) {
                 _trickleYPrevList[idx] = _trickleYCurrList[idx];
                 _trickleYCurrList[idx] -= _trickleSpeedList[idx] * Time.deltaTime;
@@ -143,103 +170,5 @@ public class SlideController : MonoBehaviour
 
             slideTexture.Apply();
         }
-    }
-
-    // get input to change slides (no need for implementing the game)
-    private void GetNumberInput()
-    {
-        int index = -1;
-        bool[] keysDown = new bool[] {
-            Input.GetKeyDown(KeyCode.Alpha0) || Input.GetKeyDown(KeyCode.Keypad0),
-            Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1),
-            Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2),
-            Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3),
-            Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4),
-            Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5),
-            Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6),
-            Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7),
-            Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Keypad8),
-            Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Keypad9)
-        };
-
-        if ((index = System.Array.FindIndex(keysDown, x => x)) >= 0) {
-            if (System.Array.FindIndex(keysDown, index + 1, x => x) >= 0) {
-                index = -1;
-            }
-        }
-
-        if (index >= 0) {
-            _inputCount++;
-            _inputIndex = _inputIndex * 10 + index;
-
-            if (_inputIndex >= defaultTextures.Length) {
-                _inputCount = 1;
-                _inputIndex = index;
-            }
-
-            if (_inputCount >= _inputCountMax) {
-                if (_inputIndex < defaultTextures.Length) {
-                    Index = _inputIndex;
-                    ResetSlide();
-                }
-
-                _inputCount = 0;
-                _inputIndex = 0;
-            }
-        }
-    }
-}
-
-// class for randomness
-class MyRandom : System.Random
-{
-    private double NORMAL_MAGICCONST = 4.0 * System.Math.Exp(-0.5) / System.Math.Sqrt(2.0);
-
-    // implement methods with python's implementation
-    // https://github.com/python/cpython/blob/3.13/Lib/random.py
-
-    public double TriangularDist(double low = 0.0, double high = 1.0, double mode = 0.5)
-    {
-        double u, c;
-
-        if (high == low) {
-            return low;
-        }
-
-        u = Sample();
-        c = (mode - low) / (high - low);
-
-        if (u > c) {
-            double tmp = low;
-
-            u = 1.0 - u;
-            c = 1.0 - c;
-            low = high;
-            high = tmp;
-        }
-
-        return low + (high - low) * System.Math.Sqrt(u * c);
-    }
-
-    public double NormalDist(double mu = 0.0, double sigma = 0.0)
-    {
-        double u1, u2, z, zz;
-
-        while (true) {
-            u1 = Sample();
-            u2 = 1.0 - Sample();
-            z = NORMAL_MAGICCONST * (u1 - 0.5) / u2;
-            zz = z * z / 4.0;
-            if (zz <= -System.Math.Log(u2)) {
-                break;
-            }
-        }
-
-        return mu + z * sigma;
-    }
-
-    public double LogNormalDist(double mu, double sigma)
-    {
-        return System.Math.Exp(NormalDist(mu, sigma));
     }
 }

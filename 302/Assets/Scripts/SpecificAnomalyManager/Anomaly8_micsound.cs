@@ -65,10 +65,12 @@ public class Anomaly8_micsound : InteractableObject, IInteractable
     }
 
     // Determines if interaction is currently possible
-    public bool CanInteract()
+    public bool CanInteract(float distance)
     {
         return !hasInteracted;  // Allow interaction only once
     }
+    // modified by 신채환
+    // CanInteract 메서드가 거리를 인자로 받도록 변경
 
     // Handles interaction with the microphone
     public void OnInteract()

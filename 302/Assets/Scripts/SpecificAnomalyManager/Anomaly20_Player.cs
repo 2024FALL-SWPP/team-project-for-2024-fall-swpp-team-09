@@ -1,37 +1,31 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Anomaly20_Player : MonoBehaviour
+public class Anomaly20_Player : SCH_AnomalyObject
 {
-    /*************
-     * constants *
-     *************/
-
-    private string NAME = "Anomaly20_Player";
-
     /**********
      * fields *
      **********/
 
-    // 오브젝트의 이름
+    // 오브젝트 이름
     public string namePlayer;
 
-    // 플레이어 오브젝트
+    // 가변 수치
+    public float duration;
+
+    // 오브젝트
     private GameObject _objectPlayer;
 
-    /**********************
-     * overridden methods *
-     **********************/
+    /**************
+     * properties *
+     **************/
 
-    // Start is called on the frame when a script is enabled just
-    // before any of the Update methods are called the first time.
-    void Start()
-    {
-        if (!InitFields()) {
-            return;
-        }
-    }
+    // 클래스 이름
+    public override string Name { get; } = "Anomaly20_Player";
+
+    /************
+     * messages *
+     ************/
 
     // Update is called every frame, if the MonoBehaviour is enabled.
     void Update()
@@ -42,26 +36,75 @@ public class Anomaly20_Player : MonoBehaviour
         transform.rotation = Quaternion.Euler(0.0f, playerTransform.rotation.eulerAngles.y, 0.0f);
     }
 
-    /***************
-     * new methods *
-     ***************/
+    /*********************************
+     * implementation: SCH_Behaviour *
+     *********************************/
 
-    // 지속시간 동안 투명해지다가 사라지는 함수
-    public IEnumerator FadeAsync(float duration)
+    // 필드를 초기화하는 메서드
+    protected override bool InitFields()
     {
-        Renderer[] renderers = gameObject.GetComponentsInChildren<Renderer>();
-        Color color;
+        bool res = base.InitFields();
+
+        // _objectPlayer
+        _objectPlayer = GameObject.Find(namePlayer);
+        if (_objectPlayer != null) {
+            Log("Initialize `_objectPlayer`: success");
+        } else {
+            Log("Initialize `_objectPlayer`: failed", mode: 1);
+            res = false;
+        }
+
+        return res;
+    }
+
+    /*************************************
+     * implementation: SCH_AnomalyObject *
+     *************************************/
+
+    // 이상현상을 초기화하는 메서드
+    public override bool ResetAnomaly()
+    {
+        bool res = base.ResetAnomaly();
+
+        Log("Call `FadeAsync` asynchronously");
+        StartCoroutine(FadeAsync());
+
+        return res;
+    }
+
+    /***********
+     * methods *
+     ***********/
+
+    // 지속시간 동안 투명해지다가 사라지는 메서드
+    private IEnumerator FadeAsync()
+    {
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
         float timeStart = Time.time;
-        float time, alpha;
+        float time;
+
+        foreach (Renderer renderer in renderers) {
+            foreach (Material material in renderer.materials) {
+                material.renderQueue = 3000;
+                material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                material.DisableKeyword("_ALPHATEST_ON");
+                material.EnableKeyword("_ALPHABLEND_ON");
+                material.SetFloat("_Mode", 2);
+                material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                material.SetInt("_ZWrite", 0);
+            }
+        }
 
         yield return null;
 
         while ((time = Time.time - timeStart) < duration) {
-            alpha = 1.0f - time / duration;
+            float alpha = 1.0f - time / duration;
 
             foreach (Renderer renderer in renderers) {
                 foreach (Material material in renderer.materials) {
-                    color = material.color;
+                    Color color = material.color;
+
                     color.a = alpha;
                     material.color = color;
                 }
@@ -71,26 +114,5 @@ public class Anomaly20_Player : MonoBehaviour
         }
 
         Destroy(gameObject);
-    }
-
-    // Private fields를 초기화하는 함수
-    //
-    // 반환 값
-    // - true: 초기화 성공
-    // - false: 초기화 실패
-    private bool InitFields()
-    {
-        bool res = true;
-
-        // `_objectPlayer` 초기화
-        _objectPlayer = GameObject.Find(namePlayer);
-        if (_objectPlayer != null) {
-            Debug.Log($"[{NAME}] Find `_objectPlayer` successfully.");
-        } else {
-            Debug.LogWarning($"[{NAME}] Cannot find `_objectPlayer`.");
-            res = false;
-        }
-
-        return res;
     }
 }

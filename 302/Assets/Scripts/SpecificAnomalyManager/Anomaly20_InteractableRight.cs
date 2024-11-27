@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Anomaly20_InteractableRight : Anomaly20_Interactable
@@ -8,23 +6,30 @@ public class Anomaly20_InteractableRight : Anomaly20_Interactable
      * fields *
      **********/
 
-    // `x` 좌표 범위
+    // 가변 수치
     public float x1Min;
     public float x1Max;
     public float x2Min;
     public float x2Max;
 
-    // `z` 좌표
+    // 내부 수치
     private float _z;
 
-    /**********************
-     * overridden methods *
-     **********************/
+    /**************
+     * properties *
+     **************/
+
+    // 클래스 이름
+    public override string Name { get; } = "Anomaly20_InteractableRight";
+
+    /************
+     * messages *
+     ************/
 
     // Update is called every frame, if the MonoBehaviour is enabled.
     void Update()
     {
-        float x = _objectPlayer.transform.position.x;
+        float x = objectPlayer.transform.position.x;
 
         if (x >= x1Min && x <= x1Max || x >= x2Min && x <= x2Max) {
             transform.position = new Vector3(x, transform.position.y, _z);
@@ -33,16 +38,18 @@ public class Anomaly20_InteractableRight : Anomaly20_Interactable
         }
     }
 
-    // Protected fields를 초기화하는 함수
-    //
-    // 반환 값
-    // - true: 초기화 성공
-    // - false: 초기화 실패
+    /*********************************
+     * implementation: SCH_Behaviour *
+     *********************************/
+
+    // 필드를 초기화하는 메서드
     protected override bool InitFields()
     {
         bool res = base.InitFields();
 
-        _z = _objectBoard.transform.position.z + 0.01f;
+        // _z
+        _z = objectBoard.transform.position.z + 0.01f;
+        Log("Initialize `_z`: success");
 
         return res;
     }

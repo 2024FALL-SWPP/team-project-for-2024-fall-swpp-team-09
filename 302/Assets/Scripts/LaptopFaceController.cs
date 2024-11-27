@@ -1,14 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LaptopFaceController : LaptopScreenController
 {
-    /**********
-     * fields *
-     **********/
-
-    public GameObject player;
+    /*************
+     * constants *
+     *************/
 
     private int[] X0DATA = new int[] {
         394, 391, 389, 387, 386, 385, 384, 383, 382, 381, 380, 379, 379, 378, 378, 377, 377,
@@ -36,6 +32,14 @@ public class LaptopFaceController : LaptopScreenController
         306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322
     };
 
+    /**********
+     * fields *
+     **********/
+
+    // 오브젝트
+    public GameObject player;
+
+    // 내부 수치
     private int TANGENT_MAX = 25;
     private float TANGENT_CONST = 12.5f;
     private int ORIGIN_X = 38;
@@ -45,18 +49,14 @@ public class LaptopFaceController : LaptopScreenController
     private bool _isGazing;
     private int _tangent;
 
-    /**********************
-     * overridden methods *
-     **********************/
+    /************
+     * messages *
+     ************/
 
     // Start is called on the frame when a script is enabled just
     // before any of the Update methods are called the first time.
     void Start()
     {
-        _colour = defaults[0].GetPixel(407, 297);
-        _isGazing = false;
-        _tangent = 0;
-
         ResetScreen();
     }
 
@@ -68,9 +68,34 @@ public class LaptopFaceController : LaptopScreenController
         }
     }
 
-    /***************
-     * new methods *
-     ***************/
+    /*********************************
+     * implementation: SCH_Behaviour *
+     *********************************/
+
+    // 필드를 초기화하는 메서드
+    protected override bool InitFields()
+    {
+        bool res = base.InitFields();
+
+        // _colour
+        _colour = defaults[0].GetPixel(407, 297);
+        Log("Initialize `_colour`: success: "
+            + $"Color({_colour.r}, {_colour.g}, {_colour.b}, {_colour.a})");
+
+        // _isGazing
+        _isGazing = false;
+        Log("Initialize `_isGazing`: success");
+
+        // _tangent
+        _tangent = 0;
+        Log("Initialize `_tangent`: success");
+
+        return res;
+    }
+
+    /******************************************
+     * implementation: LaptopScreenController *
+     ******************************************/
 
     // 화면을 초기화하는 메서드
     public override void ResetScreen()
@@ -94,6 +119,10 @@ public class LaptopFaceController : LaptopScreenController
 
         screen.Apply();
     }
+
+    /***********
+     * methods *
+     ***********/
 
     // 쳐다보기 시작하는 메서드
     public void StartGazing()

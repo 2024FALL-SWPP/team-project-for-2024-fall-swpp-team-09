@@ -11,6 +11,7 @@ public class AnomalyManager : MonoBehaviour
     private const int AnomalyCount = 8;                 // 사이즈 8
     private System.Random random = new System.Random();
     public bool checkSpecificAnomaly;
+    public bool checkIntersect;
     public int SpecificAnomalyNum;
     public GameObject currentAnomalyInstance;          // 현재 활성화된 이상현상 인스턴스
     // 하나의 AnomalyManager만 보장
@@ -36,6 +37,9 @@ public class AnomalyManager : MonoBehaviour
     private void GenerateAnomalyList()
     {
         anomalyList.Clear();
+        HashSet<int> uniqueNumbers = new HashSet<int>();
+        bool hasHighAnomaly = false;
+
         for (int i = 0; i < AnomalyCount; i++)
         {
             int anomaly;
@@ -44,29 +48,49 @@ public class AnomalyManager : MonoBehaviour
                 do
                 {
                     anomaly = GenerateRandomAnomaly();
-                } while (i > 0 && anomaly == anomalyList[i - 1]); // 연속 방지
+                } while (i > 0 && anomaly == anomalyList[i - 1] // 연속 방지
+                        || (anomaly != 0 && !uniqueNumbers.Add(anomaly))); // 중복 방지
+                
+                if (anomaly >= 21)
+                {
+                    hasHighAnomaly = true;
+                }
             }
             else
             {
-                anomaly = SpecificAnomalyNum;
+                if(checkIntersect && i%2==1) anomaly = 0;
+                else anomaly = SpecificAnomalyNum;
             }
             anomalyList.Add(anomaly);
+        }
+
+        if(!hasHighAnomaly)
+        {
+            int randomIndex = random.Next(0, AnomalyCount);
+            int highAnomaly = random.Next(21, 32);
+            anomalyList[randomIndex] = highAnomaly;
         }
         Debug.Log($"[AnomalyManager] Generated Anomaly List: {string.Join(", ", anomalyList)}");
         CheckAndInstantiateAnomaly();
     }
-    // 50% 확률로 0, 나머지 확률로 1~31의 이상현상을 생성
+    // 20% 확률로 0, 나머지 확률로 1~31의 이상현상을 생성
     private int GenerateRandomAnomaly()
     {
-        return random.Next(0, 100) < 50 ? 0 : random.Next(1, 31);
+        return random.Next(0, 100) < 20 ? 0 : random.Next(1, 31);
     }
     // 현재 스테이지에 맞는 이상현상을 로드
     public void CheckAndInstantiateAnomaly()
     {
         int stageIndex = GameManager.Instance.GetCurrentStage() - 1;
-        if (stageIndex < 0 || stageIndex >= anomalyList.Count)
+        if (stageIndex >= anomalyList.Count)
         {
             Debug.LogError("Invalid stage index in anomaly list.");
+            return;
+        } 
+        else if (stageIndex == -1)
+        {
+            Debug.Log($"[AnomalyManager] Current Stage : {GameManager.Instance.GetCurrentStage()}");
+            currentAnomalyInstance = Instantiate(anomalyPrefabs[0]);
             return;
         }
         int anomaly = anomalyList[stageIndex];

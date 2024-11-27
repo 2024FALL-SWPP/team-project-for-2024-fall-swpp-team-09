@@ -82,10 +82,12 @@ public class Anomaly13_lookingeye : InteractableObject, IInteractable
     }
 
     // 인터페이스 구현: 상호작용 가능 여부 반환
-    public bool CanInteract()
+    public bool CanInteract(float distance)
     {
         return !hasInteracted;
     }
+    // modified by 신채환
+    // CanInteract 메서드가 거리를 인자로 받도록 변경
 
     // 인터페이스 구현: 상호작용 시 표시할 텍스트
     public string GetInteractionPrompt()

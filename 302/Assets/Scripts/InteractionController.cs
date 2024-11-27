@@ -42,7 +42,9 @@ public class InteractionController : MonoBehaviour
             // Debug.Log($"Hit interactable: {hit.collider.gameObject.name}");
             
             IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-            if (interactable != null && interactable.CanInteract())
+            // modified by 신채환
+            // CanInteract 메서드가 거리를 인자로 받도록 변경
+            if (interactable != null && interactable.CanInteract(hit.distance))
             {
                 currentInteractable = interactable;
                 interactionCursor.gameObject.SetActive(true);
