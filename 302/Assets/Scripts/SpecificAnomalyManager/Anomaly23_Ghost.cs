@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(AudioSource))]
 public class Anomaly23_Ghost : SCH_AnomalyObject
 {
     /**********
@@ -17,10 +18,15 @@ public class Anomaly23_Ghost : SCH_AnomalyObject
     public float speedInit;
     public float speedDelta;
     public float durationChase;
+    public float durationBlow;
+    public float timeAudioStart;
     public float durationFade;
 
     // 애니메이터
     private Animator _animator;
+
+    // 오디오 소스
+    private AudioSource _audioSource;
 
     // 오브젝트
     private GameObject _objectPlayer;
@@ -29,6 +35,7 @@ public class Anomaly23_Ghost : SCH_AnomalyObject
     // 내부 수치
     private float _timeStart;
     private bool _isChasing;
+    private bool _isCatched;
 
     /**************
      * properties *
@@ -47,10 +54,14 @@ public class Anomaly23_Ghost : SCH_AnomalyObject
         if (other.collider.CompareTag("Player") && _isChasing) {
             PlayerController script = _objectPlayer.GetComponent<PlayerController>();
 
+            _isCatched = true;
             if (script != null) {
                 Log("Call `script.GameOver` begin");
                 script.GameOver();
                 Log("Call `script.GameOver` end");
+
+                Log("Call `FadeAudioAsync` asynchronously");
+                StartCoroutine(FadeAudioAsync());
             } else {
                 Log("Call `script.GameOver`: failed", mode: 1);
             }
@@ -72,15 +83,12 @@ public class Anomaly23_Ghost : SCH_AnomalyObject
                 transform.LookAt(positionTarget);
                 transform.Translate(Vector3.forward * speed * Time.deltaTime);
                 _animator.SetFloat("Speed", speed);
-            } else {
+            } else if (!_isCatched) {
                 _isChasing = false;
 
                 Log("Call `Manager.InteractionSuccess` begin");
                 Manager.InteractionSuccess();
                 Log("Call `Manager.InteractionSuccess` end");
-
-                Log("Call `BlowAsync` asynchronously");
-                StartCoroutine(BlowAsync());
             }
         }
     }
@@ -100,6 +108,15 @@ public class Anomaly23_Ghost : SCH_AnomalyObject
             Log("Initialize `_animator`: success");
         } else {
             Log("Initialize `_animator`: failed", mode: 1);
+            res = false;
+        }
+
+        // _audioSource
+        _audioSource = GetComponent<AudioSource>();
+        if (_audioSource != null) {
+            Log("Initialize `_audioSource`: success");
+        } else {
+            Log("Initialize `_audioSource`: failed", mode: 1);
             res = false;
         }
 
@@ -129,6 +146,10 @@ public class Anomaly23_Ghost : SCH_AnomalyObject
         _isChasing = true;
         Log("Initialize `_isChasing`: success");
 
+        // _isCatched
+        _isCatched = false;
+        Log("Initialize `_isChasing`: success");
+
         return res;
     }
 
@@ -144,12 +165,54 @@ public class Anomaly23_Ghost : SCH_AnomalyObject
         transform.position = position;
         Log("Set position: success");
 
+        Log("Call `StartAudioAsync` asynchronously");
+        StartCoroutine(StartAudioAsync());
+
+        return res;
+    }
+
+    // 이상현상을 초기화하는 메서드
+    public override bool ResetAnomaly()
+    {
+        bool res = base.ResetAnomaly();
+
+        _audioSource.enabled = false;
+        Log("Reset audio source: success");
+
+        Log("Call `BlowAsync` asynchronously");
+        StartCoroutine(BlowAsync());
+
         return res;
     }
 
     /***********
      * methods *
      ***********/
+
+    // 시작하고 일정 시간 후 오디오 소스를 시작하는 메서드
+    private IEnumerator StartAudioAsync()
+    {
+        yield return new WaitForSeconds(timeAudioStart);
+
+        _audioSource.enabled = true;
+    }
+
+    // 오디오 소스 볼륨을 서서히 줄이는 메서드
+    private IEnumerator FadeAudioAsync()
+    {
+        float timeStart = Time.time;
+        float time;
+
+        yield return null;
+
+        while ((time = Time.time - timeStart) < durationFade) {
+            _audioSource.volume = 1.0f - time / durationFade;
+
+            yield return null;
+        }
+
+        _audioSource.enabled = false;
+    }
 
     // 지속시간 동안 바람빠지다가 사라지는 메서드
     private IEnumerator BlowAsync()
@@ -160,7 +223,7 @@ public class Anomaly23_Ghost : SCH_AnomalyObject
 
         yield return new WaitForSeconds(0.1f);
 
-        while ((time = Time.time - timeStart) < durationFade) {
+        while ((time = Time.time - timeStart) < durationBlow) {
             float scale = (float)(random.LogNormalDist(0.0, 1.0) * 1.5);
 
             transform.rotation = Random.rotation;
