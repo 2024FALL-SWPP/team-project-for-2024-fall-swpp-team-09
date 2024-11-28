@@ -116,7 +116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff09b028cdd2394e82a6885f68c804d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleIncreaseRate: -10
+  scaleIncreaseRate: -100
+  scaleStartDelay: 5
 --- !u!65 &-88205578807635617
 BoxCollider:
   m_ObjectHideFlags: 0
