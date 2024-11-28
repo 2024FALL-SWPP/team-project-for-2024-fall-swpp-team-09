@@ -4,6 +4,8 @@ using UnityEngine;
 public class Anomaly27_magnifyingclock : MonoBehaviour
 {
     [SerializeField] private float scaleIncreaseRate = 0.1f; // 초당 증가할 스케일 크기
+    [SerializeField] private float scaleStartDelay = 5f;     // 스케일 증가 시작 딜레이
+    private bool isScaling = false;                         // 스케일 증가 여부
     private bool isStageClear = true;
     private Collider objectCollider;
 
@@ -13,13 +15,25 @@ public class Anomaly27_magnifyingclock : MonoBehaviour
         isStageClear = true;
         objectCollider = GetComponent<Collider>();
         objectCollider.isTrigger = false; // Trigger 대신 물리 충돌로 처리
+
+        // 5초 후 스케일 증가 시작
+        Invoke(nameof(StartScaling), scaleStartDelay);
     }
 
     void Update()
     {
-        // 시간에 따라 점점 오브젝트와 콜라이더의 스케일을 증가
-        float scaleIncrease = scaleIncreaseRate * Time.deltaTime;
-        transform.localScale += new Vector3(scaleIncrease, scaleIncrease, scaleIncrease);
+        if (isScaling)
+        {
+            // 시간에 따라 점점 오브젝트와 콜라이더의 스케일을 증가
+            float scaleIncrease = scaleIncreaseRate * Time.deltaTime;
+            transform.localScale += new Vector3(scaleIncrease, scaleIncrease, scaleIncrease);
+        }
+    }
+
+    private void StartScaling()
+    {
+        isScaling = true;
+        Debug.Log("MagnifyingClock: Scaling has started after delay.");
     }
 
     private void OnCollisionEnter(Collision collision)
