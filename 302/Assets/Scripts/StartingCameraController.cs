@@ -55,17 +55,6 @@ public class StartingCameraController : MonoBehaviour
         // Fade Out
         yield return FadeOut();
 
-        // 대기
-        yield return new WaitForSeconds(waitBeforeFadeIn);
-
-        // Fade In
-        yield return FadeIn();
-
-        yield return FadeOut();
-        yield return new WaitForSeconds(waitBeforeFadeIn);
-        yield return FadeIn();
-        yield return FadeOut();
-
         isFading = false;
 
         // 애니메이션 완료 신호 전송

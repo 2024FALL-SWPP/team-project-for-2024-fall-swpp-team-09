@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c19c2925202468398aa190ab5e4978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  splitMicLinePrefab: {fileID: 5539083566951112236, guid: e233a7c81a5e362428f5f5e41fa03f5d, type: 3}
+  splitMicLinePrefab: {fileID: 5539083566951112236, guid: 235395691fc81534bae17d11660abcdb, type: 3}
   normalMicLinePrefab: {fileID: 6415941471270356063, guid: 68994f463fb568649a46b36dca73c102, type: 3}
   electricSparkSoundClip: {fileID: 8300000, guid: 70add66df796c446386c8cac8012fe35, type: 3}
