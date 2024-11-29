@@ -34702,11 +34702,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675446298}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33b91f25b1ae6fa4d9727b23d45aab6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  position: {x: 0, y: 0, z: 0}
+  direction: {x: 0, y: 0, z: 0}
+  valueNormal: 0
+  valueAnomaly: 0
+  duration: 0
 --- !u!1001 &1679000449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36435,11 +36440,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1774626112}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33b91f25b1ae6fa4d9727b23d45aab6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  position: {x: 0, y: 0, z: 0}
+  direction: {x: 0, y: 0, z: 0}
+  valueNormal: 0
+  valueAnomaly: 0
+  duration: 0
 --- !u!1001 &1775142295
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39825,9 +39835,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18e2c46eaa68afe458ec364512f84534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
-  interactionRange: 1
-  objectCamera: {fileID: 592683968}
+  prompt: 
+  distanceInteractionMax: 0
 --- !u!65 &1875637180
 BoxCollider:
   m_ObjectHideFlags: 0

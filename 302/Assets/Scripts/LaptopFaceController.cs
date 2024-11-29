@@ -6,6 +6,7 @@ public class LaptopFaceController : LaptopScreenController
      * constants *
      *************/
 
+    // 눈동자 자료
     private int[] X0DATA = new int[] {
         394, 391, 389, 387, 386, 385, 384, 383, 382, 381, 380, 379, 379, 378, 378, 377, 377,
         376, 376, 376, 376, 375, 375, 375, 375, 375, 375, 375, 375, 375, 376, 376, 376, 376,
@@ -49,16 +50,15 @@ public class LaptopFaceController : LaptopScreenController
     private bool _isGazing;
     private int _tangent;
 
+    /**************
+     * properties *
+     **************/
+
+    public override string Name { get; } = "LaptopFaceController";
+
     /************
      * messages *
      ************/
-
-    // Start is called on the frame when a script is enabled just
-    // before any of the Update methods are called the first time.
-    void Start()
-    {
-        ResetScreen();
-    }
 
     // Update is called every frame, if the MonoBehaviour is enabled.
     void Update()
