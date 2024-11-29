@@ -7,6 +7,9 @@ public class Anomaly2_Laptop : SCH_AnomalyInteractable
      * fields *
      **********/
 
+    // 가변 수치
+    public float duration;
+
     // 노트북 컨트롤러
     private LaptopFaceController _script;
 
@@ -69,13 +72,8 @@ public class Anomaly2_Laptop : SCH_AnomalyInteractable
         bool res = base.ResetAnomaly();
 
         // 노트북 화면
-        if (_script != null) {
-            _script.ResetScreen();
-            Log("Reset laptop screen: success");
-        } else {
-            Log("Reset laptop screen: failed", mode: 1);
-            res = false;
-        }
+        Log("Call `_script.ResetAsync` asynchronously");
+        StartCoroutine(_script.ResetAsync(duration));
 
         // 노트북 레이어(0: 일반 레이어)
         gameObject.layer = 0;

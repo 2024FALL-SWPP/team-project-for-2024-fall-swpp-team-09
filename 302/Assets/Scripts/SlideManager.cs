@@ -101,12 +101,11 @@ public class SlideManager : SCH_Behaviour
 
                 Log($"Set slide: success: {index}");
             } else {
-                _objectLeft.SetActive(false);
-                _objectRight.SetActive(false);
+                _objectLeft.transform.Translate(Vector3.down * 100.0f);
+                _objectRight.transform.Translate(Vector3.down * 100.0f);
             }
         } else {
             Log("Call `FindSlides` end: failed", mode: 1);
-            res = false;
         }
     }
 

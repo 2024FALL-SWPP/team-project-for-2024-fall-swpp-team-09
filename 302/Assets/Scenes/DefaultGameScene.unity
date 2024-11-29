@@ -22974,6 +22974,7 @@ MonoBehaviour:
   distanceInteractionMax: 4
   objectCamera: {fileID: 592683968}
   thresholdDistance: 10
+  duration: 2
 --- !u!1001 &1027390622
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41010,6 +41011,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prompt: 
   distanceInteractionMax: 5
+  duration: 2
 --- !u!65 &1875637180
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -43085,9 +43087,9 @@ MonoBehaviour:
   - {fileID: 5650449145146738954, guid: 11a50fb479ce40a4698c9b8f9816f567, type: 3}
   - {fileID: 3233071982878084982, guid: 5156428cd2b781d4dabf6a30befa7685, type: 3}
   - {fileID: 5605359256125054964, guid: 48c8f10abe45bef4098efae902701f34, type: 3}
-  checkSpecificAnomaly: 1
+  checkSpecificAnomaly: 0
   checkIntersect: 0
-  SpecificAnomalyNum: 10
+  SpecificAnomalyNum: 0
   currentAnomalyInstance: {fileID: 8678062959089499939, guid: 6aadfcd777444a24180cf51012c6e89c, type: 3}
 --- !u!4 &1964216256
 Transform:
@@ -47014,21 +47016,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7099874637714715064, guid: 7c34e61c4c1b39040bc8b4a56d34f904, type: 3}
   m_PrefabInstance: {fileID: 454894915}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2130223550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2130223548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c396ac2ed46924358b8c85d0f99c3def, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
-  interactionRange: 2
-  screenImage: {fileID: 210424747}
 --- !u!65 &2130223551
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -47042,6 +47029,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.38000008, y: 0.25378746, z: 0.0068002315}
   m_Center: {x: -0.00000047683716, y: 0.124041714, z: 0.0007572631}
+--- !u!114 &2130223553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130223548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e48177d760440f64bbe13aeeaecda92e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
+  interactionRange: 2
+  screenImage: {fileID: 210424747}
 --- !u!1001 &2135413639
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47952,7 +47954,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5403613182878368489}
   m_LocalRotation: {x: 0, y: 0.7072302, z: 0.7069834, w: 0}
-  m_LocalPosition: {x: 18.499, y: 0.138, z: -12.269}
+  m_LocalPosition: {x: 17.735, y: 0.138, z: -12.269}
   m_LocalScale: {x: 120, y: 120, z: 120}
   m_ConstrainProportionsScale: 0
   m_Children:
