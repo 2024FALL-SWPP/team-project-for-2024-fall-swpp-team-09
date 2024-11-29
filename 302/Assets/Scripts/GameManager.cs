@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
 
         // Added by 신 채 환
         // 슬라이드 초기화
+        SlideManager.Instance.InitSlideList();
         StartCoroutine(InitializeSlideAfterLoad());
     }
     private void InitializeGame()

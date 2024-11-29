@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -169,6 +170,31 @@ public class SlideController : SCH_Behaviour
             }
 
             slideTexture.Apply();
+        }
+    }
+
+    // 슬라이드를 서서히 초기화하는 메서드
+    public IEnumerator ResetAsync(float duration)
+    {
+        Color[] defaults = defaultTextures[Index].GetPixels();
+        int length = defaults.Length;
+        float timeStart = Time.time;
+        float time;
+
+        _isTrickling = false;
+
+        while ((time = Time.time - timeStart) < duration) {
+            Color[] colours = new Color[length];
+            float t = time / duration;
+
+            for (int idx = 0; idx < length; idx++) {
+                colours[idx] = Color.Lerp(Color.white, defaults[idx], t);
+            }
+
+            slideTexture.SetPixels(colours);
+            slideTexture.Apply();
+
+            yield return null;
         }
     }
 }

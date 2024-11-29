@@ -12,6 +12,7 @@ public class Anomaly19_Slide : SCH_AnomalyInteractable
 
     // 가변 수치
     public float thresholdDistance;
+    public float duration;
 
     // 슬라이드 컨트롤러
     private SlideController _script;
@@ -90,9 +91,8 @@ public class Anomaly19_Slide : SCH_AnomalyInteractable
         Log("Reset slide layer: success");
 
         // 슬라이드 화면
-        Log("Call `_script.ResetSlide` begin");
-        _script.ResetSlide();
-        Log("Call `_script.ResetSlide` end: success");
+        Log("Call `_script.ResetAsync` asynchronously");
+        StartCoroutine(_script.ResetAsync(duration));
 
         // 실행 종료
         enabled = false;

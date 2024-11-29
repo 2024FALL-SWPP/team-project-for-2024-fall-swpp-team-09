@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class LaptopFaceController : LaptopScreenController
@@ -190,5 +191,36 @@ public class LaptopFaceController : LaptopScreenController
 
         screen.Apply();
         _tangent = tangentNew;
+    }
+
+    // 화면을 서서히 초기화하는 메서드
+    public IEnumerator ResetAsync(float duration)
+    {
+        float timeStart = Time.time;
+        float time;
+        int screenXWidth = screenXMax - screenXMin;
+        int screenYWidth = screenYMax - screenYMin;
+        int defaultXWidth = defaultXMax - defaultXMin;
+        int defaultYWidth = defaultYMax - defaultYMin;
+
+        _isGazing = false;
+
+        while ((time = Time.time - timeStart) < duration) {
+            float t = time / duration;
+
+            for (int x = 0; x < screenXWidth; x++) {
+                for (int y = 0; y < screenYWidth; y++) {
+                    int xSlide = (int)((x + 0.5) * defaultXWidth / screenXWidth + defaultXMin);
+                    int ySlide = (int)((y + 0.5) * defaultYWidth / screenYWidth + defaultYMin);
+                    Color color = Color.Lerp(Color.black, defaults[0].GetPixel(xSlide, ySlide), t);
+
+                    screen.SetPixel(x + screenXMin, y + screenYMin, color);
+                }
+            }
+
+            screen.Apply();
+
+            yield return null;
+        }
     }
 }
