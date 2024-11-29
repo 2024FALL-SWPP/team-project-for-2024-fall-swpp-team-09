@@ -47,11 +47,11 @@ public class SCH_AnomalyManager : SCH_AnomalyObject
         bool res = base.ResetAnomaly();
 
         foreach (SCH_AnomalyObject obj in objects) {
-            Log("Call `obj.ResetAnomaly` begin");
+            Log($"Call `{obj.Name}.ResetAnomaly` for `{obj.gameObject.name}` begin");
             if (obj.ResetAnomaly()) {
-                Log("Call `obj.ResetAnomaly` end: success");
+                Log($"Call `{obj.Name}.ResetAnomaly` for `{obj.gameObject.name}` end: success");
             } else {
-                Log("Call `obj.ResetAnomaly` end: failed", mode: 1);
+                Log($"Call `{obj.Name}.ResetAnomaly` for `{obj.gameObject.name}` end: failed", mode: 1);
                 res = false;
             }
         }

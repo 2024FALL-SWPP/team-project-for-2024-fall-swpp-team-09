@@ -22968,7 +22968,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prompt: 
   distanceInteractionMax: 4
-  objectCamera: {fileID: 0}
+  objectCamera: {fileID: 592683968}
   thresholdDistance: 10
 --- !u!1001 &1027390622
 PrefabInstance:

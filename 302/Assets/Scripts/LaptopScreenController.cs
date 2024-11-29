@@ -44,11 +44,14 @@ public class LaptopScreenController : SCH_Behaviour
      * messages *
      ************/
 
-    // Start is called on the frame when a script is enabled just
-    // before any of the Update methods are called the first time.
-    void Start()
+    // This function is called when the object becomes enabled and active.
+    protected override void OnEnable()
     {
+        base.OnEnable();
+
+        Log("Call `ResetScreen` begin");
         ResetScreen();
+        Log("Call `ResetScreen` end");
     }
 
     /***********
