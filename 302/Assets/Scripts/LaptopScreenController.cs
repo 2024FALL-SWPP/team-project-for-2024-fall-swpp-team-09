@@ -1,16 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class LaptopScreenController : MonoBehaviour
+public class LaptopScreenController : SCH_Behaviour
 {
     /**********
      * fields *
      **********/
 
+    // 텍스처
     public Texture2D screen;
     public Texture2D[] defaults;
 
+    // 가변 수치
     public int screenXMin;
     public int screenXMax;
     public int screenYMin;
@@ -21,11 +21,12 @@ public class LaptopScreenController : MonoBehaviour
     public int defaultYMin;
     public int defaultYMax;
 
-    public bool isFlipped;
-
     /**************
      * properties *
      **************/
+
+    // 클래스 이름
+    public override string Name { get; } = "LaptopScreenController";
 
     private int _index = 0;
     public int Index {
@@ -39,20 +40,23 @@ public class LaptopScreenController : MonoBehaviour
         }
     }
 
-    /**********************
-     * overridden methods *
-     **********************/
+    /************
+     * messages *
+     ************/
 
-    // Start is called on the frame when a script is enabled just
-    // before any of the Update methods are called the first time.
-    void Start()
+    // This function is called when the object becomes enabled and active.
+    protected override void OnEnable()
     {
+        base.OnEnable();
+
+        Log("Call `ResetScreen` begin");
         ResetScreen();
+        Log("Call `ResetScreen` end");
     }
 
-    /***************
-     * new methods *
-     ***************/
+    /***********
+     * methods *
+     ***********/
 
     public virtual void ResetScreen()
     {

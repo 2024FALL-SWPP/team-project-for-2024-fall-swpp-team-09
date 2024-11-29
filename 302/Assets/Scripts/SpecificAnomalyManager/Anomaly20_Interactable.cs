@@ -1,94 +1,67 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Anomaly20_Interactable : InteractableObject
+public class Anomaly20_Interactable : SCH_AnomalyInteractable
 {
-    /*************
-     * constants *
-     *************/
-
-    private string NAME = "Anomaly20_Interactable";
-
     /**********
      * fields *
      **********/
 
-    // 오브젝트의 이름
+    // 오브젝트 이름
     public string namePlayer;
     public string nameBoard;
 
     // 오브젝트
-    protected GameObject _objectPlayer;
-    protected GameObject _objectBoard;
+    protected GameObject objectPlayer;
+    protected GameObject objectBoard;
 
     /**************
      * properties *
      **************/
 
-    // 해당 오브젝트를 생성한 이상현상 매니저
-    public Anomaly20Manager Manager { get; set; }
+    // 클래스 이름
+    public override string Name { get; } = "Anomaly20_Interactable";
 
-    /**********************
-     * overridden methods *
-     **********************/
+    /*********************************
+     * implementation: SCH_Behaviour *
+     *********************************/
 
-    // Start is called on the frame when a script is enabled just
-    // before any of the Update methods are called the first time.
-    void Start()
+    // 필드를 초기화하는 메서드
+    protected override bool InitFields()
     {
-        if (!InitFields()) {
-            return;
-        }
-    }
+        bool res = base.InitFields();
 
-    // 상호작용 시 실행될 메서드
-    public override void OnInteract()
-    {
-        if (canInteract) {
-            canInteract = false;
-
-            base.OnInteract();
-
-            if (Manager != null) {
-                Debug.Log($"[{NAME}] Call `Anomaly20Manager.InteractionSuccess`");
-                Manager.InteractionSuccess();
-            } else {
-                Debug.LogWarning($"[{NAME}] `Manager` is not set.");
-            }
-        }
-    }
-
-    /***************
-     * new methods *
-     ***************/
-
-    // Protected fields를 초기화하는 함수
-    //
-    // 반환 값
-    // - true: 초기화 성공
-    // - false: 초기화 실패
-    protected virtual bool InitFields()
-    {
-        bool res = true;
-
-        // `_objectPlayer` 초기화
-        _objectPlayer = GameObject.Find(namePlayer);
-        if (_objectPlayer != null) {
-            Debug.Log($"[{NAME}] Find `_objectPlayer` successfully.");
+        // objectPlayer
+        objectPlayer = GameObject.Find(namePlayer);
+        if (objectPlayer != null) {
+            Log("Initialize `objectPlayer`: success");
         } else {
-            Debug.LogWarning($"[{NAME}] Cannot find `_objectPlayer`.");
+            Log("Initialize `objectPlayer`: failed", mode: 1);
             res = false;
         }
 
-        // `_objectBoard` 초기화
-        _objectBoard = GameObject.Find(nameBoard);
-        if (_objectBoard != null) {
-            Debug.Log($"[{NAME}] Find `_objectBoard` successfully.");
+        // objectBoard
+        objectBoard = GameObject.Find(nameBoard);
+        if (objectBoard != null) {
+            Log("Initialize `objectBoard`: success");
         } else {
-            Debug.LogWarning($"[{NAME}] Cannot find `_objectBoard`.");
+            Log("Initialize `objectBoard`: failed", mode: 1);
             res = false;
         }
+
+        return res;
+    }
+
+    /*********************************
+     * implementation: SCH_Behaviour *
+     *********************************/
+
+    // 이상현상을 초기화하는 메서드
+    public override bool ResetAnomaly()
+    {
+        bool res = base.ResetAnomaly();
+
+        Destroy(gameObject);
+        Log("Destroy game object: success");
 
         return res;
     }

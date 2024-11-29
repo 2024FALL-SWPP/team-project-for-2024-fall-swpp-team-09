@@ -44,3 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe0a0b53e5d6c48288296398894930c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  windows: []
+  videoClip: {fileID: 32900000, guid: 32e8c968fe9984395bd87ed148cf372a, type: 3}
+  audioClip: {fileID: 8300000, guid: 72a6edc9459013144a10ef25395a47bd, type: 3}
+  openingSound: {fileID: 8300000, guid: 4c7fa0287ccd2464eb897655b786f4c3, type: 3}
+  closingSound: {fileID: 8300000, guid: 59c5055755f4c449faf7ab540e82203e, type: 3}
+  isWindowsOpening: 1

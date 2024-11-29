@@ -8,7 +8,7 @@ public class Anomaly17Manager : MonoBehaviour
     public GameObject normalMicLinePrefab; // Reference to "line_normal" prefab from the project
 
     private GameObject currentMicLine; // Stores the currently active mic line in the scene
-    public AudioClip micBrokenSoundClip; // To add to the Anomaly17_mic script
+    public AudioClip electricSparkSoundClip; // To add to the Anomaly17_mic script
 
     private Vector3 savedPosition;     // Saves the position of the original object
     private Quaternion savedRotation; // Saves the rotation of the original object
@@ -54,7 +54,7 @@ public class Anomaly17Manager : MonoBehaviour
         Anomaly17_mic micScript = newMicLine.AddComponent<Anomaly17_mic>();
 
         // Set the necessary properties for the script
-        micScript.micBrokenSoundClip = micBrokenSoundClip; // Assign your desired AudioClip
+        micScript.electricSparkSoundClip = electricSparkSoundClip; // Assign your desired AudioClip
         micScript.enabled = true; // Ensure the script is active
 
         // Set the layer for interaction

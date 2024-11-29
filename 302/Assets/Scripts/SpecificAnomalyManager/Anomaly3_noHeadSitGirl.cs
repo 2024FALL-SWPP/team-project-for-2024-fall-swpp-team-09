@@ -58,10 +58,12 @@ public class Anomaly3_noHeadSitGirl : InteractableObject, IInteractable
     }
 
     // Determines if interaction is currently possible
-    public bool CanInteract()
+    public bool CanInteract(float distance)
     {
         return !hasInteracted;  // Interaction is allowed only once
     }
+    // modified by 신채환
+    // CanInteract 메서드가 거리를 인자로 받도록 변경
 
     // Handles interaction with the headless schoolgirl
     public void OnInteract()

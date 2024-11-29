@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abf04317342a08b43b99639716e15455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  duration: 2
 --- !u!1001 &55761193126347007
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -123,6 +124,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &7253752840953938354 stripped
@@ -185,6 +210,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &7009494717759894180 stripped
@@ -247,6 +296,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (24)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &7159911513056066931 stripped
@@ -309,6 +382,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &7158366435703213644 stripped
@@ -371,6 +468,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &7172881121759215418 stripped
@@ -433,6 +554,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &7876032389972372162 stripped
@@ -495,6 +640,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &7948731100037305411 stripped
@@ -557,6 +726,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &8515215528826370805 stripped
@@ -619,6 +812,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &4978063094082861407 stripped
@@ -681,6 +898,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &4677169185692441087 stripped
@@ -743,6 +984,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &4775227126156045407 stripped
@@ -805,6 +1070,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (22)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &5635255466410410885 stripped
@@ -867,6 +1156,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &6095057152736564210 stripped
@@ -929,6 +1242,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &6663116085983839120 stripped
@@ -991,6 +1328,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &6546807691423293349 stripped
@@ -1053,6 +1414,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &3278800963725702612 stripped
@@ -1115,6 +1500,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &4503793776960995229 stripped
@@ -1177,6 +1586,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &60151376925593074 stripped
@@ -1239,6 +1672,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &270129105518657445 stripped
@@ -1301,6 +1758,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &589510621003313278 stripped
@@ -1363,6 +1844,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (23)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &1166460460418973278 stripped
@@ -1425,6 +1930,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &1277671308981572065 stripped
@@ -1487,6 +2016,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &2212550791064378308 stripped
@@ -1549,6 +2102,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anomaly18Chair (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d85a17dcbae07d04987a87247136bfe5, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bfb0bca68454ff4284b59e061921971, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d9c2e29f590146749bda76e8c14f4ec8, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: e59c6cf4e80387a4eaaf68d44ba696a3, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc798e434227a834d9002486d22f6b12, type: 2}
+    - target: {fileID: 8369860296174074402, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43bad44de97bc2d468831d38294dc012, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad42fc20dee64e4ca84470ffa3fb42e, type: 3}
 --- !u!4 &2236362359205447505 stripped

@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   splitMicLinePrefab: {fileID: 5539083566951112236, guid: e233a7c81a5e362428f5f5e41fa03f5d, type: 3}
   normalMicLinePrefab: {fileID: 6415941471270356063, guid: 68994f463fb568649a46b36dca73c102, type: 3}
-  micBrokenSoundClip: {fileID: 8300000, guid: 0e5a81010ec724852bcb61aebbe2141c, type: 3}
+  electricSparkSoundClip: {fileID: 8300000, guid: 70add66df796c446386c8cac8012fe35, type: 3}

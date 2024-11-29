@@ -183,10 +183,12 @@ public class Anomaly16_marker : InteractableObject, IInteractable
         return "Press Left Click to interact with the red line";
     }
 
-    public bool CanInteract()
+    public bool CanInteract(float distance)
     {
         return !hasInteracted;
     }
+    // modified by 신채환
+    // CanInteract 메서드가 거리를 인자로 받도록 변경
 
     public void OnInteract()
     {

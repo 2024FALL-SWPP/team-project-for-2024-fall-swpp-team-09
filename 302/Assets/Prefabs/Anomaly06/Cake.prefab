@@ -354,9 +354,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea3e75052d956814095a954bc86ac6c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
-  interactionRange: 1
-  nameCamera: Main Camera
+  prompt: 
+  distanceInteractionMax: 4
   duration: 2
 --- !u!1 &1122762771037219674
 GameObject:

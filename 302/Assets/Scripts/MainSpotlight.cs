@@ -140,9 +140,11 @@ public class MainSpotlight : InteractableObject
         canInteract = true;
     }
 
-    public override bool CanInteract()
+    // modified by 신채환
+    // CanInteract 메서드가 거리를 인자로 받도록 변경
+    public override bool CanInteract(float distance)
     {
-        return base.CanInteract() && !isDancing;
+        return base.CanInteract(distance) && !isDancing;
     }
 
     private void OnDrawGizmosSelected()

@@ -13,10 +13,12 @@ public class Anomaly12_tiltedlight : InteractableObject, IInteractable
     }
 
     // Determines if interaction is currently possible
-    public bool CanInteract()
+    public bool CanInteract(float distance)
     {
         return !hasInteracted;  // 한 번만 상호작용 가능
     }
+    // modified by 신채환
+    // CanInteract 메서드가 거리를 인자로 받도록 변경
 
     // Handles interaction with the tilted light
     public void OnInteract()
