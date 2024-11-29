@@ -48,12 +48,6 @@ public class SlideManager : SCH_Behaviour
         if (Instance == null) {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
-            if (!InitFields()) {
-                return;
-            }
-
-            InitSlideList();
         } else {
             Destroy(gameObject);
         }
@@ -71,15 +65,6 @@ public class SlideManager : SCH_Behaviour
         // _random
         _random = new SCH_Random();
         Log("Initialize `_random`: success");
-
-        // 슬라이드 초기화
-        Log("Call `FindSlides` begin");
-        if (FindSlides()) {
-            Log("Call `FindSlides` end: success");
-        } else {
-            Log("Call `FindSlides` end: failed", mode: 1);
-            res = false;
-        }
 
         // _slideList
         _slideList = new int[numStage];
@@ -102,7 +87,9 @@ public class SlideManager : SCH_Behaviour
     // 슬라이드를 초기화하는 메서드
     public void SetSlide(int stage)
     {
+        Log("Call `FindSlides` begin");
         if (FindSlides()) {
+            Log("Call `FindSlides` end: success");
             if (stage > 0) {
                 int index = _slideList[stage - 1];
 
@@ -117,6 +104,9 @@ public class SlideManager : SCH_Behaviour
                 _objectLeft.SetActive(false);
                 _objectRight.SetActive(false);
             }
+        } else {
+            Log("Call `FindSlides` end: failed", mode: 1);
+            res = false;
         }
     }
 
@@ -129,17 +119,17 @@ public class SlideManager : SCH_Behaviour
         _objectLeft = GameObject.Find(nameLeft);
         if (_objectLeft != null) {
             Log("Find `_objectLeft`: success");
+
+            // `_controllerLeft` 찾기
+            _controllerLeft = _objectLeft.GetComponent<SlideController>();
+            if (_controllerLeft != null) {
+                Log("Find `_controllerLeft`: success");
+            } else {
+                Log("Find `_controllerLeft`: failed", mode: 1);
+                res = false;
+            }
         } else {
             Log("Find `_objectLeft`: failed", mode: 1);
-            res = false;
-        }
-
-        // `_controllerLeft` 찾기
-        _controllerLeft = _objectLeft.GetComponent<SlideController>();
-        if (_controllerLeft != null) {
-            Log("Find `_controllerLeft`: success");
-        } else {
-            Log("Find `_controllerLeft`: failed", mode: 1);
             res = false;
         }
 
@@ -147,17 +137,17 @@ public class SlideManager : SCH_Behaviour
         _objectRight = GameObject.Find(nameRight);
         if (_objectRight != null) {
             Log("Find `_objectRight`: success");
+
+            // `_controllerRight` 찾기
+            _controllerRight = _objectRight.GetComponent<SlideController>();
+            if (_controllerRight != null) {
+                Log("Find `_controllerRight`: success");
+            } else {
+                Log("Find `_controllerRight`: failed", mode: 1);
+                res = false;
+            }
         } else {
             Log("Find `_objectRight`: failed", mode: 1);
-            res = false;
-        }
-
-        // `_controllerRight` 찾기
-        _controllerRight = _objectRight.GetComponent<SlideController>();
-        if (_controllerRight != null) {
-            Log("Find `_controllerRight`: success");
-        } else {
-            Log("Find `_controllerRight`: failed", mode: 1);
             res = false;
         }
 
