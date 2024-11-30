@@ -22,7 +22,7 @@ public class Anomaly16_marker : InteractableObject, IInteractable
     private Vector3 lastPosition;
     private float timeAccumulator = 0f;
 
-    private const float startX = -18.6f;
+    public float startX = -18.67f;
     private const float startY = 1.1f;
     private const float startZ = 10.63f;
     private const float endZ = -14.26f;
