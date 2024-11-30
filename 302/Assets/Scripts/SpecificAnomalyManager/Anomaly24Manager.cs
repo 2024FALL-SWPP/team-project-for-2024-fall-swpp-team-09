@@ -7,16 +7,16 @@ public class Anomaly24Manager : MonoBehaviour
 
     void Start()
     {
-        GameObject sitGrils = GameObject.Find("SitGrils");
-        if (sitGrils != null)
+        GameObject sitGirls = GameObject.Find("SitGirls");
+        if (sitGirls != null)
         {
-            childTransforms = new Transform[sitGrils.transform.childCount];
-            for (int i = 0; i < sitGrils.transform.childCount; i++)
+            childTransforms = new Transform[sitGirls.transform.childCount];
+            for (int i = 0; i < sitGirls.transform.childCount; i++)
             {
-                childTransforms[i] = sitGrils.transform.GetChild(i);
+                childTransforms[i] = sitGirls.transform.GetChild(i);
             }
 
-            Destroy(sitGrils);
+            Destroy(sitGirls);
 
             foreach (Transform childTransform in childTransforms)
             {
@@ -31,7 +31,7 @@ public class Anomaly24Manager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("SitGrils object not found!");
+            Debug.LogError("SitGirls object not found!");
         }
     }
 }
