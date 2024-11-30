@@ -11,12 +11,17 @@ public class Anomaly28Manager : MonoBehaviour
     private float swayDelay = 0.5f; // Time between each sway
     private float totalDuration = 15f; // Total duration of the anomaly
 
-    private float privatetotalDuration = 15f; // Total duration of the anomaly
     private string floatableTag = "floatable"; // Tag to identify floatable objects
     private string floorEmptyTag = "FloorEmpty"; // Tag for the floor objects triggering player pop-up
 
     private GameObject classroomParent; // Parent object for the entire classroom
     private Rigidbody playerRb; // Rigidbody of the player
+
+    // Clock transform variables
+    private Vector3 initialClockLocalPosition;
+    private Quaternion initialClockLocalRotation;
+    private Vector3 originalClockPosition;
+    private Quaternion originalClockRotation;
 
     void Start()
     {
@@ -46,6 +51,19 @@ public class Anomaly28Manager : MonoBehaviour
             // Apply a slight upward force to the player
             playerRb.AddForce(Vector3.up * 50f); // Adjust the force as needed
         }
+
+        // Handle clock separately
+        GameObject clock = GameObject.Find("clock");
+        if (clock != null && classroomParent != null)
+        {
+            // Save the clock's original global position and rotation
+            originalClockPosition = clock.transform.position;
+            originalClockRotation = clock.transform.rotation;
+
+            // Calculate and store the initial local position and rotation relative to the classroomParent
+            initialClockLocalPosition = clock.transform.position - classroomParent.transform.position;
+            initialClockLocalRotation = Quaternion.Inverse(classroomParent.transform.rotation) * clock.transform.rotation;
+        }
     }
 
     private void CreateClassroomParent()
@@ -57,7 +75,6 @@ public class Anomaly28Manager : MonoBehaviour
         GameObject[] objects = {
             GameObject.Find("Classroom"),
             GameObject.Find("Furniture"),
-            GameObject.Find("clock"),
             GameObject.Find("professor_normal"),
             GameObject.Find("Laptop") // 플레이어가 상호작용해야 하는 노트북
         };
@@ -68,6 +85,21 @@ public class Anomaly28Manager : MonoBehaviour
             {
                 obj.transform.parent = classroomParent.transform;
             }
+        }
+    }
+
+    void Update()
+    {
+        GameObject clock = GameObject.Find("clock");
+        if (clock != null && classroomParent != null)
+        {
+            // Calculate the new global position and rotation using the stored initial local values
+            Vector3 newClockPosition = classroomParent.transform.TransformPoint(initialClockLocalPosition);
+            Quaternion newClockRotation = classroomParent.transform.rotation * initialClockLocalRotation;
+
+            // Update clock's transform
+            clock.transform.position = newClockPosition;
+            clock.transform.rotation = newClockRotation;
         }
     }
 
@@ -158,5 +190,18 @@ public class Anomaly28Manager : MonoBehaviour
             playerRb.AddForce(Vector3.up * 200f); // Adjust the force as needed
             Debug.Log("Player popped up after colliding with FloorEmpty!");
         }
+    }
+
+    void OnDestroy()
+    {
+        GameObject clock = GameObject.Find("clock");
+        if (clock != null)
+        {
+            // Restore the clock's original global position and rotation
+            clock.transform.position = originalClockPosition;
+            clock.transform.rotation = originalClockRotation;
+        }
+
+        Debug.Log("Anomaly28Manager destroyed. Clock restored to its original phase.");
     }
 }

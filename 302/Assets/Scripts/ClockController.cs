@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ClockController : MonoBehaviour
 {
-        public static ClockController Instance { get; private set; }
+    public static ClockController Instance { get; private set; }
 
     private Transform hourHand;
     private Transform minuteHand;
