@@ -4,144 +4,126 @@ using UnityEngine;
 
 public class Anomaly29Manager : MonoBehaviour
 {
-    public bool IsPlayerDead { get; set; } = false; // Shared player death state
-
     private GameManager gameManager;
-    private PlayerController player;
-    public GameObject bananaPrefab; // The banana prefab to spawn
-    public AudioClip spawnSound; // Sound to play when a banana spawns
-    public AudioClip successSound; // Sound to play when the last banana finishes
-    public AudioClip deadSound; // Sound to play when the player dies
-    private float bananaSpeed = 7f; // Speed of the banana
-    private float spawnInterval = 1.2f; // Time between spawns
-    private float spawnDuration = 30f; // How long bananas should spawn
+    private PlayerController playerController;
+    public GameObject bananaPrefab;
 
-    // Room bounds
+    [Header("Sound Settings")]
+    public AudioClip spawnSound;
+    public AudioClip successSound;
+    public AudioClip dieSound;
+
+    private float bananaSpeed = 4f;
+    private float spawnInterval = 3f;
+    private float spawnDuration = 20f;
+
+    // 방 경계 값
     private float xMin = -19f;
     private float xMax = 18f;
     private float zMin = -16f;
     private float zMax = 18f;
     private float yPosition = 1.5f;
 
-    private List<GameObject> activeBananas = new List<GameObject>(); // Track active bananas
-    private bool spawningActive = true; // Whether bananas are actively spawning
-    private AudioSource audioSource; // Reuse the AudioSource in this manager
+    private List<GameObject> activeBananas = new List<GameObject>();
+    private bool spawningActive = true;
+    private AudioSource audioSource;
+    private bool isPlayerDead = false;
+    private bool isStageCleared = false;
 
     void Start()
     {
-        // Find GameManager and Player in the scene
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        player = GameObject.Find("Player").GetComponent<PlayerController>();
-
-        // Get the AudioSource component attached to this GameObject
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         audioSource = gameObject.GetComponent<AudioSource>();
 
-        // Ensure the AudioSource exists
-        if (audioSource == null)
-        {
-            Debug.LogError("AudioSource component missing on Anomaly29Manager GameObject!");
-        }
-
-        // Start spawning bananas
+        // 바나나 스폰 시작
         StartCoroutine(SpawnBananas());
-    }
-
-    void Update()
-    {
-        // Move parent objects (not the child with the animation) and check for wall collisions
-        for (int i = activeBananas.Count - 1; i >= 0; i--)
-        {
-            GameObject bananaParent = activeBananas[i];
-            if (bananaParent != null)
-            {
-                // Move the parent object
-                bananaParent.transform.Translate(bananaParent.transform.forward * bananaSpeed * Time.deltaTime, Space.World);
-
-                // Destroy the banana if it hits the bounds
-                if (HasBananaHitBounds(bananaParent))
-                {
-                    Destroy(bananaParent);
-                    activeBananas.RemoveAt(i);
-
-                    if (!spawningActive && activeBananas.Count == 0 && !IsPlayerDead)
-                    {
-                        PlaySound(successSound);
-                        gameManager.SetStageClear(); // Mark the stage as cleared
-                    }
-                }
-            }
-        }
     }
 
     private IEnumerator SpawnBananas()
     {
-        yield return new WaitForSeconds(5f); // for the player to wake up and be ready
+        yield return new WaitForSeconds(5f); // 5초 있다 시작
 
         float startTime = Time.time;
 
         while (Time.time - startTime < spawnDuration)
         {
-            SpawnBanana();
+            SpawOneBanana();
             yield return new WaitForSeconds(spawnInterval);
         }
 
-        // Stop spawning after duration
+        // 20초 후 스폰 종료
         spawningActive = false;
     }
 
-    private void SpawnBanana()
+    void Update()
     {
-        // Randomly decide which boundary to spawn from
+        // 바나나 이동
+        for (int i = activeBananas.Count - 1; i >= 0; i--)
+        {
+            GameObject bananaParent = activeBananas[i];
+            if (bananaParent != null)
+            {        
+                bananaParent.transform.Translate(bananaParent.transform.forward * bananaSpeed * Time.deltaTime, Space.World);
+
+                // 범위 벗어난 바나나 Destroy
+                if (HasBananaHitBounds(bananaParent))
+                {
+                    Destroy(bananaParent);
+                    activeBananas.RemoveAt(i);
+                }
+            }
+        }
+
+        // Stage 클리어 조건 확인
+        if (!isStageCleared && !spawningActive && activeBananas.Count == 0 && !isPlayerDead)
+        {
+            isStageCleared = true;
+            PlaySound(successSound);
+            gameManager.SetStageClear();
+        }
+    }
+
+    private void SpawOneBanana()
+    {
+        GameObject bananaParent = InstantiateOneBanana();
+        PlaySound(spawnSound);
+
+        activeBananas.Add(bananaParent);
+    }
+
+    private GameObject InstantiateOneBanana()
+    {
         Vector3 spawnPosition = GetRandomBoundaryPoint();
         Vector3 endPosition = GetOppositeBoundaryPoint(spawnPosition);
 
-        if (bananaPrefab == null)
-        {
-            Debug.LogError("Banana prefab is not assigned!");
-            return;
-        }
-
-        // Create an empty parent object at the spawn position
         GameObject bananaParent = new GameObject("BananaParent");
         bananaParent.transform.position = spawnPosition;
         bananaParent.transform.rotation = Quaternion.identity;
 
-        // Instantiate the banana prefab as a child of the parent object
         GameObject banana = Instantiate(bananaPrefab, spawnPosition, Quaternion.identity, bananaParent.transform);
-
-        // Scale the banana to 0.3 in all directions
-        banana.transform.localScale *= 1.5f;
-
-        // Rotate the parent object to face the end position (not the banana itself)
-        bananaParent.transform.LookAt(endPosition);
-
-        // Dynamically attach the Anomaly29_banana script to the banana prefab
+        banana.transform.localScale *= 1.5f; // 바나나 크기 키우기
+        
+        bananaParent.transform.LookAt(endPosition); // 바나나가 회전하는 방향을 던져지는 방향으로 조정
         Anomaly29_banana bananaScript = banana.AddComponent<Anomaly29_banana>();
-        bananaScript.deadSound = deadSound; // Assign the death sound
 
-        // Add the parent object to the active list
-        activeBananas.Add(bananaParent);
-
-        // Play spawn sound using the AudioSource in this manager
-        PlaySound(spawnSound);
+        return bananaParent;
     }
 
     private Vector3 GetRandomBoundaryPoint()
     {
-        // Randomly decide if the banana spawns along the X or Z boundary
+        // 1/2 확률로 x방향/z방향에 따라 던져질지 결정
         bool spawnOnX = Random.value > 0.5f;
 
         if (spawnOnX)
         {
-            // Spawn on the left or right edge
             float x = Random.value > 0.5f ? xMin : xMax;
-            float z = Random.Range(zMin, zMax); // Anywhere along the Z-axis
+            float z = Random.Range(zMin, zMax);
             return new Vector3(x, yPosition, z);
         }
         else
         {
-            // Spawn on the top or bottom edge
-            float x = Random.Range(xMin, xMax); // Anywhere along the X-axis
+            float x = Random.Range(xMin, xMax);
             float z = Random.value > 0.5f ? zMin : zMax;
             return new Vector3(x, yPosition, z);
         }
@@ -149,16 +131,13 @@ public class Anomaly29Manager : MonoBehaviour
 
     private Vector3 GetOppositeBoundaryPoint(Vector3 spawnPosition)
     {
-        // Determine the opposite side of the room based on spawn position
         if (Mathf.Approximately(spawnPosition.x, xMin) || Mathf.Approximately(spawnPosition.x, xMax))
         {
-            // If spawning on the left/right edge, move to the opposite X boundary
             float x = spawnPosition.x == xMin ? xMax : xMin;
             return new Vector3(x, yPosition, spawnPosition.z);
         }
         else
         {
-            // If spawning on the top/bottom edge, move to the opposite Z boundary
             float z = spawnPosition.z == zMin ? zMax : zMin;
             return new Vector3(spawnPosition.x, yPosition, z);
         }
@@ -166,18 +145,30 @@ public class Anomaly29Manager : MonoBehaviour
 
     private bool HasBananaHitBounds(GameObject bananaParent)
     {
-        // Check if the banana parent has reached the opposite boundary
         Vector3 position = bananaParent.transform.position;
 
-        return position.x <= xMin || position.x >= xMax || position.z <= zMin || position.z >= zMax;
+        return position.x <= xMin || position.x >= xMax ||
+               position.z <= zMin || position.z >= zMax;
     }
 
     private void PlaySound(AudioClip clip)
     {
-        if (clip != null && audioSource != null)
+        audioSource.clip = clip;
+        audioSource.Play();
+    }
+
+    public IEnumerator PlayerDies()
+    {
+        if (isPlayerDead) 
         {
-            audioSource.clip = clip;
-            audioSource.Play();
+            yield break;
         }
+
+        isPlayerDead = true;
+        audioSource.PlayOneShot(dieSound);
+
+        playerController.Sleep();
+        yield return new WaitForSeconds(5f); // Delay before triggering game over
+        gameManager.Sleep();
     }
 }
