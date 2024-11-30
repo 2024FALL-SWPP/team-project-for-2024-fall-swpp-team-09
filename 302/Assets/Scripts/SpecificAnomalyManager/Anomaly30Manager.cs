@@ -24,7 +24,6 @@ public class Anomaly30Manager : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         player = GameObject.Find("Player");
         mainCamera = Camera.main;
-
         
         Transform windowsParent = GameObject.Find("Classroom/WallLeft/windows").transform;
         windows = new GameObject[10];
@@ -122,7 +121,6 @@ public class Anomaly30Manager : MonoBehaviour
         Vector3 targetPosition = new Vector3(this.player.transform.position.x, this.player.transform.position.y, -15f);
         StartCoroutine(MovePlayerToPosition(targetPosition));
 
-       
         PlayerController playerController = this.player.GetComponent<PlayerController>();
         playerController.Sleep();
 
@@ -151,6 +149,7 @@ public class Anomaly30Manager : MonoBehaviour
 
         if (gameManager != null)
         {
+            gameManager.SetStageNoClear(); // 혹시 날라갈동안 Anomaly time이 끝나서 성공할 수도 있으니
             gameManager.Sleep();
         }
     }
