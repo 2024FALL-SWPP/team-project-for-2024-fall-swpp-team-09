@@ -4,121 +4,76 @@ using UnityEngine.Video;
 
 public class Anomaly30Manager : MonoBehaviour
 {
-    public GameObject[] windows; // Array to hold window objects
+    public GameObject[] windows;
     private GameObject player;
-    private GameManager gameManager; // Reference to GameManager
-    private Camera mainCamera; // Reference to the Main Camera
-    public VideoClip videoClip; // Thunderstorm video
-    public AudioClip audioClip; // Thunderstorm MP3
-    public AudioClip openingSound; // Opening sound for windows
-    public AudioClip closingSound; // Closing sound for windows
-    private Anomaly30_thunderstorm thunderstorm; // Thunderstorm handler
+    private GameManager gameManager;
+    private Camera mainCamera;
+    public VideoClip stormVideoClip;
+    public AudioClip stormAudioClip;
+    public AudioClip openingSound;
+    public AudioClip closingSound;
 
-    private float intervalMin = 2f; // Minimum interval between script application
-    private float intervalMax = 5f; // Maximum interval between script application
-    private bool stopAnomaly = false; // Flag to stop attaching scripts
-    private float startDelay = 2f; // Delay before starting the anomaly
-    public bool isWindowsOpening = true; // Boolean to track if windows are opening
+    // 창문 열리는 interval의 Min/Max
+    private float intervalMin = 2f;
+    private float intervalMax = 5f;
+    private bool isAnomalyStopped = false; // Flag to stop attaching scripts
+    private Anomaly30_thunderstorm thunderstorm;
 
     void Start()
     {
-        // Find GameManager, Player, and Main Camera
-        gameManager = GameObject.Find("GameManager")?.GetComponent<GameManager>();
-        if (gameManager == null)
-        {
-            Debug.LogError("GameManager not found or missing GameManager component.");
-            return;
-        }
-
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         player = GameObject.Find("Player");
-        if (player == null)
-        {
-            Debug.LogError("Player object not found.");
-            return;
-        }
-
         mainCamera = Camera.main;
-        if (mainCamera == null)
-        {
-            Debug.LogError("Main Camera not found.");
-            return;
-        }
 
-        // Locate the windows parent object
-        Transform windowsParent = GameObject.Find("Classroom/WallLeft/windows")?.transform;
-        if (windowsParent == null)
-        {
-            Debug.LogError("Windows parent object not found: Classroom/WallLeft/windows");
-            return;
-        }
-
-        // Get all child objects of the "windows" parent
+        
+        Transform windowsParent = GameObject.Find("Classroom/WallLeft/windows").transform;
         windows = new GameObject[10];
         for (int i = 0; i < 10; i++)
         {
-            windows[i] = windowsParent.GetChild(i + 2).gameObject; // Child indices start at 2 for window_001 (3)
-            if (windows[i] == null)
-            {
-                Debug.LogError($"Window object not found at index {i + 2} under Classroom/WallLeft/windows.");
-            }
+            windows[i] = windowsParent.GetChild(i + 2).gameObject; // window_001 (3)부터 window_001 (12)까지
         }
 
-        // Create the thunderstorm screen
+        // 창문 밖에 폭풍우 비디오 재생 
         thunderstorm = gameObject.AddComponent<Anomaly30_thunderstorm>();
-        thunderstorm.videoClip = videoClip;
-        thunderstorm.audioClip = audioClip;
+        thunderstorm.videoClip = stormVideoClip;
+        thunderstorm.audioClip = stormAudioClip;
         thunderstorm.screenPosition = new Vector3(-2.51f, 4.72f, 18.91f);
         thunderstorm.screenScale = new Vector3(46.9397f, 10.97118f, 1.538f);
         thunderstorm.CreateThunderstormScreen();
 
-        // Start the coroutine to apply scripts and colliders
+        // Script를 붙여 창문들 여는 Coroutine
         StartCoroutine(ApplyAnomalyWindowScriptsAndCollider());
 
-        // Start a timer to end the anomaly after 20 seconds
+        // 20초 후 창문 열기 중지
         StartCoroutine(EndWindowsOpeningAfterTime(20f));
     }
 
     private IEnumerator ApplyAnomalyWindowScriptsAndCollider()
     {
-        yield return new WaitForSeconds(startDelay);
+        yield return new WaitForSeconds(2f); // 2초 후 시작
 
-        while (!stopAnomaly)
+        while (!isAnomalyStopped)
         {
             float interval = Random.Range(intervalMin, intervalMax);
             int randomIndex = Random.Range(0, windows.Length);
 
             GameObject randomWindow = windows[randomIndex];
-            Transform antaTransform = randomWindow.transform.Find("window/Anta.003");
-            if (antaTransform != null)
+            GameObject anta = randomWindow.transform.Find("window/Anta.003").gameObject;
+            anta.layer = 3;
+
+            // 이미 열려 있으면 패스
+            if (anta.GetComponent<Anomaly30_window>() != null)
             {
-                GameObject anta = antaTransform.gameObject;
-                anta.layer = 3;
-
-                // Skip if the Anomaly30_window script is already attached
-                if (anta.GetComponent<Anomaly30_window>() != null)
-                {
-                    Debug.Log($"Script already attached to {anta.name}, skipping.");
-                    yield return new WaitForSeconds(interval);
-                    continue;
-                }
-
-                // Add a BoxCollider if not already present
-                if (anta.GetComponent<BoxCollider>() == null)
-                {
-                    BoxCollider boxCollider = anta.AddComponent<BoxCollider>();
-                    boxCollider.isTrigger = true; // Set to trigger if required
-                    Debug.Log($"BoxCollider added to {anta.name}");
-                }
-
-                // Add Anomaly30_window component and assign sounds
-                Anomaly30_window windowScript = anta.AddComponent<Anomaly30_window>();
-                windowScript.openingSound = openingSound;
-                windowScript.closingSound = closingSound;
+                Debug.Log($"Script already attached to {anta.name}, skipping.");
+                yield return new WaitForSeconds(interval);
+                continue;
             }
-            else
-            {
-                Debug.LogWarning($"Anta.003 not found under {randomWindow.name}");
-            }
+            
+            anta.AddComponent<BoxCollider>();
+            Anomaly30_window windowScript = anta.AddComponent<Anomaly30_window>();
+            windowScript.openingSound = openingSound;
+            windowScript.closingSound = closingSound;
+
 
             yield return new WaitForSeconds(interval);
         }
@@ -128,18 +83,11 @@ public class Anomaly30Manager : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
-        isWindowsOpening = false;
+        isAnomalyStopped = true;
         StopAnomaly();
+        gameManager.SetStageClear();
 
-        if (gameManager != null)
-        {
-            gameManager.SetStageClear();
-        }
-
-        // Destroy the thunderstorm screen
-        thunderstorm.DestroyThunderstormScreen();
-
-        // Close all windows with the Anomaly30_window script attached
+        thunderstorm.DestroyThunderstormScreen(); // 비디오 화면 제거
         CloseAllWindows();
     }
 
@@ -148,51 +96,42 @@ public class Anomaly30Manager : MonoBehaviour
         foreach (GameObject window in windows)
         {
             Transform antaTransform = window.transform.Find("window/Anta.003");
-            if (antaTransform != null)
+            Anomaly30_window windowScript = antaTransform.GetComponent<Anomaly30_window>();
+            if (windowScript != null)
             {
-                Anomaly30_window windowScript = antaTransform.GetComponent<Anomaly30_window>();
-                if (windowScript != null)
-                {
-                    windowScript.CloseWindow();
-                }
+                windowScript.CloseWindow();
             }
         }
-
-        Debug.Log("All windows closed.");
     }
 
     public void PlayerDieFromStorm(Vector3 windowPosition)
     {
         StopAnomaly();
 
-        // Rotate the camera to look at the window
+        // 열려 있는 창문으로 화면 전환
         mainCamera.transform.LookAt(windowPosition);
 
-        // Remove BoxCollider from the player
-        BoxCollider playerCollider = player.GetComponent<BoxCollider>();
+        // 책상/의자 뚫고 오른쪽으로 날아갈 수 있도록 player BoxCollider 제거
+        BoxCollider playerCollider = this.player.GetComponent<BoxCollider>();
         if (playerCollider != null)
         {
             Destroy(playerCollider);
         }
 
-        // Move the player to z = -15
-        Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, -15f);
+        // 오른쪽 벽 z = -15
+        Vector3 targetPosition = new Vector3(this.player.transform.position.x, this.player.transform.position.y, -15f);
         StartCoroutine(MovePlayerToPosition(targetPosition));
 
-        // Call PlayerController's Sleep() method
-        PlayerController playerController = player.GetComponent<PlayerController>();
-        if (playerController != null)
-        {
-            playerController.Sleep();
-        }
+       
+        PlayerController playerController = this.player.GetComponent<PlayerController>();
+        playerController.Sleep();
 
-        // Wait 3 seconds before calling GameManager's Sleep()
         StartCoroutine(CallGameManagerSleepAfterDelay(3f));
     }
 
     private IEnumerator MovePlayerToPosition(Vector3 targetPosition)
     {
-        float duration = 1f; // Time to move the player
+        float duration = 1f;
         Vector3 initialPosition = player.transform.position;
         float elapsedTime = 0f;
 
@@ -218,6 +157,6 @@ public class Anomaly30Manager : MonoBehaviour
 
     public void StopAnomaly()
     {
-        stopAnomaly = true;
+        isAnomalyStopped = true;
     }
 }
