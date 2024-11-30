@@ -3,45 +3,43 @@ using UnityEngine;
 
 public class Anomaly30_window : InteractableObject, IInteractable
 {
-    public float swingAngle = 60f;           // Maximum angle for repetitive swinging
-    public float soundDuration = 0.672f;    // Duration of one full back-and-forth swing
-    public float closeDuration = 1f;        // Time taken to close the window
-    public float anomalyDuration = 15f;     // Duration after which storm effect is triggered if not interacted
+    public float swingAngle = 60f; 
+    private const float soundDuration = 0.672f; // 사운드 주기(창문 열리고 닫히는 한 주기과 맞추기 위함)
+    private readonly float swingSpeed = Mathf.PI / soundDuration;
+    public float closeDuration = 1f;
+    public float anomalyDuration = 15f;
 
-    public AudioClip openingSound;          // Audio clip for opening sound (looped)
-    public AudioClip closingSound;          // Audio clip for closing sound (one-shot)
+    public AudioClip openingSound;
+    public AudioClip closingSound;
 
-    private Quaternion initialRotation;     // Initial rotation of the window
-    private bool isSwinging = true;         // Whether the window is currently swinging
-    private bool hasInteracted = false;     // Tracks if the window has been interacted with
-    private Anomaly30Manager anomalyManager; // Reference to Anomaly30Manager
-    private AudioSource audioSource;        // Audio source for the swing sound
-    private float swingSpeed;               // Calculated swing speed based on sound duration
+    private Quaternion initialRotation;
+    private bool isSwinging = true;
+    private bool isClosing = false;
+    private bool hasInteracted = false;
 
-    private static GameObject coroutineRunner; // Persistent object to run coroutines
+    private Anomaly30Manager anomalyManager;
+    private AudioSource audioSource;
+    private static GameObject coroutineRunner;
 
     void Start()
     {
         anomalyManager = FindObjectOfType<Anomaly30Manager>();
 
-        // Store the initial rotation of the window
+        // 창문 닫을 때 복구할 초기 rotation
         initialRotation = transform.rotation;
-
-        // Calculate swing speed (π/soundDuration for one full swing)
-        swingSpeed = Mathf.PI / soundDuration;
 
         // Set up the audio source for the opening sound
         audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = openingSound; // Assign the opening sound
-        audioSource.loop = true;        // Loop the sound during swinging
+        audioSource.clip = openingSound;
+        audioSource.loop = true;
         audioSource.playOnAwake = false;
-        audioSource.volume = 0.7f;      // Adjust volume if needed
+        audioSource.volume = 0.7f;
         audioSource.Play();
 
-        // Start the repetitive swinging motion
+        // 반복해서 swing 모션 재생
         StartCoroutine(SwingWindow());
 
-        // Trigger the anomaly end after the set duration if not interacted
+        // 15초 동안 이 창문을 닫지 않을 시 발동
         Invoke(nameof(EndAnomaly), anomalyDuration);
     }
 
@@ -49,7 +47,6 @@ public class Anomaly30_window : InteractableObject, IInteractable
     {
         float elapsedTime = 0f;
 
-        // Swinging back and forth
         while (isSwinging && !hasInteracted)
         {
             float angle = Mathf.Sin(elapsedTime * swingSpeed) * swingAngle; // Sinusoidal motion
@@ -61,6 +58,9 @@ public class Anomaly30_window : InteractableObject, IInteractable
 
     public void CloseWindow()
     {
+        if (isClosing) return;
+        isClosing = true;
+        
         // Use a persistent coroutine runner to ensure completion
         if (coroutineRunner == null)
         {
@@ -74,18 +74,17 @@ public class Anomaly30_window : InteractableObject, IInteractable
 
     private IEnumerator CloseWindowCoroutine()
     {
-        isSwinging = false; // Stop swinging
+        isSwinging = false;
         float elapsedTime = 0f;
         Quaternion currentRotation = transform.rotation;
 
-        // Play closing sound as one-shot
         if (audioSource != null && closingSound != null)
         {
-            audioSource.Stop(); // Stop the opening sound
-            audioSource.PlayOneShot(closingSound); // Play the closing sound once
+            audioSource.Stop(); // opening sound 중지
+            audioSource.PlayOneShot(closingSound);
         }
 
-        // Gradually interpolate back to the initial rotation
+        // initial rotation으로 return animation
         while (elapsedTime < closeDuration)
         {
             transform.rotation = Quaternion.Slerp(currentRotation, initialRotation, elapsedTime / closeDuration);
@@ -93,13 +92,7 @@ public class Anomaly30_window : InteractableObject, IInteractable
             yield return null;
         }
 
-        // Ensure the final rotation is exactly the initial rotation
         transform.rotation = initialRotation;
-
-        Debug.Log($"Window {transform.parent.name} closed to initial rotation.");
-
-        // Wait for 2 seconds before destruction
-        yield return new WaitForSeconds(2f);
         Destroy(this);
     }
 
@@ -107,19 +100,9 @@ public class Anomaly30_window : InteractableObject, IInteractable
     {
         if (!hasInteracted && isSwinging)
         {
-            if (anomalyManager != null)
-            {
-                anomalyManager.PlayerDieFromStorm(transform.position);
-            }
+            anomalyManager.PlayerDieFromStorm(transform.position);
         }
 
-        // Wait for 2 seconds before destruction
-        StartCoroutine(WaitAndDestroy(2f));
-    }
-
-    private IEnumerator WaitAndDestroy(float waitTime)
-    {
-        yield return new WaitForSeconds(waitTime);
         Destroy(this);
     }
 
