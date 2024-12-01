@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Anomaly11_openeddoor : InteractableObject, IInteractable
 {
+    [SerializeField] private Image fadeImage;
+    [SerializeField] private float fadeSpeed = 0.5f;
     public float closeSpeed = 1.0f;  // Door movement speed
 
     private Transform movingPart;    // Reference to Cube.002 child object
@@ -78,6 +81,55 @@ public class Anomaly11_openeddoor : InteractableObject, IInteractable
         }
 
         movingPart.localPosition = targetPosition;  // Ensure the final position is exact
+        BoxCollider boxCollider = gameObject.GetComponent<BoxCollider>();
+        if (boxCollider != null)
+        {
+            boxCollider.enabled = false;
+        }
         Debug.Log("Anomaly11_openeddoor: Door moved successfully.");
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            Debug.Log("Collided with Player! Fake ending entered...");
+            StartCoroutine(StartFakeEnding(collision.collider.gameObject));
+        }
+    }
+
+    private IEnumerator StartFakeEnding(GameObject player)
+    {
+        Canvas canvas = FindObjectOfType<Canvas>();
+        if (canvas == null)
+        {
+            Debug.LogError("No Canvas found in the scene! Please add a Canvas.");
+            yield break;
+        }
+
+        // Instantiate Image and attach to Canvas
+        Image instantiatedImage = Instantiate(fadeImage, canvas.transform);
+        yield return new WaitForSeconds(0.5f);
+
+        float alpha = 0;
+        while (alpha < 1f)
+        {
+            alpha += Time.deltaTime * fadeSpeed;
+            if (instantiatedImage != null)
+            {
+                Color c = instantiatedImage.color;
+                c.a = alpha;
+                instantiatedImage.color = c;
+            }
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.5f);
+
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        if (playerController != null)
+        {
+            playerController.GameOver();
+        }
     }
 }
