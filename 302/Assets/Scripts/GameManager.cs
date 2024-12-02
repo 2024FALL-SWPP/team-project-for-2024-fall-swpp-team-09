@@ -67,6 +67,16 @@ public class GameManager : MonoBehaviour
     // 플레이어가 Sleep 선택 시 호출
     public void Sleep()
     {
+        // Added by 신 채 환
+        // 시계 초기화
+        GameObject clock = GameObject.Find("clock");
+        if (clock != null) {
+            Anomaly18_Object script = clock.GetComponent<Anomaly18_Object>();
+            if (script != null && script.enabled) {
+                script.ResetAnomalyNow();
+            }
+        }
+
         gameState = GameState.Sleeping;
         if (currentStageClear)
         {

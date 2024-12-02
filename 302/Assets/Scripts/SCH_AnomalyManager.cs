@@ -128,6 +128,7 @@ public class SCH_AnomalyManager : SCH_AnomalyObject
                 SCH_AnomalyObject obj = gameObj.GetComponent<SCH_AnomalyObject>();
 
                 if (obj != null) {
+                    obj.enabled = true;
                     obj.Manager = this;
                     objects.Add(obj);
                     Log($"Find `{name}` success: {obj.Name}");

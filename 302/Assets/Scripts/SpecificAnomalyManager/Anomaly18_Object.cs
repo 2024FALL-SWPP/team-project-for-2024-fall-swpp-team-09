@@ -53,6 +53,19 @@ public class Anomaly18_Object : SCH_AnomalyObject
      * new methods *
      ***************/
 
+    // 이상현상을 바로 초기화하는 메서드
+    public bool ResetAnomalyNow()
+    {
+        bool res = true;
+
+        transform.position = position + direction * valueNormal;
+        Log("Set position success");
+
+        enabled = false;
+
+        return res;
+    }
+
     // 초기 위치부터 최종 위치까지 지속시간 동안 움직이는 메서드
     private IEnumerator MoveAsync()
     {
