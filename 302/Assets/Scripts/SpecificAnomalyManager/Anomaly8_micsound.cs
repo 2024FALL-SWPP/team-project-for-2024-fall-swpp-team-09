@@ -10,6 +10,9 @@ public class Anomaly8_micsound : InteractableObject, IInteractable
     public float maxVolumeDistance = 5f;      // Distance at which the audio reaches max volume
     public float startDistance = 30f;         // Maximum distance where the audio starts being audible
     public float fadeOutDuration = 2f;        // Duration for the fade-out effect after interaction
+    public float audioStartDelay = 5f;        // Delay in seconds before the audio starts playing
+
+    private bool isAudioActive = false;
 
     private void Start()
     {
@@ -29,12 +32,22 @@ public class Anomaly8_micsound : InteractableObject, IInteractable
         if (audioSource != null)
         {
             audioSource.loop = true;  // Ensure the sound loops continuously until interaction
-            audioSource.Play();       // Start playing audio immediately
+            audioSource.volume = 0f;
+            StartCoroutine(DelayedAudiosStart());
         }
         else
         {
             Debug.LogError("AudioSource component is missing on Anomaly8_micsound.");
         }
+    }
+
+    private IEnumerator DelayedAudiosStart()
+    {
+        yield return new WaitForSeconds(audioStartDelay);
+        isAudioActive = true;
+        audioSource.Play();
+        Debug.Log("Audio playback started after delay.");
+        
     }
 
     private void Update()
