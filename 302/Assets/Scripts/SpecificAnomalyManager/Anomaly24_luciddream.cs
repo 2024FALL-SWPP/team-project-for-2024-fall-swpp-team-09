@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(AudioSource))]
 public class Anomaly24_luciddream : MonoBehaviour
 {
-    [SerializeField] private float duration = 10f; // 제한 시간 10초로 설정
+    [SerializeField] private float duration = 30f;
     private AudioSource audioSource;
     private Transform mainCamera;
 
@@ -25,17 +25,15 @@ public class Anomaly24_luciddream : MonoBehaviour
     {
         GameManager.Instance.SetStageClear();
 
+        yield return new WaitForSeconds(10f);
+
+        audioSource.Play();
+
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
-
-            // 디버깅 메시지: 현재 경과 시간 표시
-            if (Mathf.FloorToInt(elapsedTime) % 2 == 0)
-            {
-                Debug.Log($"Elapsed Time: {elapsedTime:F2} seconds");
-            }
 
             // Main Camera 바라보기
             if (mainCamera != null)
@@ -52,8 +50,11 @@ public class Anomaly24_luciddream : MonoBehaviour
 
             yield return null;
         }
+        if(GameManager.Instance.GetGameState() != GameManager.GameState.Sleeping)
+        {
+            GameManager.Instance.SetStageNoClear();
+        }
 
-        GameManager.Instance.SetStageNoClear();
         var playerController = FindObjectOfType<PlayerController>();
         if (playerController != null)
         {
