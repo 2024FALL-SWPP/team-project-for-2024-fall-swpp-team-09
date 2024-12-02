@@ -40,18 +40,20 @@ public class LaptopScreenController : SCH_Behaviour
         }
     }
 
-    /************
-     * messages *
-     ************/
+    /*********************************
+     * implementation: SCH_Behaviour *
+     *********************************/
 
-    // This function is called when the object becomes enabled and active.
-    protected override void OnEnable()
+    // `Awake` 메시지 용 메서드
+    protected override bool Awake_()
     {
-        base.OnEnable();
+        bool res = base.Awake_();
 
         Log("Call `ResetScreen` begin");
         ResetScreen();
         Log("Call `ResetScreen` end");
+
+        return res;
     }
 
     /***********

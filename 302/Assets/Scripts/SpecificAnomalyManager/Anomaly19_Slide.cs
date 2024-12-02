@@ -52,15 +52,15 @@ public class Anomaly19_Slide : SCH_AnomalyInteractable
         // _script
         _script = GetComponent<SlideController>();
         if (_script != null) {
-            Log("Initialize `_script`: success");
+            Log("Initialize `_script` success");
         } else {
-            Log("Initialize `_script`: failed", mode: 1);
+            Log("Initialize `_script` failed", mode: 1);
             res = false;
         }
 
         // _isTrickling
         _isTrickling = false;
-        Log("Initialize `_isTrickling`: success");
+        Log("Initialize `_isTrickling` success");
 
         return res;
     }
@@ -70,13 +70,13 @@ public class Anomaly19_Slide : SCH_AnomalyInteractable
      *************************************/
 
     // 이상현상을 시작하는 메서드
-    protected override bool SetAnomaly()
+    public override bool StartAnomaly()
     {
-        bool res = base.SetAnomaly();
+        bool res = base.StartAnomaly();
 
         // 슬라이드 레이어(3: 상호작용 레이어)
         gameObject.layer = 3;
-        Log("Set slide layer: success");
+        Log("Set slide layer success");
 
         return res;
     }
@@ -88,7 +88,7 @@ public class Anomaly19_Slide : SCH_AnomalyInteractable
 
         // 슬라이드 레이어(0: 일반 레이어)
         gameObject.layer = 0;
-        Log("Reset slide layer: success");
+        Log("Reset slide layer success");
 
         // 슬라이드 화면
         Log("Call `_script.ResetAsync` asynchronously");

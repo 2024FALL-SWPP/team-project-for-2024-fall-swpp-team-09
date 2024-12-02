@@ -32,30 +32,30 @@ public class SlideManager : SCH_Behaviour
      * properties *
      **************/
 
-    // 클래스 인자
-    public static SlideManager Instance { get; private set; }
-
     // 클래스 이름
     public override string Name { get; } = "SlideManager";
 
-    /************
-     * messages *
-     ************/
-
-    // Unity calls Awake when an enabled script instance is being loaded.
-    private void Awake()
-    {
-        if (Instance == null) {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        } else {
-            Destroy(gameObject);
-        }
-    }
+    // 클래스 인자
+    public static SlideManager Instance { get; private set; }
 
     /*********************************
      * implementation: SCH_Behaviour *
      *********************************/
+
+    // `Awake` 메시지 용 메서드
+    protected override bool Awake_()
+    {
+        if (Instance == null) {
+            Log($"`Instance` has not been set => set `Instance` as `{Name}`");
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        } else {
+            Log($"`Instance` has already been set => destroy `{gameObject.name}`");
+            Destroy(gameObject);
+        }
+
+        return base.Awake_();
+    }
 
     // 필드를 초기화하는 메서드
     protected override bool InitFields()
@@ -64,11 +64,11 @@ public class SlideManager : SCH_Behaviour
 
         // _random
         _random = new SCH_Random();
-        Log("Initialize `_random`: success");
+        Log("Initialize `_random` success");
 
         // _slideList
         _slideList = new int[numStage];
-        Log("Initialize `_slideList`: success");
+        Log("Initialize `_slideList` success");
 
         return res;
     }
@@ -78,10 +78,10 @@ public class SlideManager : SCH_Behaviour
      ***************/
 
     // 슬라이드 색인 배열을 초기화하는 메서드
-    public void InitSlideList()
+    public void GenerateSlideList()
     {
         _slideList = _random.Combination(numSlide, numStage);
-        Log($"Set `_slideList`: success: [{string.Join(", ", _slideList)}]");
+        Log($"Generate `_slideList` success: [{string.Join(", ", _slideList)}]");
     }
 
     // 슬라이드를 초기화하는 메서드
@@ -89,7 +89,7 @@ public class SlideManager : SCH_Behaviour
     {
         Log("Call `FindSlides` begin");
         if (FindSlides()) {
-            Log("Call `FindSlides` end: success");
+            Log("Call `FindSlides` success");
             if (stage > 0) {
                 int index = _slideList[stage - 1];
 
@@ -99,13 +99,13 @@ public class SlideManager : SCH_Behaviour
                 _controllerLeft.ResetSlide();
                 _controllerRight.ResetSlide();
 
-                Log($"Set slide: success: {index}");
+                Log($"Set slide success: {index}");
             } else {
                 _objectLeft.transform.Translate(Vector3.down * 100.0f);
                 _objectRight.transform.Translate(Vector3.down * 100.0f);
             }
         } else {
-            Log("Call `FindSlides` end: failed", mode: 1);
+            Log("Call `FindSlides` failed", mode: 1);
         }
     }
 
@@ -117,36 +117,36 @@ public class SlideManager : SCH_Behaviour
         // `_objectLeft` 찾기
         _objectLeft = GameObject.Find(nameLeft);
         if (_objectLeft != null) {
-            Log("Find `_objectLeft`: success");
+            Log("Find `_objectLeft` success");
 
             // `_controllerLeft` 찾기
             _controllerLeft = _objectLeft.GetComponent<SlideController>();
             if (_controllerLeft != null) {
-                Log("Find `_controllerLeft`: success");
+                Log("Find `_controllerLeft` success");
             } else {
-                Log("Find `_controllerLeft`: failed", mode: 1);
+                Log("Find `_controllerLeft` failed", mode: 1);
                 res = false;
             }
         } else {
-            Log("Find `_objectLeft`: failed", mode: 1);
+            Log("Find `_objectLeft` failed", mode: 1);
             res = false;
         }
 
         // `_objectRight` 찾기
         _objectRight = GameObject.Find(nameRight);
         if (_objectRight != null) {
-            Log("Find `_objectRight`: success");
+            Log("Find `_objectRight` success");
 
             // `_controllerRight` 찾기
             _controllerRight = _objectRight.GetComponent<SlideController>();
             if (_controllerRight != null) {
-                Log("Find `_controllerRight`: success");
+                Log("Find `_controllerRight` success");
             } else {
-                Log("Find `_controllerRight`: failed", mode: 1);
+                Log("Find `_controllerRight` failed", mode: 1);
                 res = false;
             }
         } else {
-            Log("Find `_objectRight`: failed", mode: 1);
+            Log("Find `_objectRight` failed", mode: 1);
             res = false;
         }
 

@@ -32,9 +32,9 @@ public class Anomaly18_Interactable : SCH_AnomalyInteractable
         return res;
     }
 
-    /***********
-     * methods *
-     ***********/
+    /***************
+     * new methods *
+     ***************/
 
     // 지속시간 동안 투명해지다가 사라지는 메서드
     private IEnumerator FadeAsync()

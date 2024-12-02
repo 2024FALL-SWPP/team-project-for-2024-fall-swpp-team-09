@@ -22,9 +22,9 @@ public class Anomaly1_Girl : SCH_AnomalyInteractable
 
         if (animator != null) {
             animator.SetBool("Sitting_b", true);
-            Log("Reset pose: success");
+            Log("Reset pose success");
         } else {
-            Log("Reset pose: failed", mode: 1);
+            Log("Reset pose failed", mode: 1);
             res = false;
         }
 

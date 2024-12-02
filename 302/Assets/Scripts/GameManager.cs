@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
         // Added by 신 채 환
         // 슬라이드 초기화
-        SlideManager.Instance.InitSlideList();
+        SlideManager.Instance.GenerateSlideList();
         StartCoroutine(InitializeSlideAfterLoad());
     }
     private void InitializeGame()
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
 
             // Added by 신 채 환
             // 슬라이드 색인 배열 재생성
-            SlideManager.Instance.InitSlideList();
+            SlideManager.Instance.GenerateSlideList();
         }
         currentStageClear = false;  // 클리어 상태 초기화
         LoadDefaultScene();

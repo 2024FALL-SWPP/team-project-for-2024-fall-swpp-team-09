@@ -28,12 +28,12 @@ public class Anomaly18_Object : SCH_AnomalyObject
      *************************************/
 
     // 이상현상을 시작하는 메서드
-    protected override bool SetAnomaly()
+    public override bool StartAnomaly()
     {
-        bool res = base.SetAnomaly();
+        bool res = base.StartAnomaly();
 
         transform.position = position + direction * valueAnomaly;
-        Log("Set position: success");
+        Log("Set position success");
 
         return res;
     }
@@ -49,9 +49,9 @@ public class Anomaly18_Object : SCH_AnomalyObject
         return res;
     }
 
-    /***********
-     * methods *
-     ***********/
+    /***************
+     * new methods *
+     ***************/
 
     // 초기 위치부터 최종 위치까지 지속시간 동안 움직이는 메서드
     private IEnumerator MoveAsync()

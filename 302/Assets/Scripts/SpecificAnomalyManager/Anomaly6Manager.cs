@@ -2,13 +2,6 @@ using UnityEngine;
 
 public class Anomaly6Manager : SCH_AnomalyManager
 {
-    /**********
-     * fields *
-     **********/
-
-    // 프리팹
-    public GameObject prefabCake;
-
     /**************
      * properties *
      **************/
@@ -16,24 +9,20 @@ public class Anomaly6Manager : SCH_AnomalyManager
     // 클래스 이름
     public override string Name { get; } = "Anomaly6Manager";
 
-    /**************************************
-     * implementation: SCH_AnomalyManager *
-     **************************************/
+    /*********************************
+     * implementation: SCH_Behaviour *
+     *********************************/
 
-    // 이상현상을 시작하는 메서드
-    protected override bool SetAnomaly()
+    // `Awake` 메시지 용 메서드
+    protected override bool Awake_()
     {
-        bool res = base.SetAnomaly();
+        bool res = base.Awake_();
 
-        // 케이크
-        if (prefabCake != null) {
-            SCH_AnomalyObject obj = Instantiate(prefabCake).GetComponent<SCH_AnomalyObject>();
-
-            obj.Manager = this;
-            objects.Add(obj);
-            Log("Set `prefabCake`: success");
+        Log("Call `StartAnomaly` begin");
+        if (StartAnomaly()) {
+            Log("Call `StartAnomaly` success");
         } else {
-            Log("Set `prefabCake`: failed", mode: 1);
+            Log("Call `StartAnomaly` failed", mode: 1);
             res = false;
         }
 

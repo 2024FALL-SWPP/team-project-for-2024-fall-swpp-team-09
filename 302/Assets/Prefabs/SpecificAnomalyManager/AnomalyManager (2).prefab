@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a8eeeaaa8fe4e91b0707e40548c7dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameGameManager: GameManager
+  names:
+  - LaptopFace
+  prefabs: []
   nameLaptop: LaptopFace

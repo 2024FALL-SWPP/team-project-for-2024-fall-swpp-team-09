@@ -63,7 +63,7 @@ public class Anomaly23_Ghost : SCH_AnomalyObject
                 Log("Call `FadeAudioAsync` asynchronously");
                 StartCoroutine(FadeAudioAsync());
             } else {
-                Log("Call `script.GameOver`: failed", mode: 1);
+                Log("Call `script.GameOver` failed", mode: 1);
             }
         }
     }
@@ -105,50 +105,50 @@ public class Anomaly23_Ghost : SCH_AnomalyObject
         // _animator
         _animator = GetComponent<Animator>();
         if (_animator != null) {
-            Log("Initialize `_animator`: success");
+            Log("Initialize `_animator` success");
         } else {
-            Log("Initialize `_animator`: failed", mode: 1);
+            Log("Initialize `_animator` failed", mode: 1);
             res = false;
         }
 
         // _audioSource
         _audioSource = GetComponent<AudioSource>();
         if (_audioSource != null) {
-            Log("Initialize `_audioSource`: success");
+            Log("Initialize `_audioSource` success");
         } else {
-            Log("Initialize `_audioSource`: failed", mode: 1);
+            Log("Initialize `_audioSource` failed", mode: 1);
             res = false;
         }
 
         // _objectPlayer
         _objectPlayer = GameObject.Find(namePlayer);
         if (_objectPlayer != null) {
-            Log("Initialize `_objectPlayer`: success");
+            Log("Initialize `_objectPlayer` success");
         } else {
-            Log("Initialize `_objectPlayer`: failed", mode: 1);
+            Log("Initialize `_objectPlayer` failed", mode: 1);
             res = false;
         }
 
         // _objectCamera
         _objectCamera = GameObject.Find(nameCamera);
         if (_objectCamera != null) {
-            Log("Initialize `_objectCamera`: success");
+            Log("Initialize `_objectCamera` success");
         } else {
-            Log("Initialize `_objectCamera`: failed", mode: 1);
+            Log("Initialize `_objectCamera` failed", mode: 1);
             res = false;
         }
 
         // _timeStart
         _timeStart = Time.time;
-        Log($"Initialize `_timeStart`: success: {_timeStart}");
+        Log($"Initialize `_timeStart` success: {_timeStart}");
 
         // _isChasing
         _isChasing = true;
-        Log("Initialize `_isChasing`: success");
+        Log("Initialize `_isChasing` success");
 
         // _isCatched
         _isCatched = false;
-        Log("Initialize `_isChasing`: success");
+        Log("Initialize `_isChasing` success");
 
         return res;
     }
@@ -158,12 +158,12 @@ public class Anomaly23_Ghost : SCH_AnomalyObject
      *************************************/
 
     // 이상현상을 시작하는 메서드
-    protected override bool SetAnomaly()
+    public override bool StartAnomaly()
     {
-        bool res = base.SetAnomaly();
+        bool res = base.StartAnomaly();
 
         transform.position = position;
-        Log("Set position: success");
+        Log("Set position success");
 
         Log("Call `StartAudioAsync` asynchronously");
         StartCoroutine(StartAudioAsync());
@@ -177,7 +177,7 @@ public class Anomaly23_Ghost : SCH_AnomalyObject
         bool res = base.ResetAnomaly();
 
         _audioSource.enabled = false;
-        Log("Reset audio source: success");
+        Log("Reset audio source success");
 
         Log("Call `BlowAsync` asynchronously");
         StartCoroutine(BlowAsync());
@@ -185,9 +185,9 @@ public class Anomaly23_Ghost : SCH_AnomalyObject
         return res;
     }
 
-    /***********
-     * methods *
-     ***********/
+    /***************
+     * new methods *
+     ***************/
 
     // 시작하고 일정 시간 후 오디오 소스를 시작하는 메서드
     private IEnumerator StartAudioAsync()

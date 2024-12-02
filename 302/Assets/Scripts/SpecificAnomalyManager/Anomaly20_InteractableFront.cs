@@ -47,7 +47,7 @@ public class Anomaly20_InteractableFront : Anomaly20_Interactable
 
         // _x
         _x = objectBoard.transform.position.x - 0.01f;
-        Log("Initialize `_x`: success");
+        Log("Initialize `_x` success");
 
         return res;
     }

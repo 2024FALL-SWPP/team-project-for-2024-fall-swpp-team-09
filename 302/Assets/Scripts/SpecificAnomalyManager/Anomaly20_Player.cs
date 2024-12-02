@@ -48,9 +48,9 @@ public class Anomaly20_Player : SCH_AnomalyObject
         // _objectPlayer
         _objectPlayer = GameObject.Find(namePlayer);
         if (_objectPlayer != null) {
-            Log("Initialize `_objectPlayer`: success");
+            Log("Initialize `_objectPlayer` success");
         } else {
-            Log("Initialize `_objectPlayer`: failed", mode: 1);
+            Log("Initialize `_objectPlayer` failed", mode: 1);
             res = false;
         }
 
@@ -72,9 +72,9 @@ public class Anomaly20_Player : SCH_AnomalyObject
         return res;
     }
 
-    /***********
-     * methods *
-     ***********/
+    /***************
+     * new methods *
+     ***************/
 
     // 지속시간 동안 투명해지다가 사라지는 메서드
     private IEnumerator FadeAsync()
