@@ -44,10 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085c515f4a72f447ca184b2322523ea7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameGameManager: GameManager
+  names: []
+  prefabs:
+  - {fileID: 1585356450965799673, guid: f6f048eaa6cbbd149a13d00c9d48bd32, type: 3}
+  - {fileID: 6007555188655779168, guid: 0852fbf6270b3594ca9d568aa073d9f0, type: 3}
+  - {fileID: 6352980353013582430, guid: 0668cb8fc4c4adf4d89c5576aa49baa3, type: 3}
+  - {fileID: 8359328002521216368, guid: 20dd6377462426d459e214f2050cbf9e, type: 3}
   prefabPlayer: {fileID: 1585356450965799673, guid: f6f048eaa6cbbd149a13d00c9d48bd32, type: 3}
   prefabsInteractable:
   - {fileID: 6007555188655779168, guid: 0852fbf6270b3594ca9d568aa073d9f0, type: 3}
   - {fileID: 6352980353013582430, guid: 0668cb8fc4c4adf4d89c5576aa49baa3, type: 3}
   - {fileID: 8359328002521216368, guid: 20dd6377462426d459e214f2050cbf9e, type: 3}
-  duration: 2

@@ -11,7 +11,7 @@ public class SCH_AnomalyInteractable : SCH_AnomalyObject, IInteractable
     public string prompt;
     public float distanceInteractionMax;
 
-    // 기타 수치
+    // 내부 수치
     protected bool canInteract;
 
     /**************
@@ -34,14 +34,14 @@ public class SCH_AnomalyInteractable : SCH_AnomalyObject, IInteractable
     // 상호작용 시 실행될 메서드
     public void OnInteract()
     {
-        Log("Interaction occurs.");
+        Log($"Interaction with `{gameObject.name}`");
 
         if (Manager != null) {
-            Log("Call `Manager.InteractionSuccess` begin");
+            Log($"Call `{Manager.Name}.InteractionSuccess` begin");
             Manager.InteractionSuccess();
-            Log("Call `Manager.InteractionSuccess` end");
+            Log($"Call `{Manager.Name}.InteractionSuccess` end");
         } else {
-            Log("Call `Manager.InteractionSuccess`: failed", mode: 1);
+            Log($"Call `{Manager.Name}.InteractionSuccess` failed", mode: 1);
         }
 
         canInteract = false;
@@ -60,11 +60,21 @@ public class SCH_AnomalyInteractable : SCH_AnomalyObject, IInteractable
     // 필드를 초기화하는 메서드
     protected override bool InitFields()
     {
+        Collider collider = GetComponent<Collider>();
         bool res = base.InitFields();
+
+        // collider.isTrigger
+        if (collider != null) {
+            collider.isTrigger = false;
+            Log("Set `collider.isTrigger` success");
+        } else {
+            Log("Set `collider.isTrigger` failed", mode: 1);
+            res = false;
+        }
 
         // canInteract
         canInteract = true;
-        Log("Initialize `canInteract`: success");
+        Log("Initialize `canInteract` success");
 
         return res;
     }

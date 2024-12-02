@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5cacf602dde845d8a9e49737c5381f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameGameManager: GameManager
+  names: []
+  prefabs:
+  - {fileID: 1113413758793249629, guid: dae6286e84063a94a93a349b3da00e3f, type: 3}
   prefabCake: {fileID: 1113413758793249629, guid: dae6286e84063a94a93a349b3da00e3f, type: 3}

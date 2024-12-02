@@ -80,16 +80,16 @@ public class LaptopFaceController : LaptopScreenController
 
         // _colour
         _colour = defaults[0].GetPixel(407, 297);
-        Log("Initialize `_colour`: success: "
+        Log("Initialize `_colour` success: "
             + $"Color({_colour.r}, {_colour.g}, {_colour.b}, {_colour.a})");
 
         // _isGazing
         _isGazing = false;
-        Log("Initialize `_isGazing`: success");
+        Log("Initialize `_isGazing` success");
 
         // _tangent
         _tangent = 0;
-        Log("Initialize `_tangent`: success");
+        Log("Initialize `_tangent` success");
 
         return res;
     }

@@ -33,18 +33,18 @@ public class Anomaly20_Interactable : SCH_AnomalyInteractable
         // objectPlayer
         objectPlayer = GameObject.Find(namePlayer);
         if (objectPlayer != null) {
-            Log("Initialize `objectPlayer`: success");
+            Log("Initialize `objectPlayer` success");
         } else {
-            Log("Initialize `objectPlayer`: failed", mode: 1);
+            Log("Initialize `objectPlayer` failed", mode: 1);
             res = false;
         }
 
         // objectBoard
         objectBoard = GameObject.Find(nameBoard);
         if (objectBoard != null) {
-            Log("Initialize `objectBoard`: success");
+            Log("Initialize `objectBoard` success");
         } else {
-            Log("Initialize `objectBoard`: failed", mode: 1);
+            Log("Initialize `objectBoard` failed", mode: 1);
             res = false;
         }
 
@@ -61,7 +61,7 @@ public class Anomaly20_Interactable : SCH_AnomalyInteractable
         bool res = base.ResetAnomaly();
 
         Destroy(gameObject);
-        Log("Destroy game object: success");
+        Log("Destroy game object success");
 
         return res;
     }

@@ -48,15 +48,15 @@ public class Anomaly23_Laptop : SCH_AnomalyObject
         // _script
         _script = GetComponent<LaptopScreenController>();
         if (_script != null) {
-            Log("Initialize `_script`: success");
+            Log("Initialize `_script` success");
         } else {
-            Log("Initialize `_script`: failed", mode: 1);
+            Log("Initialize `_script` failed", mode: 1);
             res = false;
         }
 
         // _index
         _index = 0;
-        Log("Initialize `_index`: success");
+        Log("Initialize `_index` success");
 
         return res;
     }
@@ -66,17 +66,17 @@ public class Anomaly23_Laptop : SCH_AnomalyObject
      *************************************/
 
     // 이상현상을 시작하는 메서드
-    protected override bool SetAnomaly()
+    public override bool StartAnomaly()
     {
-        bool res = base.SetAnomaly();
+        bool res = base.StartAnomaly();
 
         // 노트북 화면
         if (_script != null) {
             _index = _script.Index;
             _script.ChangeScreen(anomalyScreenIndex);
-            Log("Set laptop screen: success");
+            Log("Set laptop screen success");
         } else {
-            Log("Set laptop screen: failed", mode: 1);
+            Log("Set laptop screen failed", mode: 1);
             res = false;
         }
 
@@ -91,9 +91,9 @@ public class Anomaly23_Laptop : SCH_AnomalyObject
         // 노트북 화면
         if (_script != null) {
             _script.ChangeScreen(_index);
-            Log("Reset laptop screen: success");
+            Log("Reset laptop screen success");
         } else {
-            Log("Reset laptop screen: failed", mode: 1);
+            Log("Reset laptop screen failed", mode: 1);
             res = false;
         }
 

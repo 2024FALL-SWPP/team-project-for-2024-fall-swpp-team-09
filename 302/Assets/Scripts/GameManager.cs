@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
         // Added by 신 채 환
         // 슬라이드 초기화
-        SlideManager.Instance.InitSlideList();
+        SlideManager.Instance.GenerateSlideList();
         StartCoroutine(InitializeSlideAfterLoad());
     }
     private void InitializeGame()
@@ -67,6 +67,16 @@ public class GameManager : MonoBehaviour
     // 플레이어가 Sleep 선택 시 호출
     public void Sleep()
     {
+        // Added by 신 채 환
+        // 시계 초기화
+        GameObject clock = GameObject.Find("clock");
+        if (clock != null) {
+            Anomaly18_Object script = clock.GetComponent<Anomaly18_Object>();
+            if (script != null && script.enabled) {
+                script.ResetAnomalyNow();
+            }
+        }
+
         gameState = GameState.Sleeping;
         if (currentStageClear)
         {
@@ -93,7 +103,7 @@ public class GameManager : MonoBehaviour
 
             // Added by 신 채 환
             // 슬라이드 색인 배열 재생성
-            SlideManager.Instance.InitSlideList();
+            SlideManager.Instance.GenerateSlideList();
         }
         currentStageClear = false;  // 클리어 상태 초기화
         LoadDefaultScene();

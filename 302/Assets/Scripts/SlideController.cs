@@ -65,26 +65,26 @@ public class SlideController : SCH_Behaviour
 
         // 난수
         _random = new SCH_Random();
-        Log("Initialize `_random`: success");
+        Log("Initialize `_random` success");
 
         // 흘러내림 관련 필드
         _trickleXMinList = new List<int>();
-        Log("Initialize `_trickleXMinList`: success");
+        Log("Initialize `_trickleXMinList` success");
 
         _trickleXMaxList = new List<int>();
-        Log("Initialize `_trickleXMinList`: success");
+        Log("Initialize `_trickleXMinList` success");
 
         _trickleYPrevList = new List<float>();
-        Log("Initialize `_trickleYPrevList`: success");
+        Log("Initialize `_trickleYPrevList` success");
 
         _trickleYCurrList = new List<float>();
-        Log("Initialize `_trickleYCurrList`: success");
+        Log("Initialize `_trickleYCurrList` success");
 
         _trickleSpeedList = new List<int>();
-        Log("Initialize `_trickleSpeedList`: success");
+        Log("Initialize `_trickleSpeedList` success");
 
         _isTrickling = false;
-        Log("Initialize `_isTrickling`: success");
+        Log("Initialize `_isTrickling` success");
 
         return res;
     }

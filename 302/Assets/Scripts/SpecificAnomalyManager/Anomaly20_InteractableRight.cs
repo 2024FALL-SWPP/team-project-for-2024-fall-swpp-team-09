@@ -49,7 +49,7 @@ public class Anomaly20_InteractableRight : Anomaly20_Interactable
 
         // _z
         _z = objectBoard.transform.position.z + 0.01f;
-        Log("Initialize `_z`: success");
+        Log("Initialize `_z` success");
 
         return res;
     }

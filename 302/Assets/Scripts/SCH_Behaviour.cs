@@ -13,14 +13,14 @@ public class SCH_Behaviour : MonoBehaviour
      * messages *
      ************/
 
-    // This function is called when the object becomes enabled and active.
-    protected virtual void OnEnable()
+    // Unity calls `Awake` when an enabled script instance is being loaded.
+    void Awake()
     {
-        Log("Call `InitFields` begin");
-        if (InitFields()) {
-            Log("Call `InitFields` end: success");
+        Log("Call `Awake_` begin");
+        if (Awake_()) {
+            Log("Call `Awake_` success");
         } else {
-            Log("Call `InitFields` end: failed", mode: 1);
+            Log("Call `Awake_` failed", mode: 1);
         }
     }
 
@@ -28,28 +28,44 @@ public class SCH_Behaviour : MonoBehaviour
      * virtual methods *
      *******************/
 
+    // `Awake` 메시지 용 메서드
+    protected virtual bool Awake_()
+    {
+        bool res = true;
+
+        Log("Call `InitFields` begin");
+        if (InitFields()) {
+            Log("Call `InitFields` success");
+        } else {
+            Log("Call `InitFields` failed", mode: 1);
+            res = false;
+        }
+
+        return res;
+    }
+
     // 필드를 초기화하는 메서드
     protected virtual bool InitFields()
     {
         return true;
     }
 
-    /****************
-     * util methods *
-     ****************/
+    /***********
+     * methods *
+     ***********/
 
     // 로깅 용 메서드
-    protected void Log(string messege, int mode = 0)
+    protected void Log(string message, int mode = 0)
     {
         switch (mode) {
             case 0:
-                Debug.Log($"[{Name}] {messege}");
+                Debug.Log($"[{Name}] {message}");
                 break;
             case 1:
-                Debug.LogWarning($"[{Name}] {messege}");
+                Debug.LogWarning($"[{Name}] {message}");
                 break;
             case 2:
-                Debug.LogError($"[{Name}] {messege}");
+                Debug.LogError($"[{Name}] {message}");
                 break;
         }
     }
