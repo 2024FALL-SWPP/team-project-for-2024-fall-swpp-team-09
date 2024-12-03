@@ -7,7 +7,7 @@ public class Anomaly22Manager : MonoBehaviour
     private GameObject floor; // 모든 타일들의 Parent
     private GameManager gameManager;
     private PlayerController playerController;
-    public float interval = 0.5f;
+    public float interval = 1f;
     public float totalSeconds = 30f;
     private bool isPlayerDead = false;
 
@@ -85,7 +85,7 @@ public class Anomaly22Manager : MonoBehaviour
     {
         foreach (var tile in floorTiles)
         {
-            if (tile != floor.transform)  // Skip the parent 'floor' object
+            if (tile != floor.transform && tile.name != "platform")  // Skip the parent 'floor' object
             {
                 BoxCollider tileCollider = tile.GetComponent<BoxCollider>();
                 if (tileCollider == null)
@@ -116,7 +116,7 @@ public class Anomaly22Manager : MonoBehaviour
     void Update()
     {
         // 아래로 떨어졌는지 확인해서 Game Over 처리
-        if (playerController.transform.position.y < -10f && !isPlayerDead)
+        if (playerController.transform.position.y < -1f && !isPlayerDead && false)
         {
             playerController.Sleep();
             isPlayerDead = true;
@@ -155,16 +155,47 @@ public class Anomaly22Manager : MonoBehaviour
 
     private IEnumerator RestoreAllTiles()
     {
+        float duration = 1f; // Duration for the animation (1 second)
+        float elapsedTime = 0f;
 
+        // Store the original positions of all tiles
+        Dictionary<Transform, Vector3> originalPositions = new Dictionary<Transform, Vector3>();
         foreach (var tile in floorTiles)
         {
+            if (tile != floor.transform) // Skip the parent 'floor' object
+            {
+                originalPositions[tile] = tile.position;
+            }
+        }
+
+        // Animate the tiles back to y = 0 over the duration
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration; // Normalized time [0, 1]
+
+            foreach (var tile in originalPositions.Keys)
+            {
+                Vector3 startPos = originalPositions[tile];
+                Vector3 targetPos = new Vector3(startPos.x, 0f, startPos.z);
+                tile.position = Vector3.Lerp(startPos, targetPos, t);
+            }
+
+            yield return null; // Wait for the next frame
+        }
+
+        // Ensure all tiles are precisely at y = 0 at the end of the animation
+        foreach (var tile in originalPositions.Keys)
+        {
+            tile.position = new Vector3(tile.position.x, 0f, tile.position.z);
+
+            // Remove the Anomaly22_tile component if it exists
             Anomaly22_tile tileScript = tile.GetComponent<Anomaly22_tile>();
             if (tileScript != null)
             {
-                tileScript.RestoreTile();
+                Destroy(tileScript);
             }
-
-            yield return null; 
         }
     }
+
 }
