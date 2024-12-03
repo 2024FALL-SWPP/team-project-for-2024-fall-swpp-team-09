@@ -4,46 +4,75 @@ using System.Collections;
 
 public class Anomaly22Manager : MonoBehaviour
 {
-    private GameObject floor;  // Reference to the floor GameObject (parent of all floor tiles)
+    private GameObject floor; // 모든 타일들의 Parent
     private GameManager gameManager;
-    private PlayerController player;
+    private PlayerController playerController;
     public float interval = 0.5f;
-    public float totalSeconds = 30f; // total seconds to survive Anomaly 22
+    public float totalSeconds = 30f;
     private bool isPlayerDead = false;
 
-    // Audio properties
-    public AudioClip shakeSound;  // The sound to play during shake
-    public AudioClip successSound; // The sound to play on success (뾰로롱)
+    [Header("Audio Settings")]
+    public AudioClip shakeSound;
+    public AudioClip successSound;
+    private AudioSource audioSource;
+    
     private List<Transform> floorTiles = new List<Transform>();
-    private AudioSource audioSource; // AudioSource for Anomaly22Manager
+    private Transform platformTile;
 
-    void Awake()
-    {
-        // Find floor using the correct tag
-        floor = GameObject.FindWithTag("FloorEmpty");
-
-        // Initialize AudioSource for the manager
-        audioSource = gameObject.AddComponent<AudioSource>();
-
-        // Start the coroutine to add BoxColliders and AudioSource to all tiles
-        StartCoroutine(AddBoxCollidersAndAssignAudioClip());
-        StartCoroutine(DestroyFloorBoxCollider());
-    }
 
     void Start()
     {
-        // Find GameManager and Player in the scene
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        player = GameObject.Find("Player").GetComponent<PlayerController>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        audioSource = gameObject.AddComponent<AudioSource>();
 
-        // Start coroutines
+        floor = GameObject.FindWithTag("FloorEmpty");
+        Transform[] floorTilesArray = floor.GetComponentsInChildren<Transform>();
+        floorTiles = new List<Transform>(floorTilesArray);
+        platformTile = FindPlatformTile();
+
+        StartCoroutine(AddBoxColliders()); // 타일 각각에 Collider 추가
+        StartCoroutine(DestroyFloorBoxCollider()); // Floor Parent의 통일된 Collider 제거
         StartCoroutine(CountSeconds());
+        StartCoroutine(TriggerPlatformFall());
         StartCoroutine(TriggerRandomTileShakeAndFallWithInterval());
     }
 
+
+    private Transform FindPlatformTile()
+    {
+        foreach (var tile in floorTiles)
+        {
+            if (tile.name == "platform")
+            {
+                return tile;
+            }
+        }
+        return null;
+    }
+
+    private IEnumerator TriggerPlatformFall()
+    {
+        if (platformTile != null)
+        {
+            Anomaly22_tile tileScript = platformTile.GetComponent<Anomaly22_tile>();
+            if (tileScript == null)
+            {
+
+                tileScript = platformTile.gameObject.AddComponent<Anomaly22_tile>();
+                tileScript.shakeSound = shakeSound;
+            } else {
+
+            }
+
+            tileScript.TriggerShakeAndFall();
+            yield return new WaitForSeconds(2f);
+        }
+    }
+
+
     private IEnumerator DestroyFloorBoxCollider()
     {
-        // Remove the floor's BoxCollider
         BoxCollider boxCollider = floor.GetComponent<BoxCollider>();
         if (boxCollider != null)
         {
@@ -52,33 +81,24 @@ public class Anomaly22Manager : MonoBehaviour
         yield return null;
     }
 
-    private IEnumerator AddBoxCollidersAndAssignAudioClip()
+    private IEnumerator AddBoxColliders()
     {
-        // Get all child objects of the floor GameObject
-        Transform[] floorTilesArray = floor.GetComponentsInChildren<Transform>();
-        floorTiles = new List<Transform>(floorTilesArray);
-
         foreach (var tile in floorTiles)
         {
             if (tile != floor.transform)  // Skip the parent 'floor' object
             {
-                // Add BoxCollider if it doesn't exist
                 BoxCollider tileCollider = tile.GetComponent<BoxCollider>();
                 if (tileCollider == null)
                 {
-                    tileCollider = tile.gameObject.AddComponent<BoxCollider>(); // Add box collider if it doesn't exist
+                    tileCollider = tile.gameObject.AddComponent<BoxCollider>();
                 }
 
-                // Adjust the size of the BoxCollider to make it thicker in the Y axis (e.g., 3 units)
-                // Get the original local size and center before modification
+                // Collider를 y방향으로 더 두껍게 만들기
                 Vector3 originalSize = tileCollider.size;
                 Vector3 originalCenter = tileCollider.center;
 
                 tileCollider.size = new Vector3(originalSize.x, originalSize.y, originalSize.z * 20); // Change Y value to 3
                 tileCollider.center = new Vector3(originalCenter.x, originalCenter.y, originalCenter.z - originalSize.z * 20); // Adjust center for correct positioning
-                // Add the Anomaly22_tile script and assign the shake sound
-                Anomaly22_tile tileScript = tile.gameObject.AddComponent<Anomaly22_tile>();
-                tileScript.shakeSound = shakeSound;  // Directly assign the shake sound
             }
         }
         yield return null;
@@ -88,72 +108,60 @@ public class Anomaly22Manager : MonoBehaviour
     {
         while (totalSeconds > 0f)
         {
-            totalSeconds -= 1f;  // Decrement the time by 1 second
-            yield return new WaitForSeconds(1f);  // Wait for 1 second
+            totalSeconds -= 1f;
+            yield return new WaitForSeconds(1f);
         }
     }
 
     void Update()
     {
-        // Check if the player has fallen below the y-axis threshold
-        if (player.transform.position.y < -10f && !isPlayerDead)
+        // 아래로 떨어졌는지 확인해서 Game Over 처리
+        if (playerController.transform.position.y < -10f && !isPlayerDead)
         {
-            StartCoroutine(HandleGameOver());
+            playerController.Sleep();
             isPlayerDead = true;
         }
     }
 
-    private IEnumerator HandleGameOver()
-    {
-        player.Sleep();
-        yield return new WaitForSeconds(5f); // Delay before triggering game over
-        gameManager.Sleep();
-    }
 
     private IEnumerator TriggerRandomTileShakeAndFallWithInterval()
     {
-        yield return new WaitForSeconds(2f);  // Wait for 2 seconds before starting the falls
-
+        yield return new WaitForSeconds(2f);
+        
         while (totalSeconds > 0f)
         {
-            // Randomly pick a floor tile
             int randomIndex = Random.Range(0, floorTiles.Count);
             Transform selectedTile = floorTiles[randomIndex];
 
-            // Check if the Anomaly22_tile script is attached, if not, attach it
             Anomaly22_tile tileScript = selectedTile.GetComponent<Anomaly22_tile>();
             if (tileScript == null)
             {
                 tileScript = selectedTile.gameObject.AddComponent<Anomaly22_tile>();
+                tileScript.shakeSound = shakeSound;
+
+                tileScript.TriggerShakeAndFall();
             }
-
-            // Call the ShakeAndFall function from Anomaly22_tile
-            tileScript.TriggerShakeAndFall();
-
-            floorTiles.RemoveAt(randomIndex);  // Remove fallen tile from list
 
             yield return new WaitForSeconds(interval);
         }
 
-        if (!isPlayerDead)
+        if (!isPlayerDead) // totalSeconds가 다 지날 때까지 생존 시 
         {
             gameManager.SetStageClear();
-            audioSource.PlayOneShot(successSound);  // Play success sound when the stage is cleared
-            StartCoroutine(RestoreAllTiles());  // Restore all tiles after success
+            audioSource.PlayOneShot(successSound);
+            StartCoroutine(RestoreAllTiles());
         }
     }
 
     private IEnumerator RestoreAllTiles()
     {
-        Transform[] floorTilesArray = floor.GetComponentsInChildren<Transform>();
-        floorTiles = new List<Transform>(floorTilesArray);
 
         foreach (var tile in floorTiles)
         {
             Anomaly22_tile tileScript = tile.GetComponent<Anomaly22_tile>();
             if (tileScript != null)
             {
-                tileScript.RestoreTile();  // This will set Y position to 0 and destroy the script
+                tileScript.RestoreTile();
             }
 
             yield return null; 
