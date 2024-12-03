@@ -18,11 +18,11 @@ public class Anomaly15Manager : MonoBehaviour
 
     private void Start()
     {
-        // Create and set up the interactive cube
+        // 상호작용할 수 있는 투명한 큐브
         interactionCube = CreateInteractionCube();
         StartCoroutine(SetTransparency(interactionCube));
 
-        // Start spawning spiders
+        // 거미 생성
         StartCoroutine(SpawnSpiderRoutine());
     }
 
@@ -100,22 +100,19 @@ public class Anomaly15Manager : MonoBehaviour
         return cube;
     }
 
-    // Coroutine to set the transparency of the cube
+    // 투명하게 fadeout
     private IEnumerator SetTransparency(GameObject cube)
     {
         yield return null; // Wait for one frame to ensure setup is complete
 
         Renderer cubeRenderer = cube.GetComponent<Renderer>();
 
-        // Ensure it's using a unique material instance
         cubeRenderer.material = new Material(Shader.Find("Standard"));
         
-        // Set the rendering mode to Transparent
         cubeRenderer.material.SetFloat("_Mode", 3); // 3 = Transparent
         cubeRenderer.material.color = new Color(0f, 0f, 0f, 0f); // Black albedo with 0 alpha
         cubeRenderer.material.renderQueue = 3000; // Force render in transparent queue
 
-        // Additional settings to enforce transparency
         cubeRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
         cubeRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
         cubeRenderer.material.SetInt("_ZWrite", 0);
