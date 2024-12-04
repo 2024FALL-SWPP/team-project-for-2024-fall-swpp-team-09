@@ -86,9 +86,20 @@ public class Anomaly23_Ghost : AbstractAnomalyObject
             } else if (!_isCatched) {
                 _isChasing = false;
 
-                Log("Call `Controller.InteractionSuccess` begin");
-                Controller.InteractionSuccess();
-                Log("Call `Controller.InteractionSuccess` end");
+                Log("Call `GameManager.SetStageClear` begin");
+                GameManager.Instance.SetStageClear();
+                Log("Call `GameManager.SetStageClear` end");
+
+                // Code used before `GameManager` updates begin
+                AbstractAnomalyController controller =  FindAnyObjectByType<AbstractAnomalyController>();
+
+                Log($"Call `{controller.Name}.ResetAnomaly` begin");
+                if (controller.ResetAnomaly()) {
+                    Log($"Call `{controller.Name}.ResetAnomaly` success");
+                } else {
+                    Log($"Call `{controller.Name}.ResetAnomaly` failed", mode: 1);
+                }
+                // Code used before `GameManager` updates end
             }
         }
     }

@@ -7,9 +7,6 @@ public abstract class AbstractAnomalyObject : AbstractBehaviour
     // 클래스 이름
     public override string Name { get; } = "AbstractAnomalyObject";
 
-    // 이상현상 컨트롤러
-    public AbstractAnomalyController Controller { get; set; }
-
     /*******************
      * virtual methods *
      *******************/

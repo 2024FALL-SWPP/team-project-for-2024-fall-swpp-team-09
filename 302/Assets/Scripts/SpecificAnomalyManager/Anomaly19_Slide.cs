@@ -40,6 +40,31 @@ public class Anomaly19_Slide : AbstractAnomalyInteractable
         }
     }
 
+    /*********************************
+     * implementation: IInteractable *
+     *********************************/
+
+    // 상호작용 시 실행될 메서드
+    public override void OnInteract()
+    {
+        base.OnInteract();
+
+        Log("Call `GameManager.SetStageClear` begin");
+        GameManager.Instance.SetStageClear();
+        Log("Call `GameManager.SetStageClear` end");
+
+        // Code used before `GameManager` updates begin
+        AbstractAnomalyController controller =  FindAnyObjectByType<AbstractAnomalyController>();
+
+        Log($"Call `{controller.Name}.ResetAnomaly` begin");
+        if (controller.ResetAnomaly()) {
+            Log($"Call `{controller.Name}.ResetAnomaly` success");
+        } else {
+            Log($"Call `{controller.Name}.ResetAnomaly` failed", mode: 1);
+        }
+        // Code used before `GameManager` updates end
+    }
+
     /*************************************
      * implementation: AbstractBehaviour *
      *************************************/

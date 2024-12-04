@@ -32,10 +32,6 @@ public abstract class AbstractAnomalyController : AbstractAnomalyObject
     {
         bool res = base.InitFields();
 
-        // Controller
-        Controller = this;
-        Log("Initialize `Controller` success");
-
         // objects
         objects = new List<AbstractAnomalyObject>();
         Log("Initialize `objects` success");
@@ -95,26 +91,6 @@ public abstract class AbstractAnomalyController : AbstractAnomalyObject
      * virtual methods *
      *******************/
 
-    // 상호작용 성공 시 불리는 메서드
-    public virtual bool InteractionSuccess()
-    {
-        bool res = true;
-
-        Log("Call `GameManager.SetStageClear` begin");
-        GameManager.Instance.SetStageClear();
-        Log("Call `GameManager.SetStageClear` end");
-
-        Log("Call `ResetAnomaly` begin");
-        if (ResetAnomaly()) {
-            Log("Call `ResetAnomaly` success");
-        } else {
-            Log("Call `ResetAnomaly` failed", mode: 1);
-            res = false;
-        }
-
-        return res;
-    }
-
     // 오브젝트를 초기화하는 메서드
     protected virtual bool InitObjects()
     {
@@ -129,7 +105,6 @@ public abstract class AbstractAnomalyController : AbstractAnomalyObject
 
                 if (obj != null) {
                     obj.enabled = true;
-                    obj.Controller = this;
                     objects.Add(obj);
                     Log($"Find `{name}` success: {obj.Name}");
                 } else {
@@ -150,7 +125,6 @@ public abstract class AbstractAnomalyController : AbstractAnomalyObject
                 AbstractAnomalyObject obj = gameObj.GetComponent<AbstractAnomalyObject>();
 
                 if (obj != null) {
-                    obj.Controller = this;
                     objects.Add(obj);
                     Log($"Instantiate `{prefab.name}` success: {obj.Name}");
                 } else {
