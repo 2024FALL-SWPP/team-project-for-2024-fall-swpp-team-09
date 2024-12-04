@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Anomaly20_Interactable : SCH_AnomalyInteractable
+public class Anomaly20_Interactable : AbstractAnomalyInteractable
 {
     /**********
      * fields *
@@ -21,9 +21,9 @@ public class Anomaly20_Interactable : SCH_AnomalyInteractable
     // 클래스 이름
     public override string Name { get; } = "Anomaly20_Interactable";
 
-    /*********************************
-     * implementation: SCH_Behaviour *
-     *********************************/
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
 
     // 필드를 초기화하는 메서드
     protected override bool InitFields()
@@ -51,9 +51,9 @@ public class Anomaly20_Interactable : SCH_AnomalyInteractable
         return res;
     }
 
-    /*********************************
-     * implementation: SCH_Behaviour *
-     *********************************/
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
 
     // 이상현상을 초기화하는 메서드
     public override bool ResetAnomaly()

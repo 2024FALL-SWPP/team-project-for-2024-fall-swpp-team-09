@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Anomaly20_Player : SCH_AnomalyObject
+public class Anomaly20_Player : AbstractAnomalyObject
 {
     /**********
      * fields *
@@ -36,9 +36,9 @@ public class Anomaly20_Player : SCH_AnomalyObject
         transform.rotation = Quaternion.Euler(0.0f, playerTransform.rotation.eulerAngles.y, 0.0f);
     }
 
-    /*********************************
-     * implementation: SCH_Behaviour *
-     *********************************/
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
 
     // 필드를 초기화하는 메서드
     protected override bool InitFields()
@@ -57,9 +57,9 @@ public class Anomaly20_Player : SCH_AnomalyObject
         return res;
     }
 
-    /*************************************
-     * implementation: SCH_AnomalyObject *
-     *************************************/
+    /*****************************************
+     * implementation: AbstractAnomalyObject *
+     *****************************************/
 
     // 이상현상을 초기화하는 메서드
     public override bool ResetAnomaly()

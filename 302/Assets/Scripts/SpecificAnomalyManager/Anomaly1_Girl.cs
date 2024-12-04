@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public class Anomaly1_Girl : SCH_AnomalyInteractable
+public class Anomaly1_Girl : AbstractAnomalyInteractable
 {
     /**************
      * properties *
@@ -10,9 +10,9 @@ public class Anomaly1_Girl : SCH_AnomalyInteractable
     // 클래스 이름
     public override string Name { get; } = "Anomaly1_Girl";
 
-    /*************************************
-     * implementation: SCH_AnomalyObject *
-     *************************************/
+    /*****************************************
+     * implementation: AbstractAnomalyObject *
+     *****************************************/
 
     // 이상현상을 초기화하는 메서드
     public override bool ResetAnomaly()

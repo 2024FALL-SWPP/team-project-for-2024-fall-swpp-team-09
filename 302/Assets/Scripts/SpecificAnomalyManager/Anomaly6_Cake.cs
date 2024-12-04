@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Anomaly6_Cake : SCH_AnomalyInteractable
+public class Anomaly6_Cake : AbstractAnomalyInteractable
 {
     /**********
      * fields *
@@ -16,9 +16,9 @@ public class Anomaly6_Cake : SCH_AnomalyInteractable
     // 클래스 이름
     public override string Name { get; } = "Anomaly6_Cake";
 
-    /*************************************
-     * implementation: SCH_AnomalyObject *
-     *************************************/
+    /*****************************************
+     * implementation: AbstractAnomalyObject *
+     *****************************************/
 
     // 이상현상을 초기화하는 메서드
     public override bool ResetAnomaly()

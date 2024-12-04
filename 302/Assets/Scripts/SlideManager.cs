@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SlideManager : SCH_Behaviour
+public class SlideManager : AbstractBehaviour, IStageObserver
 {
     /**********
      * fields *
@@ -38,9 +38,51 @@ public class SlideManager : SCH_Behaviour
     // 클래스 인자
     public static SlideManager Instance { get; private set; }
 
-    /*********************************
-     * implementation: SCH_Behaviour *
-     *********************************/
+    /**********************************
+     * implementation: IStageObserver *
+     **********************************/
+
+    public bool UpdateStage()
+    {
+        int stage = GameManager.Instance.GetCurrentStage();
+        bool res = true;
+
+        if (stage == 0) {
+            GenerateSlideList();
+            if (FindSlides()) {
+                _objectLeft.transform.Translate(Vector3.down * 100.0f);
+                _objectRight.transform.Translate(Vector3.down * 100.0f);
+                Log("Set slide success: off");
+            } else {
+                Log("Set slide failed", mode: 1);
+                res = false;
+            }
+        } else if (stage > 0 && stage <= numStage) {
+            if (FindSlides()) {
+                int index = _slideList[stage - 1];
+
+                _controllerLeft.Index = index;
+                _controllerRight.Index = index;
+
+                _controllerLeft.ResetSlide();
+                _controllerRight.ResetSlide();
+
+                Log($"Set slide success: {index}");
+            } else {
+                Log("Set slide failed", mode: 1);
+                res = false;
+            }
+        } else {
+            Log($"Invalid stage: {stage}", mode: 1);
+            res = false;
+        }
+
+        return res;
+    }
+
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
 
     // `Awake` 메시지 용 메서드
     protected override bool Awake_()

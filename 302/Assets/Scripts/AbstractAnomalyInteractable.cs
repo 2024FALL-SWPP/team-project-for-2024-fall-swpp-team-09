@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class SCH_AnomalyInteractable : SCH_AnomalyObject, IInteractable
+public class AbstractAnomalyInteractable : AbstractAnomalyObject, IInteractable
 {
     /**********
      * fields *
@@ -19,7 +19,7 @@ public class SCH_AnomalyInteractable : SCH_AnomalyObject, IInteractable
      **************/
 
     // 클래스 이름
-    public override string Name { get; } = "SCH_AnomalyInteractable";
+    public override string Name { get; } = "AbstractAnomalyInteractable";
 
     /*********************************
      * implementation: IInteractable *
@@ -36,12 +36,12 @@ public class SCH_AnomalyInteractable : SCH_AnomalyObject, IInteractable
     {
         Log($"Interaction with `{gameObject.name}`");
 
-        if (Manager != null) {
-            Log($"Call `{Manager.Name}.InteractionSuccess` begin");
-            Manager.InteractionSuccess();
-            Log($"Call `{Manager.Name}.InteractionSuccess` end");
+        if (Controller != null) {
+            Log($"Call `{Controller.Name}.InteractionSuccess` begin");
+            Controller.InteractionSuccess();
+            Log($"Call `{Controller.Name}.InteractionSuccess` end");
         } else {
-            Log($"Call `{Manager.Name}.InteractionSuccess` failed", mode: 1);
+            Log($"Call `{Controller.Name}.InteractionSuccess` failed", mode: 1);
         }
 
         canInteract = false;
@@ -53,9 +53,9 @@ public class SCH_AnomalyInteractable : SCH_AnomalyObject, IInteractable
         return canInteract && distance <= distanceInteractionMax;
     }
 
-    /*********************************
-     * implementation: SCH_Behaviour *
-     *********************************/
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
 
     // 필드를 초기화하는 메서드
     protected override bool InitFields()

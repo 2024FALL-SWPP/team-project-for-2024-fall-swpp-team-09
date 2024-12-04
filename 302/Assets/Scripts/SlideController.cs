@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlideController : SCH_Behaviour
+public class SlideController : AbstractBehaviour
 {
     /**********
      * fields *
@@ -54,9 +54,9 @@ public class SlideController : SCH_Behaviour
         UpdateTrickling();
     }
 
-    /********************************
-     * implmentation: SCH_Behaviour *
-     ********************************/
+    /************************************
+     * implmentation: AbstractBehaviour *
+     ************************************/
 
     // 필드를 초기화하는 메서드
     protected override bool InitFields()

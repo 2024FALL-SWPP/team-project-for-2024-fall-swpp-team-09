@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Anomaly18_Interactable : SCH_AnomalyInteractable
+public class Anomaly18_Interactable : AbstractAnomalyInteractable
 {
     /**********
      * fields *
@@ -17,9 +17,9 @@ public class Anomaly18_Interactable : SCH_AnomalyInteractable
     // 클래스 이름
     public override string Name { get; } = "Anomaly18_Prefab";
 
-    /*************************************
-     * implementation: SCH_AnomalyObject *
-     *************************************/
+    /*****************************************
+     * implementation: AbstractAnomalyObject *
+     *****************************************/
 
     // 이상현상을 초기화하는 메서드
     public override bool ResetAnomaly()

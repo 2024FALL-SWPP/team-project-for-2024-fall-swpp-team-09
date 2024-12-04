@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(LaptopFaceController))]
-public class Anomaly2_Laptop : SCH_AnomalyInteractable
+public class Anomaly2_Laptop : AbstractAnomalyInteractable
 {
     /**********
      * fields *
@@ -20,9 +20,9 @@ public class Anomaly2_Laptop : SCH_AnomalyInteractable
     // 클래스 이름
     public override string Name { get; } = "Anomaly2_Laptop";
 
-    /*********************************
-     * implementation: SCH_Behaviour *
-     *********************************/
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
 
     // 필드를 초기화하는 메서드
     protected override bool InitFields()
@@ -41,9 +41,9 @@ public class Anomaly2_Laptop : SCH_AnomalyInteractable
         return res;
     }
 
-    /*************************************
-     * implementation: SCH_AnomalyObject *
-     *************************************/
+    /*****************************************
+     * implementation: AbstractAnomalyObject *
+     *****************************************/
 
     // 이상현상을 시작하는 메서드
     public override bool StartAnomaly()

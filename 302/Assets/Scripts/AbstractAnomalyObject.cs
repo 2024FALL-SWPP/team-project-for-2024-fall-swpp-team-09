@@ -1,14 +1,14 @@
-public class SCH_AnomalyObject : SCH_Behaviour
+public abstract class AbstractAnomalyObject : AbstractBehaviour
 {
     /**************
      * properties *
      **************/
 
     // 클래스 이름
-    public override string Name { get; } = "SCH_AnomalyObject";
+    public override string Name { get; } = "AbstractAnomalyObject";
 
-    // 이상현상 매니저
-    public SCH_AnomalyManager Manager { get; set; }
+    // 이상현상 컨트롤러
+    public AbstractAnomalyController Controller { get; set; }
 
     /*******************
      * virtual methods *

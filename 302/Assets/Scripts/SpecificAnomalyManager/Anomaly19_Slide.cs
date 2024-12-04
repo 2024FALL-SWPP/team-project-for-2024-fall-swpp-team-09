@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SlideController))]
-public class Anomaly19_Slide : SCH_AnomalyInteractable
+public class Anomaly19_Slide : AbstractAnomalyInteractable
 {
     /**********
      * fields *
@@ -40,9 +40,9 @@ public class Anomaly19_Slide : SCH_AnomalyInteractable
         }
     }
 
-    /*********************************
-     * implementation: SCH_Behaviour *
-     *********************************/
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
 
     // 필드를 초기화하는 메서드
     protected override bool InitFields()
@@ -65,9 +65,9 @@ public class Anomaly19_Slide : SCH_AnomalyInteractable
         return res;
     }
 
-    /*************************************
-     * implementation: SCH_AnomalyObject *
-     *************************************/
+    /*****************************************
+     * implementation: AbstractAnomalyObject *
+     *****************************************/
 
     // 이상현상을 시작하는 메서드
     public override bool StartAnomaly()
@@ -100,9 +100,9 @@ public class Anomaly19_Slide : SCH_AnomalyInteractable
         return res;
     }
 
-    /***********
-     * methods *
-     ***********/
+    /***************
+     * new methods *
+     ***************/
 
     // 카메라와의 거리를 구하는 메서드
     private float DistanceToCamera()

@@ -38,9 +38,9 @@ public class Anomaly20_InteractableRight : Anomaly20_Interactable
         }
     }
 
-    /*********************************
-     * implementation: SCH_Behaviour *
-     *********************************/
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
 
     // 필드를 초기화하는 메서드
     protected override bool InitFields()

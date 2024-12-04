@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class SCH_Behaviour : MonoBehaviour
+public abstract class AbstractBehaviour : MonoBehaviour
 {
     /**************
      * properties *
      **************/
 
     // 클래스 이름
-    public virtual string Name { get; } = "SCH_Behaviour";
+    public virtual string Name { get; } = "AbstractBehaviour";
 
     /************
      * messages *
