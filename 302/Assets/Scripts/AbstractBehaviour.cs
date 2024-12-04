@@ -70,3 +70,42 @@ public abstract class AbstractBehaviour : MonoBehaviour
         }
     }
 }
+
+/* 양식: 복사해서 사용하기.
+
+// `AbstractBehaviour`는 편의를 위해 만든 추상 클래스입니다.
+//
+// 필드 초기화하는 것, `Awake` 메시지에 추가적으로 해야할 것을 따로 메서드로 뺐습니다.
+//
+// `Log` 메서드로 로깅도 편하게 만들었는데, `Debug.Log()` 형태가 아니라 그냥 `Log()`로 쓰면
+// 앞에 `[{클래스 이름}]`의 형태로 어디서 불렀는지를 알아서 붙여 줍니다.
+// `Log(..., mode: 1)`로 `Debug.LogWarning(...)`을, `Log(..., mode: 2)`로 `Debug.LogError(...)`를
+// 부를 수도 있습니다.
+
+public class MyClass : AbstractBehaviour // TODO: 클래스 이름 수정하기.
+{
+    // 클래스 이름
+    public override string Name { get; } = ""; // TODO: 클래스 이름 추가하기.
+
+    // `Awake` 메시지 용 메서드
+    protected override bool Awake_()
+    {
+        bool res = base.Awake_();
+
+        // TODO: `Awake` 메시지에서 해야할 것 넣기. 없으면 메서드를 아예 지워도 됨.
+        // 함수가 제대로 작동했으면 `true`를, 아니면 `false`를 반환.
+
+        return res;
+    }
+
+    // 필드를 초기화하는 메서드
+    protected override bool InitFields()
+    {
+        bool res = base.InitFields();
+
+        // TODO: 필드 초기화할 것 넣기. 없으면 메서드를 아예 지워도 됨.
+        // 함수가 제대로 작동했으면 `true`를, 아니면 `false`를 반환.
+
+        return res;
+    }
+} */
