@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Anomaly20_Interactable : SCH_AnomalyInteractable
+public class Anomaly20_Interactable : AbstractAnomalyInteractable
 {
     /**********
      * fields *
@@ -22,8 +22,33 @@ public class Anomaly20_Interactable : SCH_AnomalyInteractable
     public override string Name { get; } = "Anomaly20_Interactable";
 
     /*********************************
-     * implementation: SCH_Behaviour *
+     * implementation: IInteractable *
      *********************************/
+
+    // 상호작용 시 실행될 메서드
+    public override void OnInteract()
+    {
+        base.OnInteract();
+
+        Log("Call `GameManager.SetStageClear` begin");
+        GameManager.Instance.SetStageClear();
+        Log("Call `GameManager.SetStageClear` end");
+
+        // Code used before `GameManager` updates begin
+        AbstractAnomalyController controller =  FindAnyObjectByType<AbstractAnomalyController>();
+
+        Log($"Call `{controller.Name}.ResetAnomaly` begin");
+        if (controller.ResetAnomaly()) {
+            Log($"Call `{controller.Name}.ResetAnomaly` success");
+        } else {
+            Log($"Call `{controller.Name}.ResetAnomaly` failed", mode: 1);
+        }
+        // Code used before `GameManager` updates end
+    }
+
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
 
     // 필드를 초기화하는 메서드
     protected override bool InitFields()
@@ -51,9 +76,9 @@ public class Anomaly20_Interactable : SCH_AnomalyInteractable
         return res;
     }
 
-    /*********************************
-     * implementation: SCH_Behaviour *
-     *********************************/
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
 
     // 이상현상을 초기화하는 메서드
     public override bool ResetAnomaly()

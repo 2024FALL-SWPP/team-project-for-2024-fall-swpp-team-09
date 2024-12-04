@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Anomaly1_Chair : SCH_AnomalyObject
+public class Anomaly1_Chair : AbstractAnomalyObject
 {
     /**********
      * fields *
@@ -16,9 +16,9 @@ public class Anomaly1_Chair : SCH_AnomalyObject
     // 클래스 이름
     public override string Name { get; } = "Anomaly1_Chair";
 
-    /*************************************
-     * implementation: SCH_AnomalyObject *
-     *************************************/
+    /*****************************************
+     * implementation: AbstractAnomalyObject *
+     *****************************************/
 
     // 이상현상을 시작하는 메서드
     public override bool StartAnomaly()

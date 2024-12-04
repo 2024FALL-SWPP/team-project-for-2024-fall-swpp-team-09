@@ -1,9 +1,5 @@
-using UnityEngine;
-
-public class Anomaly1Manager : SCH_AnomalyManager
+public class Anomaly1Manager : AbstractAnomalyController
 {
-    public Vector3 positionChair;
-
     /**************
      * properties *
      **************/
@@ -11,9 +7,9 @@ public class Anomaly1Manager : SCH_AnomalyManager
     // 클래스 이름
     public override string Name { get; } = "Anomaly1Manager";
 
-    /*********************************
-     * implementation: SCH_Behaviour *
-     *********************************/
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
 
     // `Awake` 메시지 용 메서드
     protected override bool Awake_()

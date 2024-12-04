@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class SCH_AnomalyInteractable : SCH_AnomalyObject, IInteractable
+public class AbstractAnomalyInteractable : AbstractAnomalyObject, IInteractable
 {
     /**********
      * fields *
@@ -19,43 +19,34 @@ public class SCH_AnomalyInteractable : SCH_AnomalyObject, IInteractable
      **************/
 
     // 클래스 이름
-    public override string Name { get; } = "SCH_AnomalyInteractable";
+    public override string Name { get; } = "AbstractAnomalyInteractable";
 
     /*********************************
      * implementation: IInteractable *
      *********************************/
 
     // 상호작용 프롬프트 텍스트 반환 (예: "E키를 눌러 책상 조사하기")
-    public string GetInteractionPrompt()
+    public virtual string GetInteractionPrompt()
     {
         return prompt;
     }
 
     // 상호작용 시 실행될 메서드
-    public void OnInteract()
+    public virtual void OnInteract()
     {
         Log($"Interaction with `{gameObject.name}`");
-
-        if (Manager != null) {
-            Log($"Call `{Manager.Name}.InteractionSuccess` begin");
-            Manager.InteractionSuccess();
-            Log($"Call `{Manager.Name}.InteractionSuccess` end");
-        } else {
-            Log($"Call `{Manager.Name}.InteractionSuccess` failed", mode: 1);
-        }
-
         canInteract = false;
     }
 
     // 현재 상호작용 가능한지 여부 반환
-    public bool CanInteract(float distance)
+    public virtual bool CanInteract(float distance)
     {
         return canInteract && distance <= distanceInteractionMax;
     }
 
-    /*********************************
-     * implementation: SCH_Behaviour *
-     *********************************/
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
 
     // 필드를 초기화하는 메서드
     protected override bool InitFields()

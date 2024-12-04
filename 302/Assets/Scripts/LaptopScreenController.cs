@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LaptopScreenController : SCH_Behaviour
+public class LaptopScreenController : AbstractBehaviour
 {
     /**********
      * fields *
@@ -40,9 +40,9 @@ public class LaptopScreenController : SCH_Behaviour
         }
     }
 
-    /*********************************
-     * implementation: SCH_Behaviour *
-     *********************************/
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
 
     // `Awake` 메시지 용 메서드
     protected override bool Awake_()
@@ -56,9 +56,9 @@ public class LaptopScreenController : SCH_Behaviour
         return res;
     }
 
-    /***********
-     * methods *
-     ***********/
+    /***************
+     * new methods *
+     ***************/
 
     public virtual void ResetScreen()
     {

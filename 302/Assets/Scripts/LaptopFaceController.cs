@@ -69,9 +69,9 @@ public class LaptopFaceController : LaptopScreenController
         }
     }
 
-    /*********************************
-     * implementation: SCH_Behaviour *
-     *********************************/
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
 
     // 필드를 초기화하는 메서드
     protected override bool InitFields()
@@ -121,9 +121,9 @@ public class LaptopFaceController : LaptopScreenController
         screen.Apply();
     }
 
-    /***********
-     * methods *
-     ***********/
+    /***************
+     * new methods *
+     ***************/
 
     // 쳐다보기 시작하는 메서드
     public void StartGazing()

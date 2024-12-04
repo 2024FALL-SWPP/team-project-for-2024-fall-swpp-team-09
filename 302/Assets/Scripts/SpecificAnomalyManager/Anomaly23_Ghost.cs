@@ -3,7 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AudioSource))]
-public class Anomaly23_Ghost : SCH_AnomalyObject
+public class Anomaly23_Ghost : AbstractAnomalyObject
 {
     /**********
      * fields *
@@ -86,16 +86,27 @@ public class Anomaly23_Ghost : SCH_AnomalyObject
             } else if (!_isCatched) {
                 _isChasing = false;
 
-                Log("Call `Manager.InteractionSuccess` begin");
-                Manager.InteractionSuccess();
-                Log("Call `Manager.InteractionSuccess` end");
+                Log("Call `GameManager.SetStageClear` begin");
+                GameManager.Instance.SetStageClear();
+                Log("Call `GameManager.SetStageClear` end");
+
+                // Code used before `GameManager` updates begin
+                AbstractAnomalyController controller =  FindAnyObjectByType<AbstractAnomalyController>();
+
+                Log($"Call `{controller.Name}.ResetAnomaly` begin");
+                if (controller.ResetAnomaly()) {
+                    Log($"Call `{controller.Name}.ResetAnomaly` success");
+                } else {
+                    Log($"Call `{controller.Name}.ResetAnomaly` failed", mode: 1);
+                }
+                // Code used before `GameManager` updates end
             }
         }
     }
 
-    /*********************************
-     * implementation: SCH_Behaviour *
-     *********************************/
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
 
     // 필드를 초기화하는 메서드
     protected override bool InitFields()
@@ -153,9 +164,9 @@ public class Anomaly23_Ghost : SCH_AnomalyObject
         return res;
     }
 
-    /*************************************
-     * implementation: SCH_AnomalyObject *
-     *************************************/
+    /*****************************************
+     * implementation: AbstractAnomalyObject *
+     *****************************************/
 
     // 이상현상을 시작하는 메서드
     public override bool StartAnomaly()

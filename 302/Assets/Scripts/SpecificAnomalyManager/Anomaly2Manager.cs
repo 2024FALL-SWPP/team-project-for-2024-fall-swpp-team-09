@@ -1,6 +1,4 @@
-using UnityEngine;
-
-public class Anomaly2Manager : SCH_AnomalyManager
+public class Anomaly2Manager : AbstractAnomalyController
 {
     /**************
      * properties *
@@ -9,9 +7,9 @@ public class Anomaly2Manager : SCH_AnomalyManager
     // 클래스 이름
     public override string Name { get; } = "Anomaly2Manager";
 
-    /*********************************
-     * implementation: SCH_Behaviour *
-     *********************************/
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
 
     // `Awake` 메시지 용 메서드
     protected override bool Awake_()

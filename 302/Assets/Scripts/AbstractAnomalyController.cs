@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SCH_AnomalyManager : SCH_AnomalyObject
+public abstract class AbstractAnomalyController : AbstractAnomalyObject
 {
     /**********
      * fields *
@@ -14,38 +14,34 @@ public class SCH_AnomalyManager : SCH_AnomalyObject
     public GameObject[] prefabs;
 
     // 이상현상 오브젝트 리스트
-    protected List<SCH_AnomalyObject> objects;
+    protected List<AbstractAnomalyObject> objects;
 
     /**************
      * properties *
      **************/
 
     // 클래스 이름
-    public override string Name { get; } = "SCH_AnomalyManager";
+    public override string Name { get; } = "AbstractAnomalyController";
 
-    /*********************************
-     * implementation: SCH_Behaviour *
-     *********************************/
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
 
     // 필드를 초기화하는 메서드
     protected override bool InitFields()
     {
         bool res = base.InitFields();
 
-        // Manager
-        Manager = this;
-        Log("Initialize `Manager` success");
-
         // objects
-        objects = new List<SCH_AnomalyObject>();
+        objects = new List<AbstractAnomalyObject>();
         Log("Initialize `objects` success");
 
         return res;
     }
 
-    /*************************************
-     * implementation: SCH_AnomalyObject *
-     *************************************/
+    /*****************************************
+     * implementation: AbstractAnomalyObject *
+     *****************************************/
 
     // 이상현상을 시작하는 메서드
     public override bool StartAnomaly()
@@ -60,7 +56,7 @@ public class SCH_AnomalyManager : SCH_AnomalyObject
             res = false;
         }
 
-        foreach (SCH_AnomalyObject obj in objects) {
+        foreach (AbstractAnomalyObject obj in objects) {
             Log($"Call `{obj.Name}.StartAnomaly` for {obj.gameObject.name} begin");
             if (obj.StartAnomaly()) {
                 Log($"Call `{obj.Name}.StartAnomaly` success");
@@ -78,7 +74,7 @@ public class SCH_AnomalyManager : SCH_AnomalyObject
     {
         bool res = base.ResetAnomaly();
 
-        foreach (SCH_AnomalyObject obj in objects) {
+        foreach (AbstractAnomalyObject obj in objects) {
             Log($"Call `{obj.Name}.ResetAnomaly` for {obj.gameObject.name} begin");
             if (obj.ResetAnomaly()) {
                 Log($"Call `{obj.Name}.ResetAnomaly` success");
@@ -95,26 +91,6 @@ public class SCH_AnomalyManager : SCH_AnomalyObject
      * virtual methods *
      *******************/
 
-    // 상호작용 성공 시 불리는 메서드
-    public virtual bool InteractionSuccess()
-    {
-        bool res = true;
-
-        Log("Call `GameManager.SetStageClear` begin");
-        GameManager.Instance.SetStageClear();
-        Log("Call `GameManager.SetStageClear` end");
-
-        Log("Call `ResetAnomaly` begin");
-        if (ResetAnomaly()) {
-            Log("Call `ResetAnomaly` success");
-        } else {
-            Log("Call `ResetAnomaly` failed", mode: 1);
-            res = false;
-        }
-
-        return res;
-    }
-
     // 오브젝트를 초기화하는 메서드
     protected virtual bool InitObjects()
     {
@@ -125,11 +101,10 @@ public class SCH_AnomalyManager : SCH_AnomalyObject
             GameObject gameObj = GameObject.Find(name);
 
             if (gameObj != null) {
-                SCH_AnomalyObject obj = gameObj.GetComponent<SCH_AnomalyObject>();
+                AbstractAnomalyObject obj = gameObj.GetComponent<AbstractAnomalyObject>();
 
                 if (obj != null) {
                     obj.enabled = true;
-                    obj.Manager = this;
                     objects.Add(obj);
                     Log($"Find `{name}` success: {obj.Name}");
                 } else {
@@ -147,10 +122,9 @@ public class SCH_AnomalyManager : SCH_AnomalyObject
             GameObject gameObj = Instantiate(prefab);
 
             if (gameObj != null) {
-                SCH_AnomalyObject obj = gameObj.GetComponent<SCH_AnomalyObject>();
+                AbstractAnomalyObject obj = gameObj.GetComponent<AbstractAnomalyObject>();
 
                 if (obj != null) {
-                    obj.Manager = this;
                     objects.Add(obj);
                     Log($"Instantiate `{prefab.name}` success: {obj.Name}");
                 } else {

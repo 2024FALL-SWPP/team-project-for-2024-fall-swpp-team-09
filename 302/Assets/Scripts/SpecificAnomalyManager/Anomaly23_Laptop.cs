@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(LaptopScreenController))]
-public class Anomaly23_Laptop : SCH_AnomalyObject
+public class Anomaly23_Laptop : AbstractAnomalyObject
 {
     /**********
      * fields *
@@ -36,9 +36,9 @@ public class Anomaly23_Laptop : SCH_AnomalyObject
         }
     }
 
-    /*********************************
-     * implementation: SCH_Behaviour *
-     *********************************/
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
 
     // 필드를 초기화하는 메서드
     protected override bool InitFields()
@@ -61,9 +61,9 @@ public class Anomaly23_Laptop : SCH_AnomalyObject
         return res;
     }
 
-    /*************************************
-     * implementation: SCH_AnomalyObject *
-     *************************************/
+    /*****************************************
+     * implementation: AbstractAnomalyObject *
+     *****************************************/
 
     // 이상현상을 시작하는 메서드
     public override bool StartAnomaly()
