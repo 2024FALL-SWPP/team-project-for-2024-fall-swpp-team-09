@@ -41,8 +41,7 @@ public class GameManager : MonoBehaviour
 
         // Added by 신 채 환
         // 슬라이드 초기화
-        SlideManager.Instance.GenerateSlideList();
-        StartCoroutine(InitializeSlideAfterLoad());
+        SlideManager.Instance.UpdateStage();
     }
     private void InitializeGame()
     {
@@ -100,10 +99,6 @@ public class GameManager : MonoBehaviour
             // 스테이지 실패 시, 이상현상 리스트를 초기화, 재생성 해야 하므로
             // AnomalyManager의 Stage Failure시 작동하는 함수 호출
             AnomalyManager.Instance.ResetAnomaliesOnFailure();
-
-            // Added by 신 채 환
-            // 슬라이드 색인 배열 재생성
-            SlideManager.Instance.GenerateSlideList();
         }
         currentStageClear = false;  // 클리어 상태 초기화
         LoadDefaultScene();
@@ -120,7 +115,7 @@ public class GameManager : MonoBehaviour
 
         // Added by 신 채 환
         // 슬라이드 초기화
-        StartCoroutine(InitializeSlideAfterLoad());
+        SlideManager.Instance.UpdateStage();
     }
     private void LoadDefaultScene()
     {
@@ -140,14 +135,6 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);  // 장면 로드 완료 후 잠깐 대기
         AnomalyManager.Instance.CheckAndInstantiateAnomaly();
-    }
-
-    // Added by 신채환
-    private IEnumerator InitializeSlideAfterLoad()
-    {
-        yield return new WaitForSeconds(0.1f);
-
-        SlideManager.Instance.SetSlide(currentStage);
     }
 
     private void GameClear()

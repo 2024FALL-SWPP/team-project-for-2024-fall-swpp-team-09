@@ -34,7 +34,8 @@ public class Anomaly2_Laptop : AbstractAnomalyInteractable
         Log("Call `GameManager.SetStageClear` end");
 
         // Code used before `GameManager` updates begin
-        AbstractAnomalyController controller =  FindAnyObjectByType<AbstractAnomalyController>();
+        GameObject controllerObject = GameObject.Find("Anomaly2Manager");
+        AbstractAnomalyObject controller = controllerObject.GetComponent<AbstractAnomalyObject>();
 
         Log($"Call `{controller.Name}.ResetAnomaly` begin");
         if (controller.ResetAnomaly()) {

@@ -104,6 +104,47 @@ public class MyClass : AbstractBehaviour // TODO: 클래스 이름 수정하기.
         bool res = base.InitFields();
 
         // TODO: 필드 초기화할 것 넣기. 없으면 메서드를 아예 지워도 됨.
+        // (사실 필드 말고 초기화할 것도 넣어도 됨....)
+        // 함수가 제대로 작동했으면 `true`를, 아니면 `false`를 반환.
+
+        return res;
+    }
+} */
+
+/* 추가 양식: 매니저 구현 용 양식
+
+// 싱글턴까지 구현해 놓은 양식입니다.
+
+public class MyManager : AbstractBehaviour // TODO: 클래스 이름 수정하기.
+{
+    // 클래스 이름
+    public override string Name { get; } = ""; // TODO: 클래스 이름 추가하기.
+
+    // 클래스 인스턴스
+    public static MyManager Instance { get; private set; } // TODO: 클래스 이름 수정하기.
+
+    // `Awake` 메시지 용 메서드
+    protected override bool Awake_()
+    {
+        if (Instance == null) {
+            Log($"`Instance` has not been set => set `Instance` as `{Name}`");
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        } else {
+            Log($"`Instance` has already been set => destroy `{gameObject.name}`");
+            Destroy(gameObject);
+        }
+
+        return base.Awake_();
+    }
+
+    // 필드를 초기화하는 메서드
+    protected override bool InitFields()
+    {
+        bool res = base.InitFields();
+
+        // TODO: 필드 초기화할 것 넣기. 없으면 메서드를 아예 지워도 됨.
+        // (사실 필드 말고 초기화할 것도 넣어도 됨....)
         // 함수가 제대로 작동했으면 `true`를, 아니면 `false`를 반환.
 
         return res;

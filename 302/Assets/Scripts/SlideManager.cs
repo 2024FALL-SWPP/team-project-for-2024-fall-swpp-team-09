@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SlideManager : AbstractBehaviour, IStageObserver
@@ -7,23 +8,20 @@ public class SlideManager : AbstractBehaviour, IStageObserver
      **********/
 
     // 슬라이드 오브젝트 이름
-    public string nameLeft;
-    public string nameRight;
+    public string[] names;
 
     // 개수
     public int numSlide;
     public int numStage;
 
-    // 무작위성
+    // 난수
     private SCH_Random _random;
 
     // 오브젝트
-    private GameObject _objectLeft;
-    private GameObject _objectRight;
+    private List<GameObject> _objects;
 
     // 슬라이드 컨트롤러
-    private SlideController _controllerLeft;
-    private SlideController _controllerRight;
+    private List<SlideController> _controllers;
 
     // 슬라이드 색인 배열
     private int[] _slideList;
@@ -35,7 +33,7 @@ public class SlideManager : AbstractBehaviour, IStageObserver
     // 클래스 이름
     public override string Name { get; } = "SlideManager";
 
-    // 클래스 인자
+    // 클래스 인스턴스
     public static SlideManager Instance { get; private set; }
 
     /**********************************
@@ -48,28 +46,40 @@ public class SlideManager : AbstractBehaviour, IStageObserver
         bool res = true;
 
         if (stage == 0) {
-            GenerateSlideList();
+            // generate random slide index list
+            _slideList = _random.Combination(numSlide, numStage);
+            Log($"Generate `_slideList` success: [{string.Join(", ", _slideList)}]");
+
+            // find and put away the slides
+            Log("Call `FindSlides` begin");
             if (FindSlides()) {
-                _objectLeft.transform.Translate(Vector3.down * 100.0f);
-                _objectRight.transform.Translate(Vector3.down * 100.0f);
+                Log("Call `FindSlides` success");
+
+                foreach (GameObject obj in _objects) {
+                    obj.transform.Translate(Vector3.down * 100.0f);
+                }
+
                 Log("Set slide success: off");
             } else {
-                Log("Set slide failed", mode: 1);
+                Log("Call `FindSlides` failed", mode: 1);
                 res = false;
             }
         } else if (stage > 0 && stage <= numStage) {
+            // find and update slides
+            Log("Call `FindSlides` begin");
             if (FindSlides()) {
+                Log("Call `FindSlides` success");
+
                 int index = _slideList[stage - 1];
 
-                _controllerLeft.Index = index;
-                _controllerRight.Index = index;
-
-                _controllerLeft.ResetSlide();
-                _controllerRight.ResetSlide();
+                foreach (SlideController controller in _controllers) {
+                    controller.Index = index;
+                    controller.ResetSlide();
+                }
 
                 Log($"Set slide success: {index}");
             } else {
-                Log("Set slide failed", mode: 1);
+                Log("Call `FindSlides` failed", mode: 1);
                 res = false;
             }
         } else {
@@ -119,77 +129,32 @@ public class SlideManager : AbstractBehaviour, IStageObserver
      * new methods *
      ***************/
 
-    // 슬라이드 색인 배열을 초기화하는 메서드
-    public void GenerateSlideList()
-    {
-        _slideList = _random.Combination(numSlide, numStage);
-        Log($"Generate `_slideList` success: [{string.Join(", ", _slideList)}]");
-    }
-
-    // 슬라이드를 초기화하는 메서드
-    public void SetSlide(int stage)
-    {
-        Log("Call `FindSlides` begin");
-        if (FindSlides()) {
-            Log("Call `FindSlides` success");
-            if (stage > 0) {
-                int index = _slideList[stage - 1];
-
-                _controllerLeft.Index = index;
-                _controllerRight.Index = index;
-
-                _controllerLeft.ResetSlide();
-                _controllerRight.ResetSlide();
-
-                Log($"Set slide success: {index}");
-            } else {
-                _objectLeft.transform.Translate(Vector3.down * 100.0f);
-                _objectRight.transform.Translate(Vector3.down * 100.0f);
-            }
-        } else {
-            Log("Call `FindSlides` failed", mode: 1);
-        }
-    }
-
     // 슬라이드를 찾는 메서드
     private bool FindSlides()
     {
         bool res = true;
 
-        // `_objectLeft` 찾기
-        _objectLeft = GameObject.Find(nameLeft);
-        if (_objectLeft != null) {
-            Log("Find `_objectLeft` success");
+        for (int idx = 0; idx < names.Length; idx++) {
+            GameObject obj = GameObject.Find(names[idx]);
 
-            // `_controllerLeft` 찾기
-            _controllerLeft = _objectLeft.GetComponent<SlideController>();
-            if (_controllerLeft != null) {
-                Log("Find `_controllerLeft` success");
+            if (obj != null) {
+                Log($"Find `{names[idx]}` success: `{obj.name}`");
+
+                SlideController controller = obj.GetComponent<SlideController>();
+
+                if (controller != null) {
+                    Log($"Find `SlideController` of `{obj.name}` success: `{controller.Name}`");
+
+                    _objects.Add(obj);
+                    _controllers.Add(controller);
+                } else {
+                    Log($"Find `SlideController` of `{obj.name}` failed", mode: 1);
+                    res = false;
+                }
             } else {
-                Log("Find `_controllerLeft` failed", mode: 1);
+                Log($"Find `{names[idx]}` failed", mode: 1);
                 res = false;
             }
-        } else {
-            Log("Find `_objectLeft` failed", mode: 1);
-            res = false;
-        }
-
-        // `_objectRight` 찾기
-        _objectRight = GameObject.Find(nameRight);
-        if (_objectRight != null) {
-            Log("Find `_objectRight` success");
-
-            // `_controllerRight` 찾기
-            _controllerRight = _objectRight.GetComponent<SlideController>();
-            if (_controllerRight != null) {
-                Log("Find `_controllerRight` success");
-            } else {
-                Log("Find `_controllerRight` failed", mode: 1);
-                res = false;
-            }
-        } else {
-            Log("Find `_objectRight` failed", mode: 1);
-            res = false;
         }
 
         return res;

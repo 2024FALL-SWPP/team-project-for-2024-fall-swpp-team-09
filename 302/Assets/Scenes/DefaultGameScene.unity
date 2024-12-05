@@ -26059,8 +26059,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5f5a6a7b1f18884e843839632af5a6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameLeft: SlideLeft
-  nameRight: SlideRight
+  names:
+  - SlideLeft
+  - SlideRight
   numSlide: 15
   numStage: 8
 --- !u!4 &1164630180
