@@ -30,7 +30,8 @@ public class Anomaly6_Cake : AbstractAnomalyInteractable
         Log("Call `GameManager.SetStageClear` end");
 
         // Code used before `GameManager` updates begin
-        AbstractAnomalyController controller =  FindAnyObjectByType<AbstractAnomalyController>();
+        GameObject controllerObject = GameObject.Find("Anomaly6Manager");
+        AbstractAnomalyObject controller = controllerObject.GetComponent<AbstractAnomalyObject>();
 
         Log($"Call `{controller.Name}.ResetAnomaly` begin");
         if (controller.ResetAnomaly()) {

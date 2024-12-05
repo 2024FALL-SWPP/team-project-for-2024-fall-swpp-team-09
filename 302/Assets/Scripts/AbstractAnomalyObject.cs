@@ -53,6 +53,7 @@ public class MyClass : AbstractAnomalyObject // TODO: 클래스 이름 수정하
         bool res = base.InitFields();
 
         // TODO: 필드 초기화할 것 넣기. 없으면 메서드를 아예 지워도 됨.
+        // (사실 필드 말고 초기화할 것도 넣어도 됨....)
         // 함수가 제대로 작동했으면 `true`를, 아니면 `false`를 반환.
 
         return res;

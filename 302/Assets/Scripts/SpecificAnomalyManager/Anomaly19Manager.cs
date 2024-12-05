@@ -1,4 +1,4 @@
-public class Anomaly19Manager : AbstractAnomalyController
+public class Anomaly19Manager : AbstractAnomalyComposite
 {
     /**************
      * properties *
@@ -16,6 +16,7 @@ public class Anomaly19Manager : AbstractAnomalyController
     {
         bool res = base.Awake_();
 
+        // Code used before `GameManager` updates begin
         Log("Call `StartAnomaly` begin");
         if (StartAnomaly()) {
             Log("Call `StartAnomaly` success");
@@ -23,6 +24,7 @@ public class Anomaly19Manager : AbstractAnomalyController
             Log("Call `StartAnomaly` failed", mode: 1);
             res = false;
         }
+        // Code used before `GameManager` updates end
 
         return res;
     }
