@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Video;
 
-public class Anomaly30Manager : MonoBehaviour
+public class Anomaly30Controller : MonoBehaviour
 {
     public GameObject[] windows;
     private GameObject player;
