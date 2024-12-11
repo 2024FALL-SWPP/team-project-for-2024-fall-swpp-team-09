@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Anomaly17Manager : MonoBehaviour
+public class Anomaly17Controller : MonoBehaviour
 {
     public GameObject splitMicLinePrefab; // line_split prefab
     public GameObject normalMicLinePrefab; // line_normal prefab

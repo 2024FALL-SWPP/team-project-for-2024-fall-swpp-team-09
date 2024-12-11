@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Anomaly28Manager : MonoBehaviour
+public class Anomaly28Controller : MonoBehaviour
 {
     private GameManager gameManager;
     private GameObject player;
@@ -202,6 +202,6 @@ public class Anomaly28Manager : MonoBehaviour
             clock.transform.rotation = originalClockRotation;
         }
 
-        Debug.Log("Anomaly28Manager destroyed. Clock restored to its original phase.");
+        Debug.Log("Anomaly28Controller destroyed. Clock restored to its original phase.");
     }
 }
