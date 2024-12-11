@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class Anomaly16Controller : MonoBehaviour
+public class Anomaly16Controller : AbstractAnomalyObject
 {
+    public override string Name { get; } = "Anomaly16Controller";
+
     [Header("Marker Line Settings")]
     public Material redLineMaterial;  // Assign a red material in the Inspector
     public AudioClip markerSound;     // Assign the marker sound in the Inspector

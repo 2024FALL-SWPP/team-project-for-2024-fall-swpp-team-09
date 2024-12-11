@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Anomaly29Controller : MonoBehaviour
+public class Anomaly29Controller : AbstractAnomalyObject
 {
+    public override string Name { get; } = "Anomaly29Controller";
+
     private GameManager gameManager;
     private PlayerController playerController;
     public GameObject bananaPrefab;

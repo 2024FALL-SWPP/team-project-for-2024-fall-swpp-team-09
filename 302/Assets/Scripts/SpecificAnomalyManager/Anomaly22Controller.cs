@@ -2,8 +2,10 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
-public class Anomaly22Controller : MonoBehaviour
+public class Anomaly22Controller : AbstractAnomalyObject
 {
+    public override string Name { get; } = "Anomaly22Controller";
+
     private GameObject floor; // 모든 타일들의 Parent
     private GameManager gameManager;
     private PlayerController playerController;

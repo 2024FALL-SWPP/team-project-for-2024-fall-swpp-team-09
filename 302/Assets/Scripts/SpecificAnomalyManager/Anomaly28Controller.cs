@@ -1,8 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
-public class Anomaly28Controller : MonoBehaviour
+public class Anomaly28Controller : AbstractAnomalyObject
 {
+    public override string Name { get; } = "Anomaly28Controller";
+
     private GameManager gameManager;
     private GameObject player;
 
