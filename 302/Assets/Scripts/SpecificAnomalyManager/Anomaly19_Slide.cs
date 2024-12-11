@@ -54,7 +54,7 @@ public class Anomaly19_Slide : AbstractAnomalyInteractable
         Log("Call `GameManager.SetStageClear` end");
 
         // Code used before `GameManager` updates begin
-        GameObject controllerObject = GameObject.Find("Anomaly19Manager");
+        GameObject controllerObject = GameObject.Find("AnomalyManager (19)(Clone)");
         AbstractAnomalyObject controller = controllerObject.GetComponent<AbstractAnomalyObject>();
 
         Log($"Call `{controller.Name}.ResetAnomaly` begin");
