@@ -91,7 +91,7 @@ public class Anomaly23_Ghost : AbstractAnomalyObject
                 Log("Call `GameManager.SetStageClear` end");
 
                 // Code used before `GameManager` updates begin
-                GameObject controllerObject = GameObject.Find("Anomaly23Manager");
+                GameObject controllerObject = GameObject.Find("AnomalyManager (23)(Clone)");
                 AbstractAnomalyObject controller = controllerObject.GetComponent<AbstractAnomalyObject>();
 
                 Log($"Call `{controller.Name}.ResetAnomaly` begin");
