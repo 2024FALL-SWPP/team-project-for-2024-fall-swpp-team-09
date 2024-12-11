@@ -1,8 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-public class Anomaly15Manager : MonoBehaviour
+
+public class Anomaly15Controller : AbstractAnomalyObject
 {
+    public override string Name { get; } = "Anomaly15Controller";
+
     [Header("Spider Settings")]
     public GameObject spiderPrefab;
     private float spawnRadius = 0.5f;
@@ -10,12 +13,35 @@ public class Anomaly15Manager : MonoBehaviour
     private float moveSpeed = 1f;
     private float fadeDistance = 2f;
     private Vector3 basePosition = new Vector3(6.9f, 7.7f, -7.1f);
-
     public bool isSpawningSpiders = true;
     private GameObject interactionCube;
     [Header("Audio Settings")]
     public AudioClip spiderSoundClip;
 
+    public override bool StartAnomaly()
+    {
+        bool res = base.StartAnomaly();
+
+        // 상호작용할 수 있는 투명한 큐브
+        interactionCube = CreateInteractionCube();
+        StartCoroutine(SetTransparency(interactionCube));
+
+        // 거미 생성
+        isSpawningSpiders = true;
+        StartCoroutine(SpawnSpiderRoutine());
+
+        return res;
+    }
+
+    // 이상현상을 초기화하는 메서드
+    public override bool ResetAnomaly()
+    {
+        bool res = base.ResetAnomaly();
+
+        StopSpawning();
+        
+        return res;
+    }
     private void Start()
     {
         // 상호작용할 수 있는 투명한 큐브
@@ -24,11 +50,6 @@ public class Anomaly15Manager : MonoBehaviour
 
         // 거미 생성
         StartCoroutine(SpawnSpiderRoutine());
-    }
-
-    private void OnEnable()
-    {
-        isSpawningSpiders = true;
     }
 
     public void StopSpawning()
