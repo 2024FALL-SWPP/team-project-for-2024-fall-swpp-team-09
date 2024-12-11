@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
-public class Anomaly4Manager : MonoBehaviour
+public class Anomaly4Controller : MonoBehaviour
 {
     private GameObject mainLaptop;
     private List<GameObject> laptopList = new List<GameObject>();
