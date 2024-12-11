@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
-public class Anomaly22Manager : MonoBehaviour
+public class Anomaly22Controller : MonoBehaviour
 {
     private GameObject floor; // 모든 타일들의 Parent
     private GameManager gameManager;

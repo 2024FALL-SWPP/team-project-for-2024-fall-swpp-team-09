@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Anomaly16Manager : MonoBehaviour
+public class Anomaly16Controller : MonoBehaviour
 {
     [Header("Marker Line Settings")]
     public Material redLineMaterial;  // Assign a red material in the Inspector

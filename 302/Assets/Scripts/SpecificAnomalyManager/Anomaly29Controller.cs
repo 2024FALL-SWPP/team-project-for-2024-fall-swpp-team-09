@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Anomaly29Manager : MonoBehaviour
+public class Anomaly29Controller : MonoBehaviour
 {
     private GameManager gameManager;
     private PlayerController playerController;
