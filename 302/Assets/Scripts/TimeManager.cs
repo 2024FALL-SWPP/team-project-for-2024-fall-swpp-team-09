@@ -10,10 +10,6 @@ public class TimeManager : AbstractBehaviour, IStageObserver
     public string nameClock;
     public string nameLaptop;
 
-    // 컨트롤러
-    private ClockController _clock;
-    private LaptopScreenController _laptop;
-
     /**************
      * properties *
      **************/
@@ -31,8 +27,26 @@ public class TimeManager : AbstractBehaviour, IStageObserver
     // 단계 변경 시 불리는 메서드
     public bool UpdateStage()
     {
+        int stage = GameManager.Instance.GetCurrentStage();
         ClockController clock = FindClock();
+        LaptopScreenController laptop = FindLaptop();
         bool res = true;
+
+        if (clock != null) {
+            Log("Find `ClockController` success");
+            clock.SetTime(stage);
+        } else {
+            Log("Find `ClockController` failed", mode: 1);
+            res = false;
+        }
+
+        if (laptop != null) {
+            Log("Find `LaptopScreenController` success");
+            laptop.ChangeScreen(stage);
+        } else {
+            Log("Find `LaptopScreenController` failed", mode: 1);
+            res = false;
+        }
 
         return res;
     }
@@ -76,5 +90,20 @@ public class TimeManager : AbstractBehaviour, IStageObserver
         }
 
         return clock;
+    }
+
+    // 노트북을 찾는 메서드
+    private LaptopScreenController FindLaptop()
+    {
+        GameObject obj = GameObject.Find(nameLaptop);
+        LaptopScreenController laptop;
+
+        if (obj != null) {
+            laptop = obj.GetComponent<LaptopScreenController>();
+        } else {
+            laptop = null;
+        }
+
+        return laptop;
     }
 }
