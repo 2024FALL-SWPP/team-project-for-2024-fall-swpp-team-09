@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Anomaly17Controller : MonoBehaviour
+public class Anomaly17Controller : AbstractAnomalyObject
 {
+    public override string Name { get; } = "Anomaly17Controller";
+
     public GameObject splitMicLinePrefab; // line_split prefab
     public GameObject normalMicLinePrefab; // line_normal prefab
     private GameObject currentMicLine; // line_split OR line_normal 중 현재 마이크 선 obejct

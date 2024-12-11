@@ -2,8 +2,9 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Video;
 
-public class Anomaly30Controller : MonoBehaviour
-{
+public class Anomaly30Controller : AbstractAnomalyObject
+{    
+    public override string Name { get; } = "Anomaly30Controller";
     public GameObject[] windows;
     private GameObject player;
     private GameManager gameManager;
