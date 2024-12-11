@@ -6,7 +6,7 @@ public class Anomaly15_spider : InteractableObject, IInteractable
     [Header("Interaction Settings")]
 
     private bool hasInteracted = false;
-    private Anomaly15Manager anomalyManager;
+    private Anomaly15Controller anomalyManager;
     [Header("Audio Settings")]
     public AudioClip spiderSoundClip;
     private Transform cameraTransform;
@@ -14,7 +14,7 @@ public class Anomaly15_spider : InteractableObject, IInteractable
 
     private void Start()
     {
-        anomalyManager = FindObjectOfType<Anomaly15Manager>();
+        anomalyManager = FindObjectOfType<Anomaly15Controller>();
         GameObject mainCamera = GameObject.FindWithTag("MainCamera");
 
         audioSource = gameObject.AddComponent<AudioSource>();
@@ -50,7 +50,7 @@ public class Anomaly15_spider : InteractableObject, IInteractable
 
         hasInteracted = true;
 
-        // Call StopSpawning on Anomaly15Manager and start the delayed destroy
+        // Call StopSpawning on Anomaly15Controller and start the delayed destroy
         if (anomalyManager != null)
         {
             anomalyManager.StopSpawning();
