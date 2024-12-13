@@ -695,7 +695,7 @@ GameObject:
   - component: {fileID: 6043085938085249294}
   - component: {fileID: 6077576747107725253}
   - component: {fileID: 5615054433689430107}
-  - component: {fileID: 6691339936817308490}
+  - component: {fileID: -8804778980738031548}
   - component: {fileID: 3035267094544484457}
   m_Layer: 0
   m_Name: ghost
@@ -759,7 +759,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 634242862415478878, guid: ff396297b2943264b94918734f937c26, type: 3}
---- !u!114 &6691339936817308490
+--- !u!114 &-8804778980738031548
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -768,7 +768,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6383441288876432308}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0bcd3ed008239247ac12770f9227c88, type: 3}
+  m_Script: {fileID: 11500000, guid: 04095a18f74aa3c4fb320c88a9fc2468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   namePlayer: Player

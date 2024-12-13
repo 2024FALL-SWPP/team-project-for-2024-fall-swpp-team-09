@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlideManager : AbstractBehaviour, IStageObserver
+public class SlideManager : AbstractStageObserver
 {
     /**********
      * fields *
@@ -35,49 +35,6 @@ public class SlideManager : AbstractBehaviour, IStageObserver
 
     // 클래스 인스턴스
     public static SlideManager Instance { get; private set; }
-
-    /**********************************
-     * implementation: IStageObserver *
-     **********************************/
-
-    public bool UpdateStage()
-    {
-        int stage = GameManager.Instance.GetCurrentStage();
-        bool res = true;
-
-        if (stage == 0) {
-            Log("Call `PutAwaySlides` begin");
-            if (PutAwaySlides()) {
-                Log("Call `PutAwaySlides` success");
-            } else {
-                Log("Call `PutAwaySlides` failed", mode: 1);
-                res = false;
-            }
-        } else if (stage > 0 && stage <= numStage) {
-            if (stage == 1) {
-                Log("Call `GenerateList` begin");
-                if (GenerateList()) {
-                    Log("Call `GenerateList` success");
-                } else {
-                    Log("Call `GenerateList` failed", mode: 1);
-                    res = false;
-                }
-            }
-
-            Log("Call `UpdateSlides` begin");
-            if (UpdateSlides(stage)) {
-                Log("Call `UpdateSlides` success");
-            } else {
-                Log("Call `UpdateSlides` failed", mode: 1);
-                res = false;
-            }
-        } else {
-            Log($"Invalid stage: {stage}", mode: 1);
-            res = false;
-        }
-
-        return res;
-    }
 
     /*************************************
      * implementation: AbstractBehaviour *
@@ -119,6 +76,49 @@ public class SlideManager : AbstractBehaviour, IStageObserver
         // _slideList
         _slideList = new int[numStage];
         Log("Initialize `_slideList` success");
+
+        return res;
+    }
+
+    /*****************************************
+     * implementation: AbstractStageObserver *
+     *****************************************/
+
+    public override bool UpdateStage()
+    {
+        int stage = GameManager.Instance.GetCurrentStage();
+        bool res = true;
+
+        if (stage == 0) {
+            Log("Call `PutAwaySlides` begin");
+            if (PutAwaySlides()) {
+                Log("Call `PutAwaySlides` success");
+            } else {
+                Log("Call `PutAwaySlides` failed", mode: 1);
+                res = false;
+            }
+        } else if (stage > 0 && stage <= numStage) {
+            if (stage == 1) {
+                Log("Call `GenerateList` begin");
+                if (GenerateList()) {
+                    Log("Call `GenerateList` success");
+                } else {
+                    Log("Call `GenerateList` failed", mode: 1);
+                    res = false;
+                }
+            }
+
+            Log("Call `UpdateSlides` begin");
+            if (UpdateSlides(stage)) {
+                Log("Call `UpdateSlides` success");
+            } else {
+                Log("Call `UpdateSlides` failed", mode: 1);
+                res = false;
+            }
+        } else {
+            Log($"Invalid stage: {stage}", mode: 1);
+            res = false;
+        }
 
         return res;
     }
