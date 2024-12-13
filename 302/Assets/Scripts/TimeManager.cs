@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TimeManager : AbstractBehaviour, IStageObserver
+public class TimeManager : AbstractStageObserver
 {
     /**********
      * fields *
@@ -20,12 +20,34 @@ public class TimeManager : AbstractBehaviour, IStageObserver
     // 클래스 인스턴스
     public static TimeManager Instance { get; private set; }
 
-    /**********************************
-     * implementation: IStageObserver *
-     **********************************/
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
+
+    // `Awake` 메시지 용 메서드
+    protected override bool Awake_()
+    {
+        bool res = false;
+
+        if (Instance == null) {
+            Log($"`Instance` has not been set => set `Instance` as `{Name}`");
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            res = base.Awake_();
+        } else {
+            Log($"`Instance` has already been set => destroy `{gameObject.name}`");
+            Destroy(gameObject);
+        }
+
+        return res;
+    }
+
+    /*****************************************
+     * implementation: AbstractStageObserver *
+     *****************************************/
 
     // 단계 변경 시 불리는 메서드
-    public bool UpdateStage()
+    public override bool UpdateStage()
     {
         int stage = GameManager.Instance.GetCurrentStage();
         ClockController clock = FindClock();
@@ -46,28 +68,6 @@ public class TimeManager : AbstractBehaviour, IStageObserver
         } else {
             Log("Find `LaptopScreenController` failed", mode: 1);
             res = false;
-        }
-
-        return res;
-    }
-
-    /*************************************
-     * implementation: AbstractBehaviour *
-     *************************************/
-
-    // `Awake` 메시지 용 메서드
-    protected override bool Awake_()
-    {
-        bool res = false;
-
-        if (Instance == null) {
-            Log($"`Instance` has not been set => set `Instance` as `{Name}`");
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            res = base.Awake_();
-        } else {
-            Log($"`Instance` has already been set => destroy `{gameObject.name}`");
-            Destroy(gameObject);
         }
 
         return res;
