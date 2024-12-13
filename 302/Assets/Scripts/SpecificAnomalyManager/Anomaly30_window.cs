@@ -17,13 +17,13 @@ public class Anomaly30_window : InteractableObject, IInteractable
     private bool isClosing = false;
     private bool hasInteracted = false;
 
-    private Anomaly30Manager anomalyManager;
+    private Anomaly30Controller anomalyManager;
     private AudioSource audioSource;
     private static GameObject coroutineRunner;
 
     void Start()
     {
-        anomalyManager = FindObjectOfType<Anomaly30Manager>();
+        anomalyManager = FindObjectOfType<Anomaly30Controller>();
 
         // 창문 닫을 때 복구할 초기 rotation
         initialRotation = transform.rotation;

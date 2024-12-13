@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3033663053936672906}
   - component: {fileID: 2026440862349033724}
-  - component: {fileID: 3007005032385091976}
+  - component: {fileID: -5418363686235835766}
   m_Layer: 3
   m_Name: Anomaly20InteractableBack
   m_TagString: Untagged
@@ -46,7 +46,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 2.4, z: 0.1}
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &3007005032385091976
+--- !u!114 &-5418363686235835766
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,7 +55,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8359328002521216368}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3abf5127f1fd514eafeb2411741d79a, type: 3}
+  m_Script: {fileID: 11500000, guid: 8fb76969add5cf04c807554bc63c2b16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: 

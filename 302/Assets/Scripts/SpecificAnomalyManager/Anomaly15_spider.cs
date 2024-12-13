@@ -1,20 +1,22 @@
 using UnityEngine;
 using System.Collections;
 
-public class Anomaly15_spider : InteractableObject, IInteractable
+public class Anomaly15_spider : AbstractAnomalyInteractable
 {
-    [Header("Interaction Settings")]
+    public override string Name { get; } = "Anomaly15_spider";
 
-    private bool hasInteracted = false;
-    private Anomaly15Manager anomalyManager;
+    [Header("Interaction Settings")]
+    private Anomaly15Controller anomalyManager;
     [Header("Audio Settings")]
     public AudioClip spiderSoundClip;
     private Transform cameraTransform;
     private AudioSource audioSource;
 
-    private void Start()
+    public override bool StartAnomaly()
     {
-        anomalyManager = FindObjectOfType<Anomaly15Manager>();
+        bool res = base.StartAnomaly();
+
+        anomalyManager = FindObjectOfType<Anomaly15Controller>();
         GameObject mainCamera = GameObject.FindWithTag("MainCamera");
 
         audioSource = gameObject.AddComponent<AudioSource>();
@@ -22,43 +24,26 @@ public class Anomaly15_spider : InteractableObject, IInteractable
         audioSource.loop = true;
         audioSource.spatialBlend = 2f; // 3D 음향으로 설정
         audioSource.Play();
+
+        return res;
    }
 
-    private void Update()
+    // 이상현상을 초기화하는 메서드
+    public override bool ResetAnomaly()
     {
-        if (hasInteracted && audioSource.isPlaying)
-        {
-            audioSource.Stop();
-        }
-    }
+        bool res = base.ResetAnomaly();
 
-    public string GetInteractionPrompt()
-    {
-        return "Press Left Click to interact with the figure";
-    }
-
-    public bool CanInteract(float distance)
-    {
-        return !hasInteracted;
-    }
-    // modified by 신채환
-    // CanInteract 메서드가 거리를 인자로 받도록 변경
-
-    public void OnInteract()
-    {
-        if (hasInteracted) return;
-
-        hasInteracted = true;
-
-        // Call StopSpawning on Anomaly15Manager and start the delayed destroy
+        audioSource.Stop();
         if (anomalyManager != null)
         {
             anomalyManager.StopSpawning();
         }
         
-        // Start coroutine to wait 2 seconds before destroying
         StartCoroutine(DelayedDestroy());
+        
+        return res;
     }
+
 
     private IEnumerator DelayedDestroy()
     {

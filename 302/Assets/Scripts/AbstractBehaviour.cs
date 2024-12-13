@@ -126,16 +126,19 @@ public class MyManager : AbstractBehaviour // TODO: 클래스 이름 수정하�
     // `Awake` 메시지 용 메서드
     protected override bool Awake_()
     {
+        bool res = false;
+
         if (Instance == null) {
             Log($"`Instance` has not been set => set `Instance` as `{Name}`");
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            res = base.Awake_();
         } else {
             Log($"`Instance` has already been set => destroy `{gameObject.name}`");
             Destroy(gameObject);
         }
 
-        return base.Awake_();
+        return res;
     }
 
     // 필드를 초기화하는 메서드
