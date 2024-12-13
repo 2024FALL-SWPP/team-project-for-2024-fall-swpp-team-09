@@ -1,18 +1,46 @@
 using UnityEngine;
 
-public class Anomaly13_lookingeye : InteractableObject, IInteractable
+public class Anomaly13_lookingeye : AbstractAnomalyInteractable 
 {
     private Transform player;          // 플레이어의 Transform (예: Main Camera)
     private Transform leftEye;         // Left Eye Transform
     private Transform rightEye;        // Right Eye Transform
-    private float rotationOffsetX = -90f;  // LookAt 회전 보정 (X축)
-    private bool hasInteracted = false;   // 상호작용 상태 확인
+    private float rotationOffsetX;  // LookAt 회전 보정 (X축)
 
     private Quaternion initialLeftEyeRotation;  // Left Eye 초기 회전값
     private Quaternion initialRightEyeRotation; // Right Eye 초기 회전값
 
-    private void Start()
+    // 클래스 이름
+    public override string Name { get; } = "Anomaly13_lookingeye"; 
+
+    // 상호작용 시 실행될 메서드
+    public virtual void OnInteract()
     {
+        base.OnInteract();
+
+        Log("Call `GameManager.SetStageClear` begin");
+        GameManager.Instance.SetStageClear();
+        Log("Call `GameManager.SetStageClear` end");
+
+        // Code used before `GameManager` updates begin
+        GameObject controllerObject = GameObject.Find("AnomalyManager (13)(Clone)");
+        AbstractAnomalyObject controller = controllerObject.GetComponent<AbstractAnomalyObject>();
+
+        Log($"Call `{controller.Name}.ResetAnomaly` begin");
+        if (controller.ResetAnomaly()) {
+            Log($"Call `{controller.Name}.ResetAnomaly` success");
+        } else {
+            Log($"Call `{controller.Name}.ResetAnomaly` failed", mode: 1);
+        }
+    }
+
+    // 필드를 초기화하는 메서드
+    protected override bool InitFields()
+    {
+        bool res = base.InitFields();
+
+        rotationOffsetX = -90f;
+
         // 플레이어 찾기
         if (player == null)
         {
@@ -24,6 +52,7 @@ public class Anomaly13_lookingeye : InteractableObject, IInteractable
             else
             {
                 Debug.LogError("Anomaly13_lookingeye: Player not found! Ensure the player has the 'MainCamera' tag.");
+                res = false;
             }
         }
 
@@ -34,17 +63,19 @@ public class Anomaly13_lookingeye : InteractableObject, IInteractable
         if (leftEye == null || rightEye == null)
         {
             Debug.LogError("Anomaly13_lookingeye: Left or Right Eye not found as children of 'eyes'.");
-            return;
+            res = false;
         }
 
         // 초기 회전값 저장
         initialLeftEyeRotation = leftEye.localRotation;
         initialRightEyeRotation = rightEye.localRotation;
+
+        return res;
     }
 
     private void Update()
     {
-        if (!hasInteracted && player != null)
+        if (CanInteract(1f) && player != null)
         {
             // 플레이어를 바라보도록 회전
             RotateEyesTowardsPlayer();
@@ -81,33 +112,14 @@ public class Anomaly13_lookingeye : InteractableObject, IInteractable
         Debug.Log("Anomaly13_lookingeye: Eyes reset to initial rotations.");
     }
 
-    // 인터페이스 구현: 상호작용 가능 여부 반환
-    public bool CanInteract(float distance)
+    // 이상현상을 초기화하는 메서드
+    public override bool ResetAnomaly()
     {
-        return !hasInteracted;
-    }
-    // modified by 신채환
-    // CanInteract 메서드가 거리를 인자로 받도록 변경
+        bool res = base.ResetAnomaly();
 
-    // 인터페이스 구현: 상호작용 시 표시할 텍스트
-    public string GetInteractionPrompt()
-    {
-        return "Press Left Click to interact with the eyes.";
-    }
-
-    // 인터페이스 구현: 상호작용 동작
-    public void OnInteract()
-    {
-        if (hasInteracted) return;
-
-        hasInteracted = true;
-
-        // 눈의 회전을 초기화
         ResetEyeRotations();
-
-        // 스테이지 클리어 처리
-        GameManager.Instance.SetStageClear();
-
         Debug.Log("Anomaly13_lookingeye: Interaction complete, stage cleared.");
+
+        return res;
     }
 }
