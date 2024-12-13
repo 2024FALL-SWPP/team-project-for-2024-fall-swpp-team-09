@@ -4,14 +4,14 @@ public class Fire : MonoBehaviour
 {
    [SerializeField] private float extinguishTime = 2f;
    
-   private Anomaly26Manager anomalyManager;
+   private Anomaly26Controller anomalyManager;
    private float currentExtinguishTime = 0f;
    private bool isBeingExtinguished = false;
 
    private void Start()
    {
        
-       anomalyManager = FindObjectOfType<Anomaly26Manager>();
+       anomalyManager = FindObjectOfType<Anomaly26Controller>();
        if (anomalyManager)
        {
        }

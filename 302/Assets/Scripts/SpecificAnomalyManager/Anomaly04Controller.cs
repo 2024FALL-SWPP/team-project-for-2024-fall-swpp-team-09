@@ -2,14 +2,27 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
-public class Anomaly4Controller : MonoBehaviour
+public class Anomaly04Controller : AbstractAnomalyComposite
 {
+    public override string Name { get; } = "Anomaly04Controller";
     private GameObject mainLaptop;
     private List<GameObject> laptopList = new List<GameObject>();
 
     void OnEnable()
     {
+        StartAnomaly();
+    }
+
+    public override bool StartAnomaly() {
+        bool res = base.StartAnomaly();
         StartCoroutine(InitializeSequence());
+        return res;
+    }
+
+    public override bool ResetAnomaly() {
+        bool res = base.ResetAnomaly();
+        StartCoroutine(ScreenChangeSequence());
+        return res;
     }
 
     private IEnumerator InitializeSequence()
@@ -94,12 +107,11 @@ public class Anomaly4Controller : MonoBehaviour
         }
 
         // 5단계: 화면 변경 시퀀스 시작
-        StartCoroutine(ScreenChangeSequence());
+        ResetAnomaly();
     }
 
     private IEnumerator ScreenChangeSequence()
     {
-        // 기존 ScreenChangeSequence 코드는 그대로 유지
         yield return new WaitForSeconds(5f);
         Debug.Log("First screen change after 5 seconds");
 

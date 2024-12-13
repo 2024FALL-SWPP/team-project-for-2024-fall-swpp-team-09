@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Anomaly9Manager : MonoBehaviour 
+public class Anomaly09Controller : MonoBehaviour 
 {
     [Header("Anomaly Settings")]
     public float anomalyDelay = 15f;

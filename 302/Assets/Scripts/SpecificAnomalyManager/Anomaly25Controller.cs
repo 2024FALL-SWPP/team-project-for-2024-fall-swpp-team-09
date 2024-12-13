@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Anomaly25Manager : MonoBehaviour
+public class Anomaly25Controller : MonoBehaviour
 {
    public AudioSource audioSource; // Inspector에서 할당
 
