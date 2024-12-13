@@ -4,7 +4,7 @@ using UnityEngine;
 
 using UnityEngine;
 
-public class Anomaly14Manager : MonoBehaviour
+public class Anomaly14Controller : MonoBehaviour
 {
     public GameObject SweaterSitGirlPrefab;
     public GameObject DifferentPrefab; // 다른 종류의 프리팹

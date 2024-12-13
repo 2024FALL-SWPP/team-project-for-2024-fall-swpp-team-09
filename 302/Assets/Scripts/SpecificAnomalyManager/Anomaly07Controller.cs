@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Anomaly7Manager : MonoBehaviour
+public class Anomaly07Controller : MonoBehaviour
 {
     [Header("Russian Roulette Settings")]
     [SerializeField] private GameObject gunPrefab;
