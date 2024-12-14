@@ -259,7 +259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 304119721586272743}
   - component: {fileID: 1269198580064314291}
-  - component: {fileID: -8651826616036947606}
+  - component: {fileID: 9115472224493573052}
   m_Layer: 3
   m_Name: Cake
   m_TagString: Untagged
@@ -342,7 +342,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.35, y: 0.25, z: 0.35}
   m_Center: {x: 0.22, y: 0.31, z: 0.2}
---- !u!114 &-8651826616036947606
+--- !u!114 &9115472224493573052
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -351,7 +351,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1113413758793249629}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63c2b768a7e3960459603cf9e88eecc0, type: 3}
+  m_Script: {fileID: 11500000, guid: ea3e75052d956814095a954bc86ac6c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: 

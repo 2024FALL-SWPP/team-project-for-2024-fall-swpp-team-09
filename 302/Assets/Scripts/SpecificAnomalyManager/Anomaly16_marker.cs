@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Anomaly16_marker : InteractableObject, IInteractable
 {
     private bool hasInteracted = false;
-    private Anomaly16Controller anomalyManager; // Reference to Anomaly16Controller
+    private Anomaly16Manager anomalyManager; // Reference to Anomaly16Manager
 
     private Transform cameraTransform;
 
@@ -37,7 +37,7 @@ public class Anomaly16_marker : InteractableObject, IInteractable
             cameraTransform = mainCamera.transform;
         }
 
-        anomalyManager = FindObjectOfType<Anomaly16Controller>();
+        anomalyManager = FindObjectOfType<Anomaly16Manager>();
 
         // Set up LineRenderer and AudioSource components
         lineRenderer = GetComponent<LineRenderer>();

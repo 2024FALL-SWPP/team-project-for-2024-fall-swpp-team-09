@@ -271,8 +271,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20681d21fd96f1d4997f4ec4d7641215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prompt: 
-  distanceInteractionMax: 5
+  promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
+  interactionRange: 2
 --- !u!82 &-3146942907749045525
 AudioSource:
   m_ObjectHideFlags: 0

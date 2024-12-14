@@ -807,7 +807,7 @@ GameObject:
   - component: {fileID: 4543532148542983630}
   - component: {fileID: 4073337738985234537}
   - component: {fileID: 1078734396322403036}
-  - component: {fileID: 2357615498098561285}
+  - component: {fileID: 8530691117493187380}
   m_Layer: 3
   m_Name: sittingGirl
   m_TagString: Untagged
@@ -869,7 +869,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.004, y: 0.016, z: 0.003}
   m_Center: {x: 0, y: 0.0085, z: 0}
---- !u!114 &2357615498098561285
+--- !u!114 &8530691117493187380
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -878,7 +878,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3766714381938235252}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61696140f24c05e4a8a11b47c471b12b, type: 3}
+  m_Script: {fileID: 11500000, guid: 13b29b2cac673a5419b45e5853d126ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: 

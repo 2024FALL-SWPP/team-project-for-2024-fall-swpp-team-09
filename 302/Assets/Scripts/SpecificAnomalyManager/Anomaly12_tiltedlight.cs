@@ -1,56 +1,40 @@
 using UnityEngine;
 using System.Collections;
 
-public class Anomaly12_tiltedlight : AbstractAnomalyInteractable 
+public class Anomaly12_tiltedlight : InteractableObject, IInteractable
 {
+    public float rotationSpeed = 1.0f;  // 조명이 회전하는 속도
+    private bool hasInteracted = false;
 
-    public float rotationSpeed;  // 조명이 회전하는 속도
-
-    // 클래스 이름
-    public override string Name { get; } = "Anomaly12_tiltedlight"; 
-
-    // 상호작용 시 실행될 메서드
-    public override void OnInteract()
+    // Returns the prompt text for interaction
+    public string GetInteractionPrompt()
     {
-        base.OnInteract();
-
-        Log("Call `GameManager.SetStageClear` begin");
-        GameManager.Instance.SetStageClear();
-        Log("Call `GameManager.SetStageClear` end");
-
-        // Code used before `GameManager` updates begin
-        GameObject controllerObject = GameObject.Find("AnomalyManager (12)(Clone)");
-        AbstractAnomalyObject controller = controllerObject.GetComponent<AbstractAnomalyObject>();
-
-        Log($"Call `{controller.Name}.ResetAnomaly` begin");
-        if (controller.ResetAnomaly()) {
-            Log($"Call `{controller.Name}.ResetAnomaly` success");
-        } else {
-            Log($"Call `{controller.Name}.ResetAnomaly` failed", mode: 1);
-        }
+        return "Press Left Click to interact with the tilted light";
     }
 
-    // 필드를 초기화하는 메서드
-    protected override bool InitFields()
+    // Determines if interaction is currently possible
+    public bool CanInteract(float distance)
     {
-        bool res = base.InitFields();
-
-        rotationSpeed = 1.0f;
-
-        return res;
+        return !hasInteracted;  // 한 번만 상호작용 가능
     }
+    // modified by 신채환
+    // CanInteract 메서드가 거리를 인자로 받도록 변경
 
-    // 이상현상을 초기화하는 메서드
-    public override bool ResetAnomaly()
+    // Handles interaction with the tilted light
+    public void OnInteract()
     {
-        bool res = base.ResetAnomaly();
+        if (hasInteracted) return;  // 상호작용은 한 번만 일어남
+
+        hasInteracted = true;       // 상호작용 상태로 설정
 
         // 조명이 원상태로 돌아오도록 회전 시작
         StartCoroutine(RotateLight());
 
-        return res;
+        // 스테이지 클리어 상태로 설정
+        GameManager.Instance.SetStageClear();
     }
 
+    // Coroutine to smoothly rotate the light to (0, 0, 0) on the y-axis
     private IEnumerator RotateLight()
     {
         Quaternion startRotation = transform.rotation;

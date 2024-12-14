@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class Anomaly29_banana : MonoBehaviour
 {
-    private Anomaly29Controller anomalyManager;
+    private Anomaly29Manager anomalyManager;
 
     void Start()
     {
-       anomalyManager = FindObjectOfType<Anomaly29Controller>();
+       anomalyManager = FindObjectOfType<Anomaly29Manager>();
     }
 
     private void OnCollisionEnter(Collision collision)

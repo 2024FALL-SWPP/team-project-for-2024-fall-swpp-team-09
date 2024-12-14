@@ -1,26 +1,16 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class Anomaly27_magnifyingclock : AbstractAnomalyInteractable
+public class Anomaly27_magnifyingclock : MonoBehaviour
 {
-
-    public override string Name { get; } = "Anomaly27_magnifyingclock";
-
-    [SerializeField] private float scaleIncreaseRate; // 초당 증가할 스케일 크기
-    [SerializeField] private float scaleStartDelay;     // 스케일 증가 시작 딜레이
-    private bool isScaling;                         // 스케일 증가 여부
+    [SerializeField] private float scaleIncreaseRate = 0.1f; // 초당 증가할 스케일 크기
+    [SerializeField] private float scaleStartDelay = 5f;     // 스케일 증가 시작 딜레이
+    private bool isScaling = false;                         // 스케일 증가 여부
     private bool isStageClear = true;
     private Collider objectCollider;
 
-    // 필드를 초기화하는 메서드
-    protected override bool InitFields()
+    void Start()
     {
-        bool res = base.InitFields();
-
-        scaleIncreaseRate = 0.1f;
-        scaleStartDelay = 5f;
-        isScaling = false;
-
         GameManager.Instance.SetStageClear(); // 시작 시 스테이지 클리어 설정
         isStageClear = true;
         objectCollider = GetComponent<Collider>();
@@ -28,8 +18,6 @@ public class Anomaly27_magnifyingclock : AbstractAnomalyInteractable
 
         // 5초 후 스케일 증가 시작
         Invoke(nameof(StartScaling), scaleStartDelay);
-        
-        return res;
     }
 
     void Update()

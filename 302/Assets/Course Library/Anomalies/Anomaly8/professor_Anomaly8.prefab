@@ -3082,8 +3082,8 @@ GameObject:
   - component: {fileID: 8773584364483337333}
   - component: {fileID: -7422413402872412774}
   - component: {fileID: -1963283817825714181}
+  - component: {fileID: 8480570695569470048}
   - component: {fileID: 3429054842545089841}
-  - component: {fileID: 5851915364222104651}
   m_Layer: 3
   m_Name: professor_Anomaly8
   m_TagString: Untagged
@@ -3098,8 +3098,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8253366189145917135}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
-  m_LocalPosition: {x: 14, y: 0, z: 0.8}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: -0.9374157, y: 1.4354091, z: 2.6702428}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3178,6 +3178,21 @@ CapsuleCollider:
   m_Height: 2.0122426
   m_Direction: 1
   m_Center: {x: -0.0046090484, y: 0.9393765, z: 0.12905467}
+--- !u!114 &8480570695569470048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8253366189145917135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13668f2615e0a94489f12ccbeb6d1c48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
+  interactionRange: 2
+  maxVolumeDistance: 5
 --- !u!82 &3429054842545089841
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3274,24 +3289,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5851915364222104651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8253366189145917135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13668f2615e0a94489f12ccbeb6d1c48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prompt: 
-  distanceInteractionMax: 2
-  maxVolumeDistance: 5
-  startDistance: 30
-  fadeOutDuration: 2
-  audioStartDelay: 5
 --- !u!1 &8279582076143391115
 GameObject:
   m_ObjectHideFlags: 0
