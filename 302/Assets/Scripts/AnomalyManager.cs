@@ -71,7 +71,6 @@ public class AnomalyManager : MonoBehaviour
             anomalyList[randomIndex] = highAnomaly;
         }
         Debug.Log($"[AnomalyManager] Generated Anomaly List: {string.Join(", ", anomalyList)}");
-        CheckAndInstantiateAnomaly();
     }
     // 20% 확률로 0, 나머지 확률로 1~31의 이상현상을 생성
     private int GenerateRandomAnomaly()
