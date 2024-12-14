@@ -5,24 +5,40 @@ public class Anomaly16Controller : AbstractAnomalyObject
     public override string Name { get; } = "Anomaly16Controller";
 
     [Header("Marker Line Settings")]
-    public Material redLineMaterial;  // Assign a red material in the Inspector
-    public AudioClip markerSound;     // Assign the marker sound in the Inspector
+    public Material redLineMaterial;
+    public AudioClip markerSound;
     private GameObject markerLine;
     private AudioSource audioSource;
 
-    private void Start()
+
+    public override bool StartAnomaly()
     {
-        // Get the AudioSource component assigned in the Inspector
+        bool res = base.StartAnomaly();
+
         audioSource = GetComponent<AudioSource>();
 
         CreateMarkerLineInstance();
         AddMarkerScript();
         SetLayerForInteraction();
+        return res;
+    }
+    
+    public override bool ResetAnomaly()
+    {
+        bool res = base.ResetAnomaly();
+
+        DestroyMarkerLineWithSound();
+        
+        return res;
+    }
+
+    private void Start()
+    {
+        StartAnomaly();
     }
 
     private void CreateMarkerLineInstance()
     {
-        // Create the MarkerLine GameObject
         markerLine = new GameObject("MarkerLine");
 
         // Add and configure LineRenderer component
@@ -43,6 +59,7 @@ public class Anomaly16Controller : AbstractAnomalyObject
         // Add Anomaly16_marker component for interaction
         Anomaly16_marker markerScript = markerLine.AddComponent<Anomaly16_marker>();
         markerScript.markerSoundClip = markerSound;
+        
     }
 
     private void SetLayerForInteraction()

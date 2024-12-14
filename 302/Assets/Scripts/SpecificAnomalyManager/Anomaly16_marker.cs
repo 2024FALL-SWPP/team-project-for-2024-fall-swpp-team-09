@@ -47,8 +47,7 @@ public class Anomaly16_marker : AbstractAnomalyInteractable
         audioSource.spatialBlend = 1f; // Enable 3D audio
         audioSource.minDistance = 1f; // Start fading volume after 1 unit
         audioSource.maxDistance = 15f; // Completely fade out at 15 units
-        audioSource.rolloffMode = AudioRolloffMode.Linear; // Smooth volume transitions
-
+        audioSource.Play();
 
         // Initialize LineRenderer for drawing
         lineRenderer.positionCount = 1;
@@ -66,20 +65,30 @@ public class Anomaly16_marker : AbstractAnomalyInteractable
         return true;
     }
 
+    private void Start()
+    {
+        StartAnomaly();
+    }
+
     public override bool ResetAnomaly()
     {
-        if (anomalyManager != null)
-        {
-            anomalyManager.DestroyMarkerLineWithSound();
-            audioSource.Stop();
-        }
+        audioSource.Stop();
         return true;
+    }
+
+    public override bool CanInteract(float distance)
+    {
+        if (distance < 10.0f) return true;
+        else return false;
     }
 
     public override void OnInteract()
     {
         base.OnInteract();
         GameManager.Instance.SetStageClear();
+
+        ResetAnomaly();
+        anomalyManager.ResetAnomaly();
     }
     
     private IEnumerator StartDrawingWithDelay()
