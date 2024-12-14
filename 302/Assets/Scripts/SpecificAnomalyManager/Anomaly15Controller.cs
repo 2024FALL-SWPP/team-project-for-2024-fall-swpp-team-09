@@ -42,14 +42,10 @@ public class Anomaly15Controller : AbstractAnomalyObject
         
         return res;
     }
+    
     private void Start()
     {
-        // 상호작용할 수 있는 투명한 큐브
-        interactionCube = CreateInteractionCube();
-        StartCoroutine(SetTransparency(interactionCube));
-
-        // 거미 생성
-        StartCoroutine(SpawnSpiderRoutine());
+        StartAnomaly();
     }
 
     public void StopSpawning()

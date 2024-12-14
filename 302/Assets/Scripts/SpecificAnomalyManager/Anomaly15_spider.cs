@@ -12,6 +12,11 @@ public class Anomaly15_spider : AbstractAnomalyInteractable
     private Transform cameraTransform;
     private AudioSource audioSource;
 
+    private void Start()
+    {
+        StartAnomaly();
+    }
+
     public override bool StartAnomaly()
     {
         bool res = base.StartAnomaly();
@@ -22,7 +27,10 @@ public class Anomaly15_spider : AbstractAnomalyInteractable
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = spiderSoundClip;
         audioSource.loop = true;
-        audioSource.spatialBlend = 2f; // 3D 음향으로 설정
+        audioSource.spatialBlend = 1.0f; // 3D 음향으로 설정
+        audioSource.minDistance = 1.0f;
+        audioSource.maxDistance = 10.0f;
+
         audioSource.Play();
 
         return res;
@@ -34,26 +42,29 @@ public class Anomaly15_spider : AbstractAnomalyInteractable
         bool res = base.ResetAnomaly();
 
         audioSource.Stop();
-        if (anomalyManager != null)
-        {
-            anomalyManager.StopSpawning();
-        }
-        
         StartCoroutine(DelayedDestroy());
         
         return res;
     }
 
-    public override virtual OnInteract()
+    public override void OnInteract()
     {
         base.OnInteract();
         GameManager.Instance.SetStageClear();
+
+        ResetAnomaly();
+        anomalyManager.ResetAnomaly();
+    }
+
+    public override bool CanInteract(float distance)
+    {
+        if (distance < 5.0f) return true;
+        else return false;
     }
 
     private IEnumerator DelayedDestroy()
     {
         yield return new WaitForSeconds(2f); // Wait for 2 seconds
         Destroy(gameObject);                 // Destroy this spider object
-        GameManager.Instance.SetStageClear(); // Mark the stage as clear
     }
 }

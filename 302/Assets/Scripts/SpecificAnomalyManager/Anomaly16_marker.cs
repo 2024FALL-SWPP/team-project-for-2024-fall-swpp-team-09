@@ -62,6 +62,8 @@ public class Anomaly16_marker : AbstractAnomalyInteractable
 
         // Start the drawing coroutine with a delay
         StartCoroutine(StartDrawingWithDelay());
+
+        return true;
     }
 
     public override bool ResetAnomaly()
@@ -71,9 +73,10 @@ public class Anomaly16_marker : AbstractAnomalyInteractable
             anomalyManager.DestroyMarkerLineWithSound();
             audioSource.Stop();
         }
+        return true;
     }
 
-    public override virtual OnInteract()
+    public override void OnInteract()
     {
         base.OnInteract();
         GameManager.Instance.SetStageClear();
