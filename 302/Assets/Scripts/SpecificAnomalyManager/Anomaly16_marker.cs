@@ -2,10 +2,10 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Anomaly16_marker : InteractableObject, IInteractable
+public class Anomaly16_marker : AbstractAnomalyInteractable
 {
-    private bool hasInteracted = false;
-    private Anomaly16Controller anomalyManager; // Reference to Anomaly16Controller
+    public override string Name { get; } = "Anomaly16_marker";
+    private Anomaly16Controller anomalyManager;
 
     private Transform cameraTransform;
 
@@ -28,7 +28,7 @@ public class Anomaly16_marker : InteractableObject, IInteractable
     private const float endZ = -14.26f;
     private bool isDrawing = false;
 
-    private void Start()
+    public override bool StartAnomaly()
     {
         // Set up the camera
         GameObject mainCamera = GameObject.FindWithTag("MainCamera");
@@ -44,6 +44,11 @@ public class Anomaly16_marker : InteractableObject, IInteractable
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = markerSoundClip;
         audioSource.loop = true;
+        audioSource.spatialBlend = 1f; // Enable 3D audio
+        audioSource.minDistance = 1f; // Start fading volume after 1 unit
+        audioSource.maxDistance = 15f; // Completely fade out at 15 units
+        audioSource.rolloffMode = AudioRolloffMode.Linear; // Smooth volume transitions
+
 
         // Initialize LineRenderer for drawing
         lineRenderer.positionCount = 1;
@@ -59,6 +64,21 @@ public class Anomaly16_marker : InteractableObject, IInteractable
         StartCoroutine(StartDrawingWithDelay());
     }
 
+    public override bool ResetAnomaly()
+    {
+        if (anomalyManager != null)
+        {
+            anomalyManager.DestroyMarkerLineWithSound();
+            audioSource.Stop();
+        }
+    }
+
+    public override virtual OnInteract()
+    {
+        base.OnInteract();
+        GameManager.Instance.SetStageClear();
+    }
+    
     private IEnumerator StartDrawingWithDelay()
     {
         yield return new WaitForSeconds(3f);  // Wait for 3 seconds
@@ -67,23 +87,9 @@ public class Anomaly16_marker : InteractableObject, IInteractable
 
     private void Update()
     {
-        HandleAudioBasedOnDistance();
         if (isDrawing)
         {
             DrawLineWithRandomness();
-        }
-    }
-
-    private void HandleAudioBasedOnDistance()
-    {
-        float distanceToCamera = Vector3.Distance(lastPosition, cameraTransform.position);
-        if (distanceToCamera <= 15f && !hasInteracted)
-        {
-            if (!audioSource.isPlaying) audioSource.Play();
-        }
-        else
-        {
-            if (audioSource.isPlaying) audioSource.Stop();
         }
     }
 
@@ -176,31 +182,5 @@ public class Anomaly16_marker : InteractableObject, IInteractable
 
         meshCollider.sharedMesh = null;
         meshCollider.sharedMesh = lineMesh;
-    }
-
-    public string GetInteractionPrompt()
-    {
-        return "Press Left Click to interact with the red line";
-    }
-
-    public bool CanInteract(float distance)
-    {
-        return !hasInteracted;
-    }
-    // modified by 신채환
-    // CanInteract 메서드가 거리를 인자로 받도록 변경
-
-    public void OnInteract()
-    {
-        if (hasInteracted) return;
-
-        hasInteracted = true;
-        if (anomalyManager != null)
-        {
-            anomalyManager.DestroyMarkerLineWithSound();
-            audioSource.Stop();
-        }
-        GameManager.Instance.SetStageClear(); // Mark the stage as clear
-
     }
 }

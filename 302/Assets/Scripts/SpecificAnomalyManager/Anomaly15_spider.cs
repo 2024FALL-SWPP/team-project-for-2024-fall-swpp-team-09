@@ -44,6 +44,11 @@ public class Anomaly15_spider : AbstractAnomalyInteractable
         return res;
     }
 
+    public override virtual OnInteract()
+    {
+        base.OnInteract();
+        GameManager.Instance.SetStageClear();
+    }
 
     private IEnumerator DelayedDestroy()
     {
