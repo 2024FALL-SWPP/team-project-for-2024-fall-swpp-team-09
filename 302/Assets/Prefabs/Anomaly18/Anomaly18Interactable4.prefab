@@ -259,7 +259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 172549105730445443}
   - component: {fileID: 3235519489252216753}
-  - component: {fileID: 4300784729179825900}
+  - component: {fileID: 24838291918306546}
   m_Layer: 3
   m_Name: Anomaly18Interactable4
   m_TagString: Untagged
@@ -308,7 +308,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.017582536, y: 0.014485538, z: 0.042276703}
   m_Center: {x: -0.34068245, y: 0.20315066, z: -0.12153947}
---- !u!114 &4300784729179825900
+--- !u!114 &24838291918306546
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -317,9 +317,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 661700201260497465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33a51968eb2cf9549ba0e069a5074acc, type: 3}
+  m_Script: {fileID: 11500000, guid: c1fef15414d38cd49ac6dc744856e8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameCameraMain: Main Camera
   prompt: 
   distanceInteractionMax: 3
   duration: 2

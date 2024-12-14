@@ -160,8 +160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0308f3d0e5f4a2b468bacc485aebf6d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prompt: 
-  distanceInteractionMax: 2
+  promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
+  interactionRange: 2
   fadeImage: {fileID: 6108600949248145028, guid: af86313d08cec4241a8b1edd8d8a29da, type: 3}
   fadeSpeed: 2
   closeSpeed: 1

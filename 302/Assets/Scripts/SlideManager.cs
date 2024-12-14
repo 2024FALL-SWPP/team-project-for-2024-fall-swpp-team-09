@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlideManager : AbstractStageObserver
+public class SlideManager : AbstractBehaviour, IStageObserver
 {
     /**********
      * fields *
@@ -36,6 +36,60 @@ public class SlideManager : AbstractStageObserver
     // 클래스 인스턴스
     public static SlideManager Instance { get; private set; }
 
+    /**********************************
+     * implementation: IStageObserver *
+     **********************************/
+
+    public bool UpdateStage()
+    {
+        int stage = GameManager.Instance.GetCurrentStage();
+        bool res = true;
+
+        if (stage == 0) {
+            // generate random slide index list
+            _slideList = _random.Combination(numSlide, numStage);
+            Log($"Generate `_slideList` success: [{string.Join(", ", _slideList)}]");
+
+            // find and put away the slides
+            Log("Call `FindSlides` begin");
+            if (FindSlides()) {
+                Log("Call `FindSlides` success");
+
+                foreach (GameObject obj in _objects) {
+                    obj.transform.Translate(Vector3.down * 100.0f);
+                }
+
+                Log("Set slide success: off");
+            } else {
+                Log("Call `FindSlides` failed", mode: 1);
+                res = false;
+            }
+        } else if (stage > 0 && stage <= numStage) {
+            // find and update slides
+            Log("Call `FindSlides` begin");
+            if (FindSlides()) {
+                Log("Call `FindSlides` success");
+
+                int index = _slideList[stage - 1];
+
+                foreach (SlideController controller in _controllers) {
+                    controller.Index = index;
+                    controller.ResetSlide();
+                }
+
+                Log($"Set slide success: {index}");
+            } else {
+                Log("Call `FindSlides` failed", mode: 1);
+                res = false;
+            }
+        } else {
+            Log($"Invalid stage: {stage}", mode: 1);
+            res = false;
+        }
+
+        return res;
+    }
+
     /*************************************
      * implementation: AbstractBehaviour *
      *************************************/
@@ -43,19 +97,16 @@ public class SlideManager : AbstractStageObserver
     // `Awake` 메시지 용 메서드
     protected override bool Awake_()
     {
-        bool res = false;
-
         if (Instance == null) {
             Log($"`Instance` has not been set => set `Instance` as `{Name}`");
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            res = base.Awake_();
         } else {
             Log($"`Instance` has already been set => destroy `{gameObject.name}`");
             Destroy(gameObject);
         }
 
-        return res;
+        return base.Awake_();
     }
 
     // 필드를 초기화하는 메서드
@@ -67,58 +118,9 @@ public class SlideManager : AbstractStageObserver
         _random = new SCH_Random();
         Log("Initialize `_random` success");
 
-        // _objects
-        _objects = new List<GameObject>();
-
-        // _controllers
-        _controllers = new List<SlideController>();
-
         // _slideList
         _slideList = new int[numStage];
         Log("Initialize `_slideList` success");
-
-        return res;
-    }
-
-    /*****************************************
-     * implementation: AbstractStageObserver *
-     *****************************************/
-
-    public override bool UpdateStage()
-    {
-        int stage = GameManager.Instance.GetCurrentStage();
-        bool res = true;
-
-        if (stage == 0) {
-            Log("Call `PutAwaySlides` begin");
-            if (PutAwaySlides()) {
-                Log("Call `PutAwaySlides` success");
-            } else {
-                Log("Call `PutAwaySlides` failed", mode: 1);
-                res = false;
-            }
-        } else if (stage > 0 && stage <= numStage) {
-            if (stage == 1) {
-                Log("Call `GenerateList` begin");
-                if (GenerateList()) {
-                    Log("Call `GenerateList` success");
-                } else {
-                    Log("Call `GenerateList` failed", mode: 1);
-                    res = false;
-                }
-            }
-
-            Log("Call `UpdateSlides` begin");
-            if (UpdateSlides(stage)) {
-                Log("Call `UpdateSlides` success");
-            } else {
-                Log("Call `UpdateSlides` failed", mode: 1);
-                res = false;
-            }
-        } else {
-            Log($"Invalid stage: {stage}", mode: 1);
-            res = false;
-        }
 
         return res;
     }
@@ -127,70 +129,10 @@ public class SlideManager : AbstractStageObserver
      * new methods *
      ***************/
 
-    // 슬라이드를 치우는 메서드
-    private bool PutAwaySlides()
-    {
-        bool res = true;
-
-        Log("Call `FindSlides` begin");
-        if (FindSlides()) {
-            Log("Call `FindSlides` success");
-
-            foreach (GameObject obj in _objects) {
-                obj.transform.Translate(Vector3.down * 100.0f);
-            }
-
-            Log("Set slide success: off");
-        } else {
-            Log("Call `FindSlides` failed", mode: 1);
-            res = false;
-        }
-
-        return res;
-    }
-
-    // 슬라이드 색인 리스트를 생성하는 메서드
-    private bool GenerateList()
-    {
-        bool res = true;
-
-        _slideList = _random.Combination(numSlide, numStage);
-        Log($"Generate `_slideList` success: [{string.Join(", ", _slideList)}]");
-
-        return res;
-    }
-
-    // 슬라이드를 갱신하는 메서드
-    private bool UpdateSlides(int stage)
-    {
-        int index = _slideList[stage - 1];
-        bool res = true;
-
-        Log("Call `FindSlides` begin");
-        if (FindSlides()) {
-            Log("Call `FindSlides` success");
-
-            foreach (SlideController controller in _controllers) {
-                controller.Index = index;
-                controller.ResetSlide();
-            }
-
-            Log($"Set slide success: {index}");
-        } else {
-            Log("Call `FindSlides` failed", mode: 1);
-            res = false;
-        }
-
-        return res;
-    }
-
     // 슬라이드를 찾는 메서드
     private bool FindSlides()
     {
         bool res = true;
-
-        _objects.Clear();
-        _controllers.Clear();
 
         for (int idx = 0; idx < names.Length; idx++) {
             GameObject obj = GameObject.Find(names[idx]);

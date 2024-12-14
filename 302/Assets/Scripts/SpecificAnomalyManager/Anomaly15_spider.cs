@@ -1,22 +1,20 @@
 using UnityEngine;
 using System.Collections;
 
-public class Anomaly15_spider : AbstractAnomalyInteractable
+public class Anomaly15_spider : InteractableObject, IInteractable
 {
-    public override string Name { get; } = "Anomaly15_spider";
-
     [Header("Interaction Settings")]
-    private Anomaly15Controller anomalyManager;
+
+    private bool hasInteracted = false;
+    private Anomaly15Manager anomalyManager;
     [Header("Audio Settings")]
     public AudioClip spiderSoundClip;
     private Transform cameraTransform;
     private AudioSource audioSource;
 
-    public override bool StartAnomaly()
+    private void Start()
     {
-        bool res = base.StartAnomaly();
-
-        anomalyManager = FindObjectOfType<Anomaly15Controller>();
+        anomalyManager = FindObjectOfType<Anomaly15Manager>();
         GameObject mainCamera = GameObject.FindWithTag("MainCamera");
 
         audioSource = gameObject.AddComponent<AudioSource>();
@@ -24,26 +22,43 @@ public class Anomaly15_spider : AbstractAnomalyInteractable
         audioSource.loop = true;
         audioSource.spatialBlend = 2f; // 3D 음향으로 설정
         audioSource.Play();
-
-        return res;
    }
 
-    // 이상현상을 초기화하는 메서드
-    public override bool ResetAnomaly()
+    private void Update()
     {
-        bool res = base.ResetAnomaly();
+        if (hasInteracted && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+    }
 
-        audioSource.Stop();
+    public string GetInteractionPrompt()
+    {
+        return "Press Left Click to interact with the figure";
+    }
+
+    public bool CanInteract(float distance)
+    {
+        return !hasInteracted;
+    }
+    // modified by 신채환
+    // CanInteract 메서드가 거리를 인자로 받도록 변경
+
+    public void OnInteract()
+    {
+        if (hasInteracted) return;
+
+        hasInteracted = true;
+
+        // Call StopSpawning on Anomaly15Manager and start the delayed destroy
         if (anomalyManager != null)
         {
             anomalyManager.StopSpawning();
         }
         
+        // Start coroutine to wait 2 seconds before destroying
         StartCoroutine(DelayedDestroy());
-        
-        return res;
     }
-
 
     private IEnumerator DelayedDestroy()
     {

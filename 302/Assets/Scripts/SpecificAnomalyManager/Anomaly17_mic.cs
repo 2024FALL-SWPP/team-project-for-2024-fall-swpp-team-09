@@ -4,7 +4,7 @@ using System.Collections;
 public class Anomaly17_mic : InteractableObject, IInteractable
 {
     private bool hasInteracted = false;
-    private Anomaly17Controller anomalyManager;
+    private Anomaly17Manager anomalyManager;
 
     // 스파크 세팅
     public int sparkSegments = 30;
@@ -26,7 +26,7 @@ public class Anomaly17_mic : InteractableObject, IInteractable
 
     private void Start()
     {
-        anomalyManager = FindObjectOfType<Anomaly17Controller>();
+        anomalyManager = FindObjectOfType<Anomaly17Manager>();
         GameObject mainCamera = GameObject.FindWithTag("MainCamera");
         if (mainCamera != null)
         {

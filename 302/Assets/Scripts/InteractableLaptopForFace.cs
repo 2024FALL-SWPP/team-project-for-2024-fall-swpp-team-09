@@ -6,7 +6,7 @@ public class InteractableLaptopForFace : InteractableLaptop
 
     public override void OnInteract()
     {
-        Anomaly02Laptop obj = GetComponentInParent<Anomaly02Laptop>();
+        Anomaly2_Laptop obj = GetComponentInParent<Anomaly2_Laptop>();
 
         base.OnInteract();
 

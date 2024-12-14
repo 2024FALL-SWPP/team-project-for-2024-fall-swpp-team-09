@@ -1829,8 +1829,8 @@ GameObject:
   - component: {fileID: 5702866697557762460}
   - component: {fileID: -5115927794089966355}
   - component: {fileID: 1762372057293109387}
+  - component: {fileID: 102974955409158419}
   - component: {fileID: 2823924222544873001}
-  - component: {fileID: 5847809326673953691}
   m_Layer: 3
   m_Name: noHeadSitGirl
   m_TagString: Untagged
@@ -1845,8 +1845,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4931291677343464230}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.72, y: -0.92, z: -6.15}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1924,6 +1924,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.78868043, y: 1.2432933, z: 0.8379879}
   m_Center: {x: -0.007043898, y: 1.0091901, z: 0.081006035}
+--- !u!114 &102974955409158419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4931291677343464230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9b3f08a1c74cca4da83f16b57568fbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
+  interactionRange: 2
+  interactionSoundPrefab: {fileID: 0}
 --- !u!82 &2823924222544873001
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2020,20 +2035,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5847809326673953691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4931291677343464230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9b3f08a1c74cca4da83f16b57568fbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prompt: 
-  distanceInteractionMax: 2
 --- !u!1 &5032775393752142314
 GameObject:
   m_ObjectHideFlags: 0

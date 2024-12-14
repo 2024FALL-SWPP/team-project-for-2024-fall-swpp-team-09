@@ -2,41 +2,23 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(AudioSource))]
-public class Anomaly24_luciddream : AbstractAnomalyInteractable 
+public class Anomaly24_luciddream : MonoBehaviour
 {
     [SerializeField] private float duration = 30f;
     private AudioSource audioSource;
     private Transform mainCamera;
 
-    // 클래스 이름
-    public override string Name { get; } = "Anomaly24_luciddream"; 
-
-
-    // 필드를 초기화하는 메서드
-    protected override bool InitFields()
+    void Start()
     {
-        bool res = base.InitFields();
-
         audioSource = GetComponent<AudioSource>();
         mainCamera = Camera.main?.transform;
 
         if (mainCamera == null)
         {
             Debug.LogError("Main Camera not found!");
-            res = false;
         }
 
-        return res;
-    }
-
-    // 이상현상을 시작하는 메서드
-    public override bool StartAnomaly()
-    {
-        bool res = base.StartAnomaly();
-
         StartCoroutine(LucidDreamSequence());
-
-        return res;
     }
 
     private IEnumerator LucidDreamSequence()
@@ -96,4 +78,3 @@ public class Anomaly24_luciddream : AbstractAnomalyInteractable
         audioSource.volume = startVolume;
     }
 }
-

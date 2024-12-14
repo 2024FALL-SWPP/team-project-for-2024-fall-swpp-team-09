@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 804342736015318115}
-  - component: {fileID: -6116211564230804281}
+  - component: {fileID: 6451951202203810141}
   m_Layer: 0
   m_Name: Anomaly18Chairs
   m_TagString: Untagged
@@ -56,7 +56,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-6116211564230804281
+--- !u!114 &6451951202203810141
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2824771154171234484}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2e44fc5e1725d647908a6343ed98090, type: 3}
+  m_Script: {fileID: 11500000, guid: abf04317342a08b43b99639716e15455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 2

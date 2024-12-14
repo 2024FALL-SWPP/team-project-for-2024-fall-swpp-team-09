@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 956152231290083482}
   - component: {fileID: 4269990928468924652}
-  - component: {fileID: -8853786589799450245}
+  - component: {fileID: 9026940281139440207}
   m_Layer: 3
   m_Name: Anomaly20InteractableFront
   m_TagString: Untagged
@@ -46,7 +46,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 2.4, z: 0.1}
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &-8853786589799450245
+--- !u!114 &9026940281139440207
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,7 +55,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6007555188655779168}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c92679bac1ed184e89802565dea5023, type: 3}
+  m_Script: {fileID: 11500000, guid: fa6dee73251e9a04e8d20560af1f1997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: 

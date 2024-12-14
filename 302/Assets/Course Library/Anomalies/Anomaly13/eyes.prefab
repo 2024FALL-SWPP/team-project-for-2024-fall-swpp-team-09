@@ -60,8 +60,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93b91f91247fb0b45aeedc1f250a1e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prompt: 
-  distanceInteractionMax: 5
+  player: {fileID: 0}
+  leftEye: {fileID: 0}
+  rightEye: {fileID: 0}
+  rotationOffsetX: -90
 --- !u!1001 &4036253353244585447
 PrefabInstance:
   m_ObjectHideFlags: 0
