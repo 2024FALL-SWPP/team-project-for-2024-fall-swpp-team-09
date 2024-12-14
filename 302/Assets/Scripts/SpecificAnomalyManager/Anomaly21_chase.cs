@@ -7,12 +7,13 @@ using System.Collections;
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(AudioSource))]
-public class Anomaly21_chase : MonoBehaviour
+
+public class Anomaly21_chase : AbstractAnomalyInteractable 
 {
-    public float chaseSpeed = 4f;
-    public float returnSpeed = 2f;
-    public float chaseDistance = 10f;
-    public float fadeOutDuration = 4f;
+    public float chaseSpeed;
+    public float returnSpeed;
+    public float chaseDistance;
+    public float fadeOutDuration;
     public Transform startPoint;
     private bool isChasing = false;
     private bool canChase = true;
@@ -28,8 +29,20 @@ public class Anomaly21_chase : MonoBehaviour
     private GameObject unityIcon;
     private float elapsedTime = 0f;
 
-    void Start()
+    // 클래스 이름
+    public override string Name { get; } = "Anomaly13_lookingeye"; 
+
+
+    // 필드를 초기화하는 메서드
+    protected override bool InitFields()
     {
+        bool res = base.InitFields();
+
+        chaseSpeed = 4f;
+        returnSpeed = 2f;
+        chaseDistance = 10f;
+        fadeOutDuration = 4f;
+
         player = GameObject.FindWithTag("Player").transform;
         navAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
@@ -46,9 +59,11 @@ public class Anomaly21_chase : MonoBehaviour
 
         audioSource.loop = true;
         audioSource.playOnAwake = false;
+
+        return res;
     }
 
-    void Update()
+    private void Update()
     {
         if (!canChase) return;
 
@@ -76,7 +91,7 @@ public class Anomaly21_chase : MonoBehaviour
 
             if (elapsedTime >= 20f)
             {
-                StartCoroutine(ReturnToStart());
+                ResetAnomaly();
             }
         }
     }
@@ -153,5 +168,16 @@ public class Anomaly21_chase : MonoBehaviour
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.isKinematic = true;
+    }
+
+    // 이상현상을 초기화하는 메서드
+    public override bool ResetAnomaly()
+    {
+        bool res = base.ResetAnomaly();
+
+        StartCoroutine(ReturnToStart());
+        Debug.Log("Anomaly21_chase: Stage Cleared.");
+
+        return res;
     }
 }

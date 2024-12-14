@@ -37,7 +37,7 @@ public class Anomaly16_marker : AbstractAnomalyInteractable
             cameraTransform = mainCamera.transform;
         }
 
-        anomalyManager = FindObjectOfType<Anomaly16Manager>();
+        anomalyManager = FindObjectOfType<Anomaly16Controller>();
 
         // Set up LineRenderer and AudioSource components
         lineRenderer = GetComponent<LineRenderer>();

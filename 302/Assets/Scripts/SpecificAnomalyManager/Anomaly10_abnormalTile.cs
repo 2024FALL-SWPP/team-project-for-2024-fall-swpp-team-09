@@ -1,47 +1,63 @@
 using UnityEngine;
 using System.Collections;
 
-public class Anomaly10_abnormalTile : InteractableObject, IInteractable
+public class Anomaly10_abnormalTile : AbstractAnomalyInteractable 
 {
-    private bool hasInteracted = false;  // Ensures only one interaction occurs
-
     private AudioSource audioSource;  // Reference to the AudioSource component
 
-    private void Start()
+    // 클래스 이름
+    public override string Name { get; } = "Anomaly10_abnormalTile"; 
+
+    // 상호작용 시 실행될 메서드
+    public override void OnInteract()
     {
+        base.OnInteract();
+
+        Log("Call `GameManager.SetStageClear` begin");
+        GameManager.Instance.SetStageClear();
+        Log("Call `GameManager.SetStageClear` end");
+
+        // Code used before `GameManager` updates begin
+        GameObject controllerObject = GameObject.Find("AnomalyManager (10)(Clone)");
+        AbstractAnomalyObject controller = controllerObject.GetComponent<AbstractAnomalyObject>();
+
+        Log($"Call `{controller.Name}.ResetAnomaly` begin");
+        if (controller.ResetAnomaly()) {
+            Log($"Call `{controller.Name}.ResetAnomaly` success");
+        } else {
+            Log($"Call `{controller.Name}.ResetAnomaly` failed", mode: 1);
+        }
+        // Code used before `GameManager` updates end
+    }
+
+    // 필드를 초기화하는 메서드
+    protected override bool InitFields()
+    {
+        bool res = base.InitFields();
+
         // Try to get the AudioSource component attached to this object
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
             Debug.LogError("AudioSource component is missing! Please attach an AudioSource to this object.");
+            res = false;
         }
+
+        return res;
     }
 
-    // Returns the prompt text for interaction (e.g., displayed on cursor)
-    public string GetInteractionPrompt()
+    // 이상현상을 초기화하는 메서드
+    public override bool ResetAnomaly()
     {
-        return "Press Left Click to interact with the figure";
-    }
+        bool res = base.ResetAnomaly();
 
-    // Determines if interaction is currently possible
-    public bool CanInteract(float distance)
-    {
-        return !hasInteracted;  // Interaction is allowed only once
-    }
-    // modified by 신채환
-    // CanInteract 메서드가 거리를 인자로 받도록 변경
-
-    // Handles interaction with the object
-    public void OnInteract()
-    {
-        if (hasInteracted) return;  // Ensure interaction only happens once
-
-        hasInteracted = true;
-        StartCoroutine(FadeOutAndClearStage(gameObject, 2f));  // Fades out over 2 seconds and then clears stage
+        StartCoroutine(FadeOut(gameObject, 2f));  // Fades out over 2 seconds and then clears stage
+    
+        return res;
     }
 
     // Coroutine to gradually fade out, destroy the object, and set the stage clear
-    private IEnumerator FadeOutAndClearStage(GameObject obj, float duration)
+    private IEnumerator FadeOut(GameObject obj, float duration)
     {
         // Play the sound once when the object starts fading out
         if (audioSource != null)
@@ -74,7 +90,5 @@ public class Anomaly10_abnormalTile : InteractableObject, IInteractable
 
         Destroy(obj);  // Remove the object completely after fading out
 
-        // Mark the stage as clear after the object is fully faded out
-        GameManager.Instance.SetStageClear();
     }
 }

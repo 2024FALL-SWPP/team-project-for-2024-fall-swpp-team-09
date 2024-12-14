@@ -2,23 +2,65 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class Anomaly11_openeddoor : InteractableObject, IInteractable
+public class Anomaly11_openeddoor : AbstractAnomalyInteractable 
 {
+
     [SerializeField] private Image fadeImage;
-    [SerializeField] private float fadeSpeed = 0.5f;
-    public float closeSpeed = 1.0f;  // Door movement speed
+    [SerializeField] private float fadeSpeed;
+    public float closeSpeed;  // Door movement speed
 
     private Transform movingPart;    // Reference to Cube.002 child object
     private AudioSource audioSource; // Reference to AudioSource component
-    private bool hasInteracted = false;
 
-    private void Start()
+    // 클래스 이름
+    public override string Name { get; } = "Anomaly11_openeddoor"; // TODO: 클래스 이름 추가하기.
+
+    // 상호작용 시 실행될 메서드
+    public override void OnInteract()
     {
+        base.OnInteract();
+
+        Log("Call `GameManager.SetStageClear` begin");
+        GameManager.Instance.SetStageClear();
+        Log("Call `GameManager.SetStageClear` end");
+
+        // Code used before `GameManager` updates begin
+        GameObject controllerObject = GameObject.Find("AnomalyManager (11)(Clone)");
+        AbstractAnomalyObject controller = controllerObject.GetComponent<AbstractAnomalyObject>();
+
+        Log($"Call `{controller.Name}.ResetAnomaly` begin");
+        if (controller.ResetAnomaly()) {
+            Log($"Call `{controller.Name}.ResetAnomaly` success");
+        } else {
+            Log($"Call `{controller.Name}.ResetAnomaly` failed", mode: 1);
+        }
+    }
+
+    // `Awake` 메시지 용 메서드
+    protected override bool Awake_()
+    {
+        bool res = base.Awake_();
+
+        // TODO: `Awake` 메시지에서 해야할 것 넣기. 없으면 메서드를 아예 지워도 됨.
+        // 함수가 제대로 작동했으면 `true`를, 아니면 `false`를 반환.
+
+        return res;
+    }
+
+    // 필드를 초기화하는 메서드
+    protected override bool InitFields()
+    {
+        bool res = base.InitFields();
+
+        fadeSpeed = 0.5f;
+        closeSpeed = 1.0f;
+
         // Locate Cube.002 within the door_opened prefab
         movingPart = transform.Find("Cube.002");
         if (movingPart == null)
         {
             Debug.LogError("Anomaly11_openeddoor: 'Cube.002' not found as a child object.");
+            res = false;
         }
 
         // Locate AudioSource component on the GameObject
@@ -26,35 +68,33 @@ public class Anomaly11_openeddoor : InteractableObject, IInteractable
         if (audioSource == null)
         {
             Debug.LogWarning("Anomaly11_openeddoor: AudioSource component is missing.");
+            res = false;
         }
+
+        return res;
     }
 
-    // Returns the prompt text for interaction
-    public string GetInteractionPrompt()
+    // 이상현상을 시작하는 메서드
+    public override bool StartAnomaly()
     {
-        return "Press Left Click to interact with the opened door";
+        bool res = base.StartAnomaly();
+
+        // TODO: 이상현상 시작하는 코드 넣기. 없으면 메서드를 아예 지워도 됨.
+        // 함수가 제대로 작동했으면 `true`를, 아니면 `false`를 반환.
+
+        return res;
     }
 
-    // Determines if interaction is currently possible
-    public bool CanInteract(float distance)
+    // 이상현상을 초기화하는 메서드
+    public override bool ResetAnomaly()
     {
-        return movingPart != null && !hasInteracted;
-    }
-    // modified by 신채환
-    // CanInteract 메서드가 거리를 인자로 받도록 변경
-
-    // Handles interaction with the opened door
-    public void OnInteract()
-    {
-        if (hasInteracted) return;  // Ensure interaction only happens once
-
-        hasInteracted = true;       // Mark interaction as complete
+        bool res = base.ResetAnomaly();
 
         // Start moving the door
         if (movingPart != null)
         {
             StartCoroutine(CloseDoor());
-        }
+        } 
 
         // Play AudioSource if available
         if (audioSource != null)
@@ -62,11 +102,9 @@ public class Anomaly11_openeddoor : InteractableObject, IInteractable
             audioSource.Play();
         }
 
-        // Mark the stage as cleared
-        GameManager.Instance.SetStageClear();
+        return res;
     }
 
-    // Coroutine to smoothly move the door in the z-axis
     private IEnumerator CloseDoor()
     {
         Vector3 startPosition = movingPart.localPosition;
