@@ -6,8 +6,8 @@ public class Anomaly17Controller : AbstractAnomalyObject
 {
     public override string Name { get; } = "Anomaly17Controller";
 
-    public GameObject splitMicLinePrefab; // line_split prefab
-    public GameObject normalMicLinePrefab; // line_normal prefab
+    public GameObject splitMicLinePrefab;
+    public GameObject normalMicLinePrefab;
     private GameObject currentMicLine; // line_split OR line_normal 중 현재 마이크 선 obejct
     public AudioClip electricSparkSoundClip;
 
@@ -17,9 +17,28 @@ public class Anomaly17Controller : AbstractAnomalyObject
     private Vector3 savedScale;
     private Transform savedParent; // mic_line_normal
 
-    void Start()
+    public override bool StartAnomaly()
     {
+        bool res = base.StartAnomaly();
+
         ReplaceToSplitMic();
+
+        return res;
+    }
+
+    // 이상현상을 초기화하는 메서드
+    public override bool ResetAnomaly()
+    {
+        bool res = base.ResetAnomaly();
+
+        ReplaceToNormalMic();
+        
+        return res;
+    }
+    
+    private void Start()
+    {
+        StartAnomaly();
     }
 
     public void ReplaceToSplitMic()
