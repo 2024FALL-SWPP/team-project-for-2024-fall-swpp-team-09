@@ -8,13 +8,13 @@ public class SideGirl : InteractableObject
    
    private MeshRenderer meshRenderer;
    private bool hasInteracted = false; 
-   private Anomaly05Controller anomalyManager;
+   private Anomaly5Manager anomalyManager;
 
    private void Awake()
    {
        meshRenderer = GetComponent<MeshRenderer>();
        // Anomaly5Manager 찾기
-       anomalyManager = FindObjectOfType<Anomaly05Controller>();
+       anomalyManager = FindObjectOfType<Anomaly5Manager>();
    }
 
    public override void OnInteract()

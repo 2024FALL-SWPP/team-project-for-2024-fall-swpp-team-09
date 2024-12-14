@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Anomaly26Controller : MonoBehaviour
+public class Anomaly26Manager : MonoBehaviour
 {
    [Header("Fire Settings")]
    [SerializeField] private GameObject firePrefab;
