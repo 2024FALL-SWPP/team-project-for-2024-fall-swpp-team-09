@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class Anomaly17_mic : InteractableObject, IInteractable
+public class Anomaly17_mic : AbstractAnomalyInteractable
 {
-    private bool hasInteracted = false;
+    public override string Name { get; } = "Anomaly17_mic";
     private Anomaly17Controller anomalyManager;
 
     // 스파크 세팅
@@ -24,7 +24,7 @@ public class Anomaly17_mic : InteractableObject, IInteractable
     private float maxDistance = 15f;
     private float minDistance = 2f;
 
-    private void Start()
+    public override bool StartAnomaly()
     {
         anomalyManager = FindObjectOfType<Anomaly17Controller>();
         GameObject mainCamera = GameObject.FindWithTag("MainCamera");
@@ -38,6 +38,10 @@ public class Anomaly17_mic : InteractableObject, IInteractable
         audioSource.clip = electricSparkSoundClip;
         audioSource.loop = true;
         audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 1f;
+        audioSource.minDistance = minDistance;
+        audioSource.maxDistance = maxDistance;
+        audioSource.rolloffMode = AudioRolloffMode.Linear;
 
         // 라인 렌더러 설정
         lineRenderer = gameObject.AddComponent<LineRenderer>();
@@ -56,6 +60,30 @@ public class Anomaly17_mic : InteractableObject, IInteractable
 
         // 전기 스파크 시작
         StartElectricSpark();
+
+        return true;
+    }
+
+    private void Start()
+    {
+        StartAnomaly();
+    }
+
+    public override bool ResetAnomaly()
+    {
+        if (anomalyManager != null)
+        {
+            anomalyManager.ReplaceToNormalMic();
+
+            // 전기 스파크 효과 중지
+            StopAllCoroutines();
+            lineRenderer.enabled = false;
+
+            // 오디오 중지
+            audioSource.Stop();
+        }
+
+        return true;
     }
 
     private void Update()
@@ -63,7 +91,7 @@ public class Anomaly17_mic : InteractableObject, IInteractable
         // 카메라와의 거리 확인
         float distanceToCamera = Vector3.Distance(transform.position, cameraTransform.position);
 
-        if (distanceToCamera <= maxDistance && !hasInteracted)
+        if (distanceToCamera <= maxDistance)
         {
             // 거리 기반 볼륨 조정
             float volume = Mathf.InverseLerp(maxDistance, minDistance, distanceToCamera);
@@ -92,7 +120,7 @@ public class Anomaly17_mic : InteractableObject, IInteractable
 
     private IEnumerator ElectricSparkCoroutine()
     {
-        while (!hasInteracted)
+        while (true)
         {
             lineRenderer.enabled = true;
 
@@ -134,31 +162,18 @@ public class Anomaly17_mic : InteractableObject, IInteractable
         return "Press Left Click to interact with the spark";
     }
 
-    public bool CanInteract(float distance)
+    public override void OnInteract()
     {
-        return !hasInteracted;
+        base.OnInteract();
+        GameManager.Instance.SetStageClear();
+
+        ResetAnomaly();
+        anomalyManager.ResetAnomaly();
     }
-    // modified by 신채환
-    // CanInteract 메서드가 거리를 인자로 받도록 변경
 
-    public void OnInteract()
+    public override bool CanInteract(float distance)
     {
-        if (hasInteracted) return;
-
-        hasInteracted = true;
-
-        if (anomalyManager != null)
-        {
-            anomalyManager.ReplaceToNormalMic();
-
-            // 전기 스파크 효과 중지
-            StopAllCoroutines();
-            lineRenderer.enabled = false;
-
-            // 오디오 중지
-            audioSource.Stop();
-        }
-
-        GameManager.Instance.SetStageClear(); // Clear the stage
+        if (distance < 5.0f) return true;
+        else return false;
     }
 }
