@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7089c0d6190134ca985c8ad224f6c04e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObjectName: professor_normal
-  professorPrefab: {fileID: 7831368780425544879, guid: a655570cc35bfc949a9c58b5eb8b4a90, type: 3}
+  names:
+  - professor_normal
+  prefabs:
+  - {fileID: 7831368780425544879, guid: a655570cc35bfc949a9c58b5eb8b4a90, type: 3}

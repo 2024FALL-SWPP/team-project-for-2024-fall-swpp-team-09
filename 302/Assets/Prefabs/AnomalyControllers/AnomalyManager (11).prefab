@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b202be270b34142adf24b6c800fda5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetDoorName: door
-  doorOpenedPrefab: {fileID: 8121868656660789279, guid: c893de987f87ca142b73f034e6b12896, type: 3}
+  names:
+  - Classroom/WallRight/door
+  prefabs:
+  - {fileID: 8121868656660789279, guid: c893de987f87ca142b73f034e6b12896, type: 3}

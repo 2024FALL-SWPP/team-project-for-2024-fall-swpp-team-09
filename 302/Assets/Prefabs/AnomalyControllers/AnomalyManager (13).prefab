@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b863f6020c9be4d36af5976ae7def815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObjectName: sitGirl
-  lookingGirlPrefab: {fileID: 865672691596713360, guid: 3ea9e4e205f1eb2418fc327cd3c3f601, type: 3}
-  eyesPrefab: {fileID: 3430613836902118324, guid: 11e3551dd4b590742b42d0da43be8523, type: 3}
+  names:
+  - SitGirls/sitGirl/_eye_left
+  - SitGirls/sitGirl/eye_right
+  prefabs:
+  - {fileID: 3430613836902118324, guid: 11e3551dd4b590742b42d0da43be8523, type: 3}

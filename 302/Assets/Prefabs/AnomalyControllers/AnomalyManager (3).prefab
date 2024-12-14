@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8155634044022115139}
-  - component: {fileID: 8155634044022115138}
+  - component: {fileID: 6771753627572306098}
   m_Layer: 0
   m_Name: AnomalyManager (3)
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &8155634044022115138
+--- !u!114 &6771753627572306098
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbd18baab98f449ca317b70a293321b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headlessSchoolgirlPrefab: {fileID: 4931291677343464230, guid: 30233d2ccbd511e4fab58553448c1bd4, type: 3}
-  spawnLocation: {fileID: 0}
-  chairPrefab: {fileID: 0}
+  names: []
+  prefabs:
+  - {fileID: 4931291677343464230, guid: 30233d2ccbd511e4fab58553448c1bd4, type: 3}
