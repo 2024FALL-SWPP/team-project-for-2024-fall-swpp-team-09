@@ -31,13 +31,24 @@ public class Anomaly22Manager : MonoBehaviour
         floorTiles = new List<Transform>(floorTilesArray);
         platformTile = FindPlatformTile();
 
-        StartCoroutine(AddBoxColliders()); // 타일 각각에 Collider 추가
-        StartCoroutine(DestroyFloorBoxCollider()); // Floor Parent의 통일된 Collider 제거
+        StartCoroutine(StartWithDelay());
+    }
+
+    private IEnumerator StartWithDelay()
+    {
+        yield return new WaitForSeconds(5f);
+
+        StartCoroutine(InitializeCollidersAndDestroyParentCollider());
         StartCoroutine(CountSeconds());
         StartCoroutine(TriggerPlatformFall());
         StartCoroutine(TriggerRandomTileShakeAndFallWithInterval());
     }
 
+    private IEnumerator InitializeCollidersAndDestroyParentCollider()
+    {
+        yield return StartCoroutine(AddBoxColliders());
+        yield return StartCoroutine(DestroyFloorBoxCollider());
+    }
 
     private Transform FindPlatformTile()
     {
@@ -98,7 +109,7 @@ public class Anomaly22Manager : MonoBehaviour
                 Vector3 originalCenter = tileCollider.center;
 
                 tileCollider.size = new Vector3(originalSize.x, originalSize.y, originalSize.z * 20); // Change Y value to 3
-                tileCollider.center = new Vector3(originalCenter.x, originalCenter.y, originalCenter.z - originalSize.z * 20); // Adjust center for correct positioning
+                tileCollider.center = new Vector3(originalCenter.x, originalCenter.y, originalCenter.z - originalSize.z * 10); // Adjust center for correct positioning
             }
         }
         yield return null;
@@ -116,7 +127,7 @@ public class Anomaly22Manager : MonoBehaviour
     void Update()
     {
         // 아래로 떨어졌는지 확인해서 Game Over 처리
-        if (playerController.transform.position.y < -1f && !isPlayerDead && false)
+        if (playerController.transform.position.y < -1f && !isPlayerDead)
         {
             playerController.Sleep();
             isPlayerDead = true;
