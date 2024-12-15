@@ -20,8 +20,10 @@ public class Anomaly30Controller : AbstractAnomalyObject
     private bool isAnomalyStopped = false; // Flag to stop attaching scripts
     private Anomaly30_thunderstorm thunderstorm;
 
-    void Start()
+    public override bool StartAnomaly()
     {
+        bool res = base.StartAnomaly();
+
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         player = GameObject.Find("Player");
         mainCamera = Camera.main;
@@ -46,7 +48,29 @@ public class Anomaly30Controller : AbstractAnomalyObject
 
         // 20초 후 창문 열기 중지
         StartCoroutine(EndWindowsOpeningAfterTime(20f));
+
+        return res;
     }
+
+    private void Start()
+    {
+        StartAnomaly();
+    }
+
+    public override bool ResetAnomaly()
+    {
+        bool res = base.ResetAnomaly();
+     
+        isAnomalyStopped = true;
+        StopAnomaly();
+        gameManager.SetStageClear();
+
+        thunderstorm.DestroyThunderstormScreen(); // 비디오 화면 제거
+        CloseAllWindows();
+     
+        return res;
+    }
+
 
     private IEnumerator ApplyAnomalyWindowScriptsAndCollider()
     {
@@ -82,13 +106,7 @@ public class Anomaly30Controller : AbstractAnomalyObject
     private IEnumerator EndWindowsOpeningAfterTime(float time)
     {
         yield return new WaitForSeconds(time);
-
-        isAnomalyStopped = true;
-        StopAnomaly();
-        gameManager.SetStageClear();
-
-        thunderstorm.DestroyThunderstormScreen(); // 비디오 화면 제거
-        CloseAllWindows();
+        ResetAnomaly();
     }
 
     private void CloseAllWindows()

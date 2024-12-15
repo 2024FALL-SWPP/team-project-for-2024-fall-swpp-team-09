@@ -1,8 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
-public class Anomaly30_window : InteractableObject, IInteractable
+public class Anomaly30_window : AbstractAnomalyInteractable
 {
+    public override string Name { get; } = "Anomaly30_window";
+
     public float swingAngle = 60f; 
     private const float soundDuration = 0.672f; // 사운드 주기(창문 열리고 닫히는 한 주기과 맞추기 위함)
     private readonly float swingSpeed = Mathf.PI / soundDuration;
@@ -21,8 +23,15 @@ public class Anomaly30_window : InteractableObject, IInteractable
     private AudioSource audioSource;
     private static GameObject coroutineRunner;
 
-    void Start()
+    private void Start()
     {
+        StartAnomaly();
+    }
+
+    public override bool StartAnomaly()
+    {
+        bool res = base.StartAnomaly();
+
         anomalyManager = FindObjectOfType<Anomaly30Controller>();
 
         // 창문 닫을 때 복구할 초기 rotation
@@ -41,7 +50,10 @@ public class Anomaly30_window : InteractableObject, IInteractable
 
         // 15초 동안 이 창문을 닫지 않을 시 발동
         Invoke(nameof(EndAnomaly), anomalyDuration);
-    }
+
+        return res;
+   }
+
 
     private IEnumerator SwingWindow()
     {
@@ -87,13 +99,18 @@ public class Anomaly30_window : InteractableObject, IInteractable
         // initial rotation으로 return animation
         while (elapsedTime < closeDuration)
         {
+            if (this == null || transform == null) yield break;
+
             transform.rotation = Quaternion.Slerp(currentRotation, initialRotation, elapsedTime / closeDuration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        transform.rotation = initialRotation;
-        Destroy(this);
+        if (this != null && transform != null)
+        {
+            transform.rotation = initialRotation;
+            Destroy(this);
+        }
     }
 
     private void EndAnomaly()
@@ -102,8 +119,6 @@ public class Anomaly30_window : InteractableObject, IInteractable
         {
             anomalyManager.PlayerDieFromStorm(transform.position);
         }
-
-        Destroy(this);
     }
 
     public override string GetInteractionPrompt()
@@ -111,19 +126,18 @@ public class Anomaly30_window : InteractableObject, IInteractable
         return "Press Left Click to close the window.";
     }
 
-    public override bool CanInteract(float distance)
-    {
-        return !hasInteracted;
-    }
-    // modified by 신채환
-    // CanInteract 메서드가 거리를 인자로 받도록 변경
-
     public override void OnInteract()
     {
         if (hasInteracted) return;
 
         hasInteracted = true;
         CloseWindow();
+    }
+    
+    public override bool CanInteract(float distance)
+    {
+        if (distance < 5.0f) return true;
+        else return false;
     }
 
     // Persistent Coroutine Runner
