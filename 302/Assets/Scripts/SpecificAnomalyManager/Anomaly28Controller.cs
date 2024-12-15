@@ -25,8 +25,10 @@ public class Anomaly28Controller : AbstractAnomalyObject
     private Vector3 originalClockPosition;
     private Quaternion originalClockRotation;
 
-    void Start()
+    public override bool StartAnomaly()
     {
+        bool res = base.StartAnomaly();
+
         // Create a parent GameObject for the classroom
         CreateClassroomParent();
 
@@ -54,18 +56,22 @@ public class Anomaly28Controller : AbstractAnomalyObject
             playerRb.AddForce(Vector3.up * 50f); // Adjust the force as needed
         }
 
-        // Handle clock separately
-        GameObject clock = GameObject.Find("clock");
-        if (clock != null && classroomParent != null)
-        {
-            // Save the clock's original global position and rotation
-            originalClockPosition = clock.transform.position;
-            originalClockRotation = clock.transform.rotation;
+        return res;
+    }
 
-            // Calculate and store the initial local position and rotation relative to the classroomParent
-            initialClockLocalPosition = clock.transform.position - classroomParent.transform.position;
-            initialClockLocalRotation = Quaternion.Inverse(classroomParent.transform.rotation) * clock.transform.rotation;
-        }
+    // 이상현상을 초기화하는 메서드
+    public override bool ResetAnomaly()
+    {
+        bool res = base.ResetAnomaly();
+
+        StartCoroutine(GradualReset());
+        
+        return res;
+    }
+    
+    private void Start()
+    {
+        StartAnomaly();
     }
 
     private void CreateClassroomParent()
@@ -77,6 +83,7 @@ public class Anomaly28Controller : AbstractAnomalyObject
         GameObject[] objects = {
             GameObject.Find("Classroom"),
             GameObject.Find("Furniture"),
+            GameObject.Find("clock"),
             GameObject.Find("professor_normal"),
             GameObject.Find("Laptop") // 플레이어가 상호작용해야 하는 노트북
         };
@@ -87,21 +94,6 @@ public class Anomaly28Controller : AbstractAnomalyObject
             {
                 obj.transform.parent = classroomParent.transform;
             }
-        }
-    }
-
-    void Update()
-    {
-        GameObject clock = GameObject.Find("clock");
-        if (clock != null && classroomParent != null)
-        {
-            // Calculate the new global position and rotation using the stored initial local values
-            Vector3 newClockPosition = classroomParent.transform.TransformPoint(initialClockLocalPosition);
-            Quaternion newClockRotation = classroomParent.transform.rotation * initialClockLocalRotation;
-
-            // Update clock's transform
-            clock.transform.position = newClockPosition;
-            clock.transform.rotation = newClockRotation;
         }
     }
 
@@ -127,8 +119,6 @@ public class Anomaly28Controller : AbstractAnomalyObject
             // Apply a slight upward force to prevent them from sinking into the floor
             rb.AddForce(Vector3.up * 2f, ForceMode.Impulse); // Adjust the force as needed
         }
-
-        Debug.Log("Rigidbodies added and upward forces applied to all floatable objects.");
     }
 
     private IEnumerator DelayedStartSwaying()
@@ -160,8 +150,7 @@ public class Anomaly28Controller : AbstractAnomalyObject
             yield return null; // Wait for the next frame
         }
 
-        // Gradually reset to normal
-        StartCoroutine(GradualReset());
+        ResetAnomaly();
     }
 
     private IEnumerator GradualReset()
@@ -180,7 +169,6 @@ public class Anomaly28Controller : AbstractAnomalyObject
         }
 
         classroomParent.transform.rotation = Quaternion.identity;
-        Debug.Log("Classroom reset to normal.");
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -190,20 +178,6 @@ public class Anomaly28Controller : AbstractAnomalyObject
         {
             // Apply a slight upward force to the player
             playerRb.AddForce(Vector3.up * 200f); // Adjust the force as needed
-            Debug.Log("Player popped up after colliding with FloorEmpty!");
         }
-    }
-
-    void OnDestroy()
-    {
-        GameObject clock = GameObject.Find("clock");
-        if (clock != null)
-        {
-            // Restore the clock's original global position and rotation
-            clock.transform.position = originalClockPosition;
-            clock.transform.rotation = originalClockRotation;
-        }
-
-        Debug.Log("Anomaly28Controller destroyed. Clock restored to its original phase.");
     }
 }
