@@ -32,14 +32,23 @@ public class Anomaly29Controller : AbstractAnomalyObject
     private bool isPlayerDead = false;
     private bool isStageCleared = false;
 
-    void Start()
+    public override bool StartAnomaly()
     {
+        bool res = base.StartAnomaly();
+
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         audioSource = gameObject.GetComponent<AudioSource>();
 
         // 바나나 스폰 시작
         StartCoroutine(SpawnBananas());
+
+        return res;
+    }
+
+    private void Start()
+    {
+        StartAnomaly();
     }
 
     private IEnumerator SpawnBananas()
