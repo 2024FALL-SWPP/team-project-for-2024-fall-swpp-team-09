@@ -7,7 +7,6 @@ public class Anomaly22Manager : MonoBehaviour
     private GameObject floor; // 모든 타일들의 Parent
     private GameManager gameManager;
     private PlayerController playerController;
-    public float interval = 1f;
     public float totalSeconds = 30f;
     private bool isPlayerDead = false;
 
@@ -31,13 +30,24 @@ public class Anomaly22Manager : MonoBehaviour
         floorTiles = new List<Transform>(floorTilesArray);
         platformTile = FindPlatformTile();
 
-        StartCoroutine(AddBoxColliders()); // 타일 각각에 Collider 추가
-        StartCoroutine(DestroyFloorBoxCollider()); // Floor Parent의 통일된 Collider 제거
+        StartCoroutine(StartWithDelay());
+    }
+
+    private IEnumerator StartWithDelay()
+    {
+        yield return new WaitForSeconds(5f);
+
+        StartCoroutine(InitializeCollidersAndDestroyParentCollider());
         StartCoroutine(CountSeconds());
         StartCoroutine(TriggerPlatformFall());
         StartCoroutine(TriggerRandomTileShakeAndFallWithInterval());
     }
 
+    private IEnumerator InitializeCollidersAndDestroyParentCollider()
+    {
+        yield return StartCoroutine(AddBoxColliders());
+        yield return StartCoroutine(DestroyFloorBoxCollider());
+    }
 
     private Transform FindPlatformTile()
     {
@@ -55,15 +65,8 @@ public class Anomaly22Manager : MonoBehaviour
     {
         if (platformTile != null)
         {
-            Anomaly22_tile tileScript = platformTile.GetComponent<Anomaly22_tile>();
-            if (tileScript == null)
-            {
-
-                tileScript = platformTile.gameObject.AddComponent<Anomaly22_tile>();
-                tileScript.shakeSound = shakeSound;
-            } else {
-
-            }
+            Anomaly22_tile tileScript =  platformTile.gameObject.AddComponent<Anomaly22_tile>();
+            tileScript.shakeSound = shakeSound;
 
             tileScript.TriggerShakeAndFall();
             yield return new WaitForSeconds(2f);
@@ -98,7 +101,7 @@ public class Anomaly22Manager : MonoBehaviour
                 Vector3 originalCenter = tileCollider.center;
 
                 tileCollider.size = new Vector3(originalSize.x, originalSize.y, originalSize.z * 20); // Change Y value to 3
-                tileCollider.center = new Vector3(originalCenter.x, originalCenter.y, originalCenter.z - originalSize.z * 20); // Adjust center for correct positioning
+                tileCollider.center = new Vector3(originalCenter.x, originalCenter.y, originalCenter.z - originalSize.z * 10); // Adjust center for correct positioning
             }
         }
         yield return null;
@@ -118,7 +121,7 @@ public class Anomaly22Manager : MonoBehaviour
         // 아래로 떨어졌는지 확인해서 Game Over 처리
         if (playerController.transform.position.y < -1f && !isPlayerDead)
         {
-            playerController.GameOver();
+            playerController.Sleep();
             isPlayerDead = true;
         }
     }
@@ -134,6 +137,8 @@ public class Anomaly22Manager : MonoBehaviour
             Transform selectedTile = floorTiles[randomIndex];
 
             Anomaly22_tile tileScript = selectedTile.GetComponent<Anomaly22_tile>();
+
+            // 이미 tileScript이 안 붙어 있는 타일만 새로 fall trigger 가능
             if (tileScript == null)
             {
                 tileScript = selectedTile.gameObject.AddComponent<Anomaly22_tile>();
@@ -142,7 +147,7 @@ public class Anomaly22Manager : MonoBehaviour
                 tileScript.TriggerShakeAndFall();
             }
 
-            yield return new WaitForSeconds(interval);
+            yield return new WaitForSeconds(0.5f);
         }
 
         if (!isPlayerDead) // totalSeconds가 다 지날 때까지 생존 시 
