@@ -67,7 +67,7 @@ public class AnomalyManager : MonoBehaviour
         if(!hasHighAnomaly)
         {
             int randomIndex = random.Next(0, AnomalyCount);
-            int highAnomaly = random.Next(21, 32);
+            int highAnomaly = random.Next(21, 31);
             anomalyList[randomIndex] = highAnomaly;
         }
         Debug.Log($"[AnomalyManager] Generated Anomaly List: {string.Join(", ", anomalyList)}");
