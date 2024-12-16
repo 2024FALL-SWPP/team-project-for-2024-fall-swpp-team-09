@@ -64,10 +64,10 @@ public class AnomalyManager : MonoBehaviour
             anomalyList.Add(anomaly);
         }
 
-        if(!hasHighAnomaly)
+        if(!hasHighAnomaly && !checkSpecificAnomaly)
         {
             int randomIndex = random.Next(0, AnomalyCount);
-            int highAnomaly = random.Next(21, 32);
+            int highAnomaly = random.Next(21, 31);
             anomalyList[randomIndex] = highAnomaly;
         }
         Debug.Log($"[AnomalyManager] Generated Anomaly List: {string.Join(", ", anomalyList)}");
@@ -122,6 +122,8 @@ public class AnomalyManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            GameManager.Instance.SetStageNoClear();
+            checkSpecificAnomaly = true;
             SpecificAnomalyNum++;
             if (SpecificAnomalyNum > 30) {
                 SpecificAnomalyNum = 30;
@@ -129,6 +131,8 @@ public class AnomalyManager : MonoBehaviour
 
             ClockController.Instance.SetTimeForAnomaly(SpecificAnomalyNum);
         } else if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            GameManager.Instance.SetStageNoClear();
+            checkSpecificAnomaly = true;
             SpecificAnomalyNum--;
             if (SpecificAnomalyNum < 0) {
                 SpecificAnomalyNum = 0;
