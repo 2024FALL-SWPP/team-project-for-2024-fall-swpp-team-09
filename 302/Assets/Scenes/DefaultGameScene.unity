@@ -33238,6 +33238,18 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: -3542852092398272455, guid: 2be5899b29c0449a7b0556426ceb422a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: -3542852092398272455, guid: 2be5899b29c0449a7b0556426ceb422a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3542852092398272455, guid: 2be5899b29c0449a7b0556426ceb422a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.803
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2be5899b29c0449a7b0556426ceb422a, type: 3}
       propertyPath: m_Name
       value: door
