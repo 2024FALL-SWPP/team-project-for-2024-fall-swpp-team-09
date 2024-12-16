@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (!isAnimating)
+        if (!isAnimating && Time.timeScale !=0f)
         {
             HandleInput();
             HandleCamera();

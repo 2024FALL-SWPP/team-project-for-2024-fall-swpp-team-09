@@ -91,5 +91,16 @@ public class EndingDoor : MonoBehaviour
             endingAudioSource.volume = Mathf.Max(0, volume);
             yield return null;
         }
+        ExitGame();
+    }
+
+     void ExitGame()
+    {
+        Debug.Log("Exiting game...");
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 }

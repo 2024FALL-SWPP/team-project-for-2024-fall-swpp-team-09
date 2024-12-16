@@ -21008,10 +21008,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2960778f4e9343349a587d3d39be1a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
-  interactionRange: 2
-  nameCamera: Main Camera
+  prompt: 
+  distanceInteractionMax: 0
+  objectCamera: {fileID: 0}
   thresholdDistance: 10
+  duration: 0
 --- !u!1001 &1027390622
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30039,7 +30040,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1477365616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36223,7 +36224,7 @@ MonoBehaviour:
   endingMusic: {fileID: 8300000, guid: 9aebf01d2434545beaed16f416873b82, type: 3}
   doorSoundSource: {fileID: 1825529824}
   doorOpenSound: {fileID: 8300000, guid: be32529d7bbab4893b4a94fe8899b8a1, type: 3}
-  musicDuration: 50
+  musicDuration: 53
   musicFadeSpeed: 1
 --- !u!65 &1825529826
 BoxCollider:

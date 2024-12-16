@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
 {
     public GameObject titleText;             // 타이틀 텍스트 오브젝트
     public Button startButton;               // 시작 버튼
+    public Button quitButton;               
     private StartingCameraController startingCameraController;
 
     private AsyncOperation sceneLoadOperation; // 비동기 씬 로드 작업
@@ -23,12 +24,14 @@ public class UIManager : MonoBehaviour
         }
 
         startButton.onClick.AddListener(OnStartButtonClicked); // Start 버튼
+        quitButton.onClick.AddListener(OnQuitButtonClicked); // Start 버튼
     }
 
     private void OnStartButtonClicked()
     {
         titleText.SetActive(false);                 // 타이틀 텍스트 숨기기
         startButton.gameObject.SetActive(false);    // 시작 버튼 숨기기
+        quitButton.gameObject.SetActive(false);
 
         // 비동기 씬 로드 시작
         StartCoroutine(PreloadDefaultScene());
@@ -37,6 +40,15 @@ public class UIManager : MonoBehaviour
         {
             startingCameraController.PlayFadeSequence(); // 화면 어두워졌다 밝아지는 애니메이션 실행
         }
+    }
+
+    private void OnQuitButtonClicked()
+    {
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 
     private System.Collections.IEnumerator PreloadDefaultScene()

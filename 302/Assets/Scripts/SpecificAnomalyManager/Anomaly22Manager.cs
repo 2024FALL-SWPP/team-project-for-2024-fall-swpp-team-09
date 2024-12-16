@@ -116,9 +116,9 @@ public class Anomaly22Manager : MonoBehaviour
     void Update()
     {
         // 아래로 떨어졌는지 확인해서 Game Over 처리
-        if (playerController.transform.position.y < -1f && !isPlayerDead && false)
+        if (playerController.transform.position.y < -1f && !isPlayerDead)
         {
-            playerController.Sleep();
+            playerController.GameOver();
             isPlayerDead = true;
         }
     }
