@@ -7,7 +7,6 @@ public class Anomaly22Manager : MonoBehaviour
     private GameObject floor; // 모든 타일들의 Parent
     private GameManager gameManager;
     private PlayerController playerController;
-    public float interval = 1f;
     public float totalSeconds = 30f;
     private bool isPlayerDead = false;
 
@@ -66,15 +65,8 @@ public class Anomaly22Manager : MonoBehaviour
     {
         if (platformTile != null)
         {
-            Anomaly22_tile tileScript = platformTile.GetComponent<Anomaly22_tile>();
-            if (tileScript == null)
-            {
-
-                tileScript = platformTile.gameObject.AddComponent<Anomaly22_tile>();
-                tileScript.shakeSound = shakeSound;
-            } else {
-
-            }
+            Anomaly22_tile tileScript =  platformTile.gameObject.AddComponent<Anomaly22_tile>();
+            tileScript.shakeSound = shakeSound;
 
             tileScript.TriggerShakeAndFall();
             yield return new WaitForSeconds(2f);
@@ -145,6 +137,8 @@ public class Anomaly22Manager : MonoBehaviour
             Transform selectedTile = floorTiles[randomIndex];
 
             Anomaly22_tile tileScript = selectedTile.GetComponent<Anomaly22_tile>();
+
+            // 이미 tileScript이 안 붙어 있는 타일만 새로 fall trigger 가능
             if (tileScript == null)
             {
                 tileScript = selectedTile.gameObject.AddComponent<Anomaly22_tile>();
@@ -153,7 +147,7 @@ public class Anomaly22Manager : MonoBehaviour
                 tileScript.TriggerShakeAndFall();
             }
 
-            yield return new WaitForSeconds(interval);
+            yield return new WaitForSeconds(0.5f);
         }
 
         if (!isPlayerDead) // totalSeconds가 다 지날 때까지 생존 시 
