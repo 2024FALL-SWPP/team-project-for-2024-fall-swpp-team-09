@@ -36,8 +36,6 @@ public class PauseMenuSystem : MonoBehaviour
 
         if (isPaused)
         {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
             
             if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Escape))
             {
@@ -48,11 +46,6 @@ public class PauseMenuSystem : MonoBehaviour
             {
                 return;
             }
-        }
-        else
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
         }
     }
 

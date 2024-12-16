@@ -10053,6 +10053,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaptopFace
       objectReference: {fileID: 0}
+    - target: {fileID: 1673758693359768105, guid: 7c34e61c4c1b39040bc8b4a56d34f904, type: 3}
+      propertyPath: m_TagString
+      value: floatable
+      objectReference: {fileID: 0}
     - target: {fileID: 4455420850089973548, guid: 7c34e61c4c1b39040bc8b4a56d34f904, type: 3}
       propertyPath: player
       value: 
