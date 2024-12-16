@@ -118,6 +118,9 @@ public class SlideManager : AbstractBehaviour, IStageObserver
         _random = new SCH_Random();
         Log("Initialize `_random` success");
 
+        _objects = new List<GameObject>();
+        _controllers = new List<SlideController>();
+
         // _slideList
         _slideList = new int[numStage];
         Log("Initialize `_slideList` success");
