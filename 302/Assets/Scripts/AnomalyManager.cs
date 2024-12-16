@@ -118,4 +118,23 @@ public class AnomalyManager : MonoBehaviour
     {
         GenerateAnomalyList();
     }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            SpecificAnomalyNum++;
+            if (SpecificAnomalyNum > 30) {
+                SpecificAnomalyNum = 30;
+            }
+
+            ClockController.Instance.SetTimeForAnomaly(SpecificAnomalyNum);
+        } else if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            SpecificAnomalyNum--;
+            if (SpecificAnomalyNum < 0) {
+                SpecificAnomalyNum = 0;
+            }
+
+            ClockController.Instance.SetTimeForAnomaly(SpecificAnomalyNum);
+        }
+    }
 }

@@ -46,4 +46,17 @@ public class ClockController : MonoBehaviour
         hourHand.localRotation = Quaternion.Euler(0, 0, 90 + hourRotation);
         minuteHand.localRotation = Quaternion.Euler(0, 0, 90 + minuteRotation);
     }
+
+    public void SetTimeForAnomaly(int id)
+    {
+        // stage 1 at 7:00, stage 8 at 8:45
+        int hour = id / 12;
+        int minute = id % 12 * 5;
+
+        float minuteRotation = minute * 6f; // 6 degrees per minute
+        float hourRotation = (hour * 30f) + (minute * 0.5f); // 30 degrees per hour + 0.5 degrees per minute
+
+        hourHand.localRotation = Quaternion.Euler(0, 0, 90 + hourRotation);
+        minuteHand.localRotation = Quaternion.Euler(0, 0, 90 + minuteRotation);
+    }
 }
