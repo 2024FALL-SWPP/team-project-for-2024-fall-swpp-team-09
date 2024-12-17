@@ -91,9 +91,10 @@ public class Anomaly11_openeddoor : InteractableObject, IInteractable
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player") && !hasInteracted)
         {
             Debug.Log("Collided with Player! Fake ending entered...");
+            hasInteracted = true;
             StartCoroutine(StartFakeEnding(collision.collider.gameObject));
         }
     }

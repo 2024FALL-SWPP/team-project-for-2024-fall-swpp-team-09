@@ -50,10 +50,9 @@ public class Anomaly24_luciddream : MonoBehaviour
 
             yield return null;
         }
-        if(GameManager.Instance.GetGameState() != GameManager.GameState.Sleeping)
-        {
-            GameManager.Instance.SetStageNoClear();
-        }
+
+        Debug.Log("Stage failed!");
+        GameManager.Instance.SetStageNoClear();
 
         var playerController = FindObjectOfType<PlayerController>();
         if (playerController != null)
