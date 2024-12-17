@@ -49,7 +49,7 @@ public class SCH_Random : Random
     }
 
     // 정규 분포
-    public double NormalDist(double mu = 0.0, double sigma = 0.0)
+    public double NormalDist(double mu = 0.0, double sigma = 1.0)
     {
         double u1, u2, z, zz;
 
