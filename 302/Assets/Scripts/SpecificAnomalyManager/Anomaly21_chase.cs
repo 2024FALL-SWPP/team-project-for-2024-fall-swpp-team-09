@@ -83,7 +83,7 @@ public class Anomaly21_chase : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player") && isChasing)
         {
             StartCoroutine(FadeOutAudio());
             var playerController = FindObjectOfType<PlayerController>();
@@ -117,8 +117,6 @@ public class Anomaly21_chase : MonoBehaviour
         animator.SetBool("isChasing", false);
 
         GameManager.Instance.SetStageClear();
-
-        capsuleCollider.enabled = false;
 
         elapsedTime = 0f;
     }
