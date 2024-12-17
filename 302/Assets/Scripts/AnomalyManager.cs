@@ -15,6 +15,9 @@ public class AnomalyManager : MonoBehaviour
     public int SpecificAnomalyNum;
     public GameObject currentAnomalyInstance;          // 현재 활성화된 이상현상 인스턴스
     // 하나의 AnomalyManager만 보장
+    public bool isPresentationMode = false;
+    [SerializeField]
+    private int[] presentationAnomalies = new int[] { 15, 7, 21, 30, 26, 25, 7, 8 };  // Inspector에서 설정 가능
     private void Awake()
     {
         if (Instance == null)
@@ -37,6 +40,17 @@ public class AnomalyManager : MonoBehaviour
     private void GenerateAnomalyList()
     {
         anomalyList.Clear();
+
+        if (isPresentationMode)
+        {
+            // 프레젠테이션 모드일 때는 미리 정의된 배열 사용
+            for (int i = 0; i < AnomalyCount; i++)
+            {
+                anomalyList.Add(presentationAnomalies[i % presentationAnomalies.Length]);
+            }
+        }
+        else
+        {
         HashSet<int> uniqueNumbers = new HashSet<int>();
         bool hasHighAnomaly = false;
 
@@ -69,6 +83,7 @@ public class AnomalyManager : MonoBehaviour
             int randomIndex = random.Next(0, AnomalyCount);
             int highAnomaly = random.Next(21, 31);
             anomalyList[randomIndex] = highAnomaly;
+        }
         }
         Debug.Log($"[AnomalyManager] Generated Anomaly List: {string.Join(", ", anomalyList)}");
         CheckAndInstantiateAnomaly();

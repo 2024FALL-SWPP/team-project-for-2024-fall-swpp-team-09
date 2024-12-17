@@ -338,7 +338,7 @@ public class PlayerController : MonoBehaviour
 
     public void GameOver()
     {
-        GameManager.Instance.SetStageNoClear();
+        GameManager.Instance.SetStageClear();
         if (!isAnimating)  // isDead 체크 제거
         {
             StartCoroutine(DeathAnimation());

@@ -43763,6 +43763,8 @@ MonoBehaviour:
   checkIntersect: 0
   SpecificAnomalyNum: 11
   currentAnomalyInstance: {fileID: 8678062959089499939, guid: 6aadfcd777444a24180cf51012c6e89c, type: 3}
+  isPresentationMode: 1
+  presentationAnomalies: 0f00000007000000150000001e0000001a000000190000000700000008000000
 --- !u!4 &1964216256
 Transform:
   m_ObjectHideFlags: 0

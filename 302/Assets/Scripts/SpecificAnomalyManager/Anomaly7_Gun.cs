@@ -27,6 +27,7 @@ public class Anomaly7_Gun : InteractableObject
     private Transform playerCameraTransform;
     private PlayerController playerController;
     private Camera playerCamera;
+    private int gunValue = 1;
     
     // 플래시 효과 관련 변수
     private Material flashMaterial;
@@ -119,8 +120,8 @@ public class Anomaly7_Gun : InteractableObject
     audioSource.PlayOneShot(chamberSpinSound);
     yield return new WaitForSeconds(1f);
 
-    bool survive = Random.value > 0.2f;
-
+    bool survive = (gunValue==1);
+    gunValue = 0;
     if (!survive)
     {
         audioSource.PlayOneShot(gunShotSound);
