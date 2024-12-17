@@ -21,6 +21,8 @@ public class Anomaly23_Ghost : SCH_AnomalyObject
     public float durationBlow;
     public float timeAudioStart;
     public float durationFade;
+    public int numRotate;
+    public float speedBlow;
 
     // 애니메이터
     private Animator _animator;
@@ -218,18 +220,42 @@ public class Anomaly23_Ghost : SCH_AnomalyObject
     private IEnumerator BlowAsync()
     {
         SCH_Random random = new SCH_Random();
+        Vector3 originStart = transform.position;
+        Vector3 origin;
         float timeStart = Time.time;
-        float time;
+        float time = 0.0f;
 
-        yield return new WaitForSeconds(0.1f);
+        yield return null;
 
-        while ((time = Time.time - timeStart) < durationBlow) {
-            float scale = (float)(random.LogNormalDist(0.0, 1.0) * 1.5);
+        for (int i = 1; i <= numRotate; i++) {
+            Vector3 position;
+            Quaternion a;
+            Quaternion b;
 
-            transform.rotation = Random.rotation;
-            transform.localScale = new Vector3(scale, scale, scale);
+            origin = originStart + Vector3.up * time / durationBlow;
+            do {
+                position = new Vector3(
+                    (float)random.NormalDist(),
+                    (float)random.NormalDist(),
+                    (float)random.NormalDist()
+                );
+                position += origin - transform.position;
+            } while (position.magnitude == 0.0f);
 
-            yield return new WaitForSeconds(0.1f);
+            a = transform.rotation;
+            b = transform.rotation;
+            b.SetLookRotation(position, position);
+
+            while ((time = Time.time - timeStart) < durationBlow / numRotate * i) {
+                float scale = 1.0f - time / durationBlow;
+                float t = time / durationBlow * numRotate % 1.0f;
+
+                transform.localScale = new Vector3(scale, scale, scale);
+                transform.rotation = Quaternion.Lerp(a, b, t);
+                transform.Translate(Vector3.forward * speedBlow * Time.deltaTime);
+
+                yield return null;
+            }
         }
 
         Destroy(gameObject);
