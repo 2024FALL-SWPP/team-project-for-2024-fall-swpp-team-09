@@ -26,7 +26,14 @@ public class Anomaly05Controller : AbstractAnomalyComposite
         {
             Instantiate(sideGirlPrefab, spawnPosition, Quaternion.Euler(0, 180, 0));
         }
+        StartAnomaly();
         
+        return res;
+    }
+
+    public override bool StartAnomaly()
+    {
+        bool res = base.StartAnomaly();
         StartCoroutine(PlayMusicAfterDelay());
         return res;
     }

@@ -4,8 +4,9 @@ using UnityEngine;
 
 using UnityEngine;
 
-public class Anomaly14Controller : MonoBehaviour
+public class Anomaly14Controller : AbstractAnomalyComposite
 {
+    public override string Name { get; } = "Anomaly14Controller";
     public GameObject SweaterSitGirlPrefab;
     public GameObject DifferentPrefab; // 다른 종류의 프리팹
     public float yRotation = 180f;
@@ -15,9 +16,11 @@ public class Anomaly14Controller : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
     }
-
-    private void OnEnable()
+       // 이상현상을 시작하는 메서드
+    public override bool StartAnomaly()
     {
+        bool res = base.StartAnomaly();
+
         if (audioSource != null)
         {
             audioSource.Play();
@@ -62,13 +65,30 @@ public class Anomaly14Controller : MonoBehaviour
                 }
             }
         }
+
+        return res;
     }
 
-    private void OnDisable()
+    public override bool ResetAnomaly()
     {
+        bool res = base.ResetAnomaly();
+
         if (audioSource != null && audioSource.isPlaying)
         {
             audioSource.Stop();
         }
+
+        return res;
+    }
+
+    private void OnEnable()
+    {
+        StartAnomaly();
+    }
+    
+
+    private void OnDisable()
+    {
+        ResetAnomaly();
     }
 }

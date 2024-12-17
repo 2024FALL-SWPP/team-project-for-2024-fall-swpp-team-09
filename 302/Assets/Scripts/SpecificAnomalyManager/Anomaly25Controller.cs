@@ -2,14 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Anomaly25Controller : MonoBehaviour
+public class Anomaly25Controller : AbstractAnomalyComposite
 {
-   public AudioSource audioSource; // Inspector에서 할당
+    public override string Name { get; } = "Anomaly25Controller";
+    public AudioSource audioSource; // Inspector에서 할당
 
-   void Start() {
-       StartCoroutine(ActivateFloatingEffect());
-       CreateInvisibleCeiling();
-   }
+    void Start() {
+        StartAnomaly();
+    }
+
+    public override bool StartAnomaly()
+    {
+        bool res = base.StartAnomaly();
+
+        StartCoroutine(ActivateFloatingEffect());
+        CreateInvisibleCeiling();
+
+        return res;
+    }
 
    IEnumerator ActivateFloatingEffect() {
        yield return new WaitForSeconds(15f);

@@ -134,10 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63791c65d79f24b35ab1c6fecdb85dd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
-  interactionRange: 2
-  interactSound: {fileID: 0}
-  fadeOutDuration: 2
+  prompt: 
+  distanceInteractionMax: 2
 --- !u!65 &2250832690799726206
 BoxCollider:
   m_ObjectHideFlags: 0
