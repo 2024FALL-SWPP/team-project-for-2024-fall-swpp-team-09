@@ -43759,9 +43759,9 @@ MonoBehaviour:
   - {fileID: 5650449145146738954, guid: 11a50fb479ce40a4698c9b8f9816f567, type: 3}
   - {fileID: 3233071982878084982, guid: 5156428cd2b781d4dabf6a30befa7685, type: 3}
   - {fileID: 5605359256125054964, guid: 48c8f10abe45bef4098efae902701f34, type: 3}
-  checkSpecificAnomaly: 0
+  checkSpecificAnomaly: 1
   checkIntersect: 0
-  SpecificAnomalyNum: 0
+  SpecificAnomalyNum: 22
   currentAnomalyInstance: {fileID: 8678062959089499939, guid: 6aadfcd777444a24180cf51012c6e89c, type: 3}
 --- !u!4 &1964216256
 Transform:
