@@ -120,7 +120,7 @@ public class Anomaly22Manager : MonoBehaviour
                 tileScript.shakeSound = shakeSound;
                 tileScript.TriggerShakeAndFall();
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.3f);
         }
         if (!isPlayerDead) // totalSeconds가 다 지날 때까지 생존 시
         {
@@ -133,6 +133,7 @@ public class Anomaly22Manager : MonoBehaviour
     {
         float duration = 1f; // Duration for the animation (1 second)
         float elapsedTime = 0f;
+
         // Store the original positions of all tiles
         Dictionary<Transform, Vector3> originalPositions = new Dictionary<Transform, Vector3>();
         foreach (var tile in floorTiles)
@@ -142,23 +143,38 @@ public class Anomaly22Manager : MonoBehaviour
                 originalPositions[tile] = tile.position;
             }
         }
-        // Animate the tiles back to y = 0 over the duration
+
+        // Calculate reversed target positions
+        Dictionary<Transform, Vector3> reversedPositions = new Dictionary<Transform, Vector3>();
+        foreach (var tile in originalPositions.Keys)
+        {
+            float targetY = (tile == platformTile) ? -0.2f * (3f / 5f) : 0.21f * (3f / 5f);
+            reversedPositions[tile] = new Vector3(originalPositions[tile].x, targetY, originalPositions[tile].z);
+        }
+
+        // Animate the tiles back to reversed positions over the duration
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
-            float t = elapsedTime / duration; // Normalized time [0, 1]
+            float t = Mathf.Clamp01(elapsedTime / duration); // Normalize t between 0 and 1
+
             foreach (var tile in originalPositions.Keys)
             {
                 Vector3 startPos = originalPositions[tile];
-                Vector3 targetPos = new Vector3(startPos.x, 0f, startPos.z);
+                Vector3 targetPos = reversedPositions[tile];
+
                 tile.position = Vector3.Lerp(startPos, targetPos, t);
             }
+
             yield return null; // Wait for the next frame
         }
-        // Ensure all tiles are precisely at y = 0 at the end of the animation
-        foreach (var tile in originalPositions.Keys)
+
+        // Snap tiles to their exact target Y positions
+        foreach (var tile in reversedPositions.Keys)
         {
-            tile.position = new Vector3(tile.position.x, 0f, tile.position.z);
+            Vector3 finalPos = reversedPositions[tile];
+            tile.position = new Vector3(tile.position.x, finalPos.y, tile.position.z);
+
             // Remove the Anomaly22_tile component if it exists
             Anomaly22_tile tileScript = tile.GetComponent<Anomaly22_tile>();
             if (tileScript != null)
