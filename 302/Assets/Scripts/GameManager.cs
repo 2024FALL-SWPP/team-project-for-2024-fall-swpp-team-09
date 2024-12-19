@@ -20,16 +20,19 @@ public class GameManager : AbstractBehaviour
     {
         Playing,
         Ending,
+        Paused,
 
         // deprecated states
         Sleeping,
         GameOver,
-        Paused
     }
 
     /**********
      * fields *
      **********/
+
+    // 단계 수
+    public int numStage;
 
     // 이상현상 컨트롤러
 /*  private AbstractAnomalyObject _anomalyController; */
@@ -136,7 +139,7 @@ public class GameManager : AbstractBehaviour
             Stage = 1;
         }
 
-        if (Stage <= 8) {
+        if (Stage <= numStage) {
             Log("Call `StartStage` asynchronously");
             StartCoroutine(StartStage());
         } else {
@@ -191,13 +194,10 @@ public class GameManager : AbstractBehaviour
         for (int idx = 0; idx < observers.Length; idx++) {
             observers[idx].UpdateStage();
         }
-        if (Stage == 1) {
-            AnomalyManager.Instance.ResetAnomaliesOnFailure();
-        }
 
 /*      _anomalyController = AnomalyManager.Instance.GetAnomalyController();
         _anomalyController.StartAnomaly(); */
-        AnomalyManager.Instance.CheckAndInstantiateAnomaly();
+        AnomalyManager.Instance.StartAnomalyController();
 
 /*      Log("Call `PlayerManager.WakeUp` begin");
         if (PlayerManager.Instance.WakeUp()) {
@@ -218,6 +218,24 @@ public class GameManager : AbstractBehaviour
         SceneManager.LoadScene(ENDING_SCENE);
 
         return res;
+    }
+
+    // 일시정지하는 메서드
+    public void PauseGame()
+    {
+        if (State == GameState.Playing) {
+            State = GameState.Paused;
+            Time.timeScale = 0.0f;
+        }
+    }
+
+    // 재개하는 메서드
+    public void ResumeGame()
+    {
+        if (State == GameState.Paused) {
+            State = GameState.Playing;
+            Time.timeScale = 1.0f;
+        }
     }
 
     /**********************
@@ -258,21 +276,5 @@ public class GameManager : AbstractBehaviour
 
         Log("Call `StartStage` asynchronously");
         StartCoroutine(StartStage());
-    }
-
-    public void PauseGame()
-    {
-        if (State == GameState.Playing) {
-            State = GameState.Paused;
-            Time.timeScale = 0;
-        }
-    }
-
-    public void ResumeGame()
-    {
-        if (State == GameState.Paused) {
-            State = GameState.Playing;
-            Time.timeScale = 1;
-        }
     }
 }
