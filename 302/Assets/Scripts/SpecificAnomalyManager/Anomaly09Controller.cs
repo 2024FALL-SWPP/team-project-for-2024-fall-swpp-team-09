@@ -2,8 +2,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Anomaly09Controller : MonoBehaviour 
+public class Anomaly09Controller : AbstractAnomalyComposite
 {
+     public override string Name { get; } = "Anomaly09Controller";
     [Header("Anomaly Settings")]
     public float anomalyDelay = 15f;
 
@@ -60,13 +61,15 @@ public class Anomaly09Controller : MonoBehaviour
     private List<GameObject> spawnedLights = new List<GameObject>();
     private Coroutine anomalyCoroutine;
 
-    void Awake()
+    protected override bool Awake_()
     {
+        bool res = base.Awake_();
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = anomalyMusic;
         audioSource.volume = musicVolume;
         audioSource.loop = true;
         audioSource.playOnAwake = false;
+        return res;
     }
 
     void Start()
@@ -77,12 +80,26 @@ public class Anomaly09Controller : MonoBehaviour
 
     void OnEnable()
     {
-        anomalyCoroutine = StartCoroutine(StartAnomalyWithDelay());
+        StartAnomaly();
         Debug.Log($"이상현상 발생 - {anomalyDelay}초 후 나타납니다.");
     }
 
     void OnDisable()
     {
+        ResetAnomaly();
+    }
+
+    public override bool StartAnomaly()
+    {
+        bool res = base.StartAnomaly();
+        anomalyCoroutine = StartCoroutine(StartAnomalyWithDelay());
+        return res;
+    }
+
+    public override bool ResetAnomaly()
+    {
+        bool res = base.ResetAnomaly();
+
         if (anomalyCoroutine != null)
         {
             StopCoroutine(anomalyCoroutine);
@@ -92,6 +109,8 @@ public class Anomaly09Controller : MonoBehaviour
         StopAnomalyMusic();
         CleanupSpawnedObjects();
         RestoreOriginalLightIntensities();
+
+        return res;
     }
 
     IEnumerator StartAnomalyWithDelay()

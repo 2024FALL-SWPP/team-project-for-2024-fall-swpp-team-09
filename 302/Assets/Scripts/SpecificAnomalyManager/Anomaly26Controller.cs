@@ -2,8 +2,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Anomaly26Controller : MonoBehaviour
+public class Anomaly26Controller : AbstractAnomalyComposite
 {
+    public override string Name { get; } = "Anomaly26Controller";
    [Header("Fire Settings")]
    [SerializeField] private GameObject firePrefab;
    [SerializeField] private int totalFiresToSpawn = 30;  
@@ -26,7 +27,16 @@ public class Anomaly26Controller : MonoBehaviour
 
    private void OnEnable()
    {
+       StartAnomaly();
+   }
+
+   public override bool StartAnomaly()
+   {
+       bool res = base.StartAnomaly();
+
        StartCoroutine(InitialFireSpawnDelay());
+
+       return res;
    }
 
    private void OnDisable()

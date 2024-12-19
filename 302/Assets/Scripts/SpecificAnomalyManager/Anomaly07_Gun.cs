@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class Anomaly7_Gun : InteractableObject
+public class Anomaly07_Gun : AbstractAnomalyInteractable
 {
+    public override string Name { get; } = "Gun";
     [Header("Gun Settings")]
     [SerializeField] private Vector3 holdPosition = new Vector3(0.6f, 0f, 0.6f);
     [SerializeField] private Vector3 holdRotation = new Vector3(0f, -120f, 0f);
@@ -33,8 +34,9 @@ public class Anomaly7_Gun : InteractableObject
     private Camera mainCamera;
     private float currentFlashAlpha = 0f;
 
-    private void Awake()
+    protected override bool Awake_()
     {
+        bool res = base.Awake_();
         originalPosition = transform.position;
         originalRotation = transform.rotation;
         
@@ -53,6 +55,7 @@ public class Anomaly7_Gun : InteractableObject
         flashMaterial.SetInt("_Cull", (int)UnityEngine.Rendering.CullMode.Off);
         flashMaterial.SetInt("_ZWrite", 0);
         flashMaterial.SetInt("_ZTest", (int)UnityEngine.Rendering.CompareFunction.Always);
+        return res;
     }
 
     private void OnEnable()

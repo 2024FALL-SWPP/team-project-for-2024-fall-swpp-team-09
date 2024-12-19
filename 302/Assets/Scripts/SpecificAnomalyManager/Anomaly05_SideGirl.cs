@@ -2,31 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SideGirl : InteractableObject
+public class Anomaly05_SideGirl : AbstractAnomalyInteractable
 {
-   [Header("Side Girl Settings")]
-   
-   private MeshRenderer meshRenderer;
-   private bool hasInteracted = false; 
-   private Anomaly05Controller anomalyManager;
+    public override string Name { get; } = "SideGirl";
+    [Header("Side Girl Settings")]
+    private MeshRenderer meshRenderer;
+    private bool hasInteracted = false; 
+    private Anomaly05Controller anomalyManager;
+    protected override bool Awake_()
+    {
+        bool res = base.Awake_();
+        meshRenderer = GetComponent<MeshRenderer>();
+        // Anomaly5Manager 찾기
+        anomalyManager = FindObjectOfType<Anomaly05Controller>();
+        return res;
+    }
 
-   private void Awake()
-   {
-       meshRenderer = GetComponent<MeshRenderer>();
-       // Anomaly5Manager 찾기
-       anomalyManager = FindObjectOfType<Anomaly05Controller>();
-   }
-
-   public override void OnInteract()
-   {
-        if (hasInteracted) return;
+    public override void OnInteract()
+    {
+        base.OnInteract();
         if (anomalyManager != null){
         anomalyManager.StopAnomalyMusic();
         }
         hasInteracted = true;
         StartCoroutine(FadeOutAllMeshRenderers(gameObject));
         GameManager.Instance.SetStageClear();
-   }
+    }
 
    private IEnumerator FadeOutAllMeshRenderers(GameObject target)
     {
