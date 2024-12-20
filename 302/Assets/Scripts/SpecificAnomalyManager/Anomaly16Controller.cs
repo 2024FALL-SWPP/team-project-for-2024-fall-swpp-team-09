@@ -32,11 +32,6 @@ public class Anomaly16Controller : AbstractAnomalyObject
         return res;
     }
 
-    private void Start()
-    {
-        StartAnomaly();
-    }
-
     private void CreateMarkerLineInstance()
     {
         markerLine = new GameObject("MarkerLine");

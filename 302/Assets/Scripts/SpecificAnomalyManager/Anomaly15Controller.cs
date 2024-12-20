@@ -42,11 +42,6 @@ public class Anomaly15Controller : AbstractAnomalyObject
         
         return res;
     }
-    
-    private void Start()
-    {
-        StartAnomaly();
-    }
 
     public void StopSpawning()
     {

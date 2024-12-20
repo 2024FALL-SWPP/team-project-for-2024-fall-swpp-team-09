@@ -56,33 +56,10 @@ public class Anomaly27_magnifyingclock : AbstractAnomalyInteractable
             if (isStageClear)
             {
                 Debug.Log("Collision with Player detected. Setting StageNoClear and calling GameOver.");
-                GameManager.Instance.SetStageNoClear();
                 isStageClear = false; // 상태를 변경해 중복 호출 방지
 
-                // PlayerController의 GameOver 호출
-                var playerController = collision.collider.GetComponent<PlayerController>();
-                if (playerController != null)
-                {
-                    playerController.GameOver();
-                    Debug.Log("PlayerController.GameOver() called successfully.");
-                }
-                else
-                {
-                    Debug.LogError("PlayerController not found on Player object!");
-                }
-
-                // 씬 강제 전환 확인을 위한 보조 처리
-                StartCoroutine(ForceSceneTransition());
+                PlayerManager.Instance.GameOver();
             }
         }
-    }
-
-    private System.Collections.IEnumerator ForceSceneTransition()
-    {
-        yield return new WaitForSeconds(5f); // PlayerController 애니메이션 실행 시간 대기
-        Debug.Log("ForceSceneTransition: Manually triggering GameManager.Instance.Sleep().");
-
-        // GameManager.Sleep() 강제 호출
-        GameManager.Instance.Sleep();
     }
 }

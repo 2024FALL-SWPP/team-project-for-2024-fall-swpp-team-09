@@ -49,7 +49,7 @@ public class SCH_Random : Random
     }
 
     // 정규 분포
-    public double NormalDist(double mu = 0.0, double sigma = 0.0)
+    public double NormalDist(double mu = 0.0, double sigma = 1.0)
     {
         double u1, u2, z, zz;
 
@@ -64,6 +64,31 @@ public class SCH_Random : Random
         }
 
         return mu + z * sigma;
+    }
+
+    // 순열
+    public int[] Permutation(int n, int r)
+    {
+        int[] candidates = new int[n];
+        int[] result = new int[r];
+
+        for (int i = 0; i < n; i++) {
+            candidates[i] = i;
+        }
+
+        for (int i = 0; i < r; i++) {
+            int index = Next(i, n);
+
+            result[i] = candidates[index];
+            if (index != i) {
+                int tmp = candidates[i];
+
+                candidates[i] = candidates[index];
+                candidates[index] = tmp;
+            }
+        }
+
+        return result;
     }
 
     // 삼각 분포
@@ -88,5 +113,11 @@ public class SCH_Random : Random
         }
 
         return low + (high - low) * Math.Sqrt(u * c);
+    }
+
+    // 균등 분포
+    public double UniformDist(double a, double b)
+    {
+        return a + (b - a) * Sample();
     }
 }

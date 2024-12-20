@@ -84,6 +84,7 @@ public class SlideManager : AbstractStageObserver
      * implementation: AbstractStageObserver *
      *****************************************/
 
+    // 단계 변경 시 불리는 메서드
     public override bool UpdateStage()
     {
         int stage = GameManager.Instance.GetCurrentStage();

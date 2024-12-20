@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FireExtinguisher : InteractableObject
 {
@@ -50,27 +51,27 @@ public class FireExtinguisher : InteractableObject
         }
     }
 
-private void CheckFireCollision()
-{
-    Collider[] hitColliders = Physics.OverlapSphere(
-        nozzle.transform.position, 
-        extinguishRadius, 
-        fireLayer
-    );
-
-    foreach (Collider col in hitColliders)
+    private void CheckFireCollision()
     {
-        Fire fire = col.GetComponent<Fire>();
-        if (fire != null)
+        Collider[] hitColliders = Physics.OverlapSphere(
+            nozzle.transform.position, 
+            extinguishRadius, 
+            fireLayer
+        );
+
+        foreach (Collider col in hitColliders)
         {
-            fire.StartExtinguishing(); // Extinguish() 대신 StartExtinguishing() 호출
+            Fire fire = col.GetComponent<Fire>();
+            if (fire != null)
+            {
+                fire.StartExtinguishing(); // Extinguish() 대신 StartExtinguishing() 호출
+            }
         }
     }
-}
 
     private void PickUp()
     {
-        PlayerController player = FindObjectOfType<PlayerController>();
+        PlayerManager player = PlayerManager.Instance;
         if (player != null)
         {
             isHeld = true;
@@ -92,7 +93,8 @@ private void CheckFireCollision()
 
         isHeld = false;
         transform.SetParent(null);
-        
+        SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetActiveScene());
+
         rb.isKinematic = false;
         coll.enabled = true;
         
@@ -101,7 +103,7 @@ private void CheckFireCollision()
         transform.position = playerCameraTransform.position + playerCameraTransform.forward * 1f;
         transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
         
-        PlayerController player = FindObjectOfType<PlayerController>();
+        PlayerManager player = PlayerManager.Instance;
         if (player != null)
         {
             player.SetHeldItem(null);

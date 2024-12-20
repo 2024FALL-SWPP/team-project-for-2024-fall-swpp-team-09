@@ -17,17 +17,6 @@ public class Anomaly12_tiltedlight : AbstractAnomalyInteractable
         Log("Call `GameManager.SetStageClear` begin");
         GameManager.Instance.SetStageClear();
         Log("Call `GameManager.SetStageClear` end");
-
-        // Code used before `GameManager` updates begin
-        GameObject controllerObject = GameObject.Find("AnomalyManager (12)(Clone)");
-        AbstractAnomalyObject controller = controllerObject.GetComponent<AbstractAnomalyObject>();
-
-        Log($"Call `{controller.Name}.ResetAnomaly` begin");
-        if (controller.ResetAnomaly()) {
-            Log($"Call `{controller.Name}.ResetAnomaly` success");
-        } else {
-            Log($"Call `{controller.Name}.ResetAnomaly` failed", mode: 1);
-        }
     }
 
     // 필드를 초기화하는 메서드

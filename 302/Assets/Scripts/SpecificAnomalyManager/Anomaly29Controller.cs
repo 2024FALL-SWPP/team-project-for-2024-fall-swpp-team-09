@@ -7,7 +7,6 @@ public class Anomaly29Controller : AbstractAnomalyObject
     public override string Name { get; } = "Anomaly29Controller";
 
     private GameManager gameManager;
-    private PlayerController playerController;
     public GameObject bananaPrefab;
 
     [Header("Sound Settings")]
@@ -37,18 +36,12 @@ public class Anomaly29Controller : AbstractAnomalyObject
         bool res = base.StartAnomaly();
 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         audioSource = gameObject.GetComponent<AudioSource>();
 
         // 바나나 스폰 시작
         StartCoroutine(SpawnBananas());
 
         return res;
-    }
-
-    private void Start()
-    {
-        StartAnomaly();
     }
 
     private IEnumerator SpawnBananas()
@@ -178,8 +171,6 @@ public class Anomaly29Controller : AbstractAnomalyObject
         isPlayerDead = true;
         audioSource.PlayOneShot(dieSound);
 
-        playerController.Sleep();
-        yield return new WaitForSeconds(5f); // Delay before triggering game over
-        gameManager.Sleep();
+        PlayerManager.Instance.GameOver();
     }
 }

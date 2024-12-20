@@ -5,8 +5,6 @@ public class Anomaly15_spider : AbstractAnomalyInteractable
 {
     public override string Name { get; } = "Anomaly15_spider";
 
-    [Header("Interaction Settings")]
-    private Anomaly15Controller anomalyManager;
     [Header("Audio Settings")]
     public AudioClip spiderSoundClip;
     private Transform cameraTransform;
@@ -21,7 +19,6 @@ public class Anomaly15_spider : AbstractAnomalyInteractable
     {
         bool res = base.StartAnomaly();
 
-        anomalyManager = FindObjectOfType<Anomaly15Controller>();
         GameObject mainCamera = GameObject.FindWithTag("MainCamera");
 
         audioSource = gameObject.AddComponent<AudioSource>();
@@ -53,7 +50,6 @@ public class Anomaly15_spider : AbstractAnomalyInteractable
         GameManager.Instance.SetStageClear();
 
         ResetAnomaly();
-        anomalyManager.ResetAnomaly();
     }
 
     public override bool CanInteract(float distance)

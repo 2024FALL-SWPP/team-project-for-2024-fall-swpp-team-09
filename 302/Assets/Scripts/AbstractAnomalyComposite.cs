@@ -168,6 +168,17 @@ public class MyClass : AbstractAnomalyComposite // TODO: 클래스 이름 수정
         return res;
     }
 
+    // `Start` 메시지 용 메서드
+    protected override bool Start_()
+    {
+        bool res = base.Start_();
+
+        // TODO: `Start` 메시지에서 해야할 것 넣기. 없으면 메서드를 아예 지워도 됨.
+        // 함수가 제대로 작동했으면 `true`를, 아니면 `false`를 반환.
+
+        return res;
+    }
+
     // 필드를 초기화하는 메서드
     protected override bool InitFields()
     {

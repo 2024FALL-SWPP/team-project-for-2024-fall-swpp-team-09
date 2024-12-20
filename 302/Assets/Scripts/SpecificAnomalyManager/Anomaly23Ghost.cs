@@ -52,19 +52,17 @@ public class Anomaly23Ghost : AbstractAnomalyObject
     void OnCollisionEnter(Collision other)
     {
         if (other.collider.CompareTag("Player") && _isChasing) {
-            PlayerController script = _objectPlayer.GetComponent<PlayerController>();
-
             _isCatched = true;
-            if (script != null) {
-                Log("Call `script.GameOver` begin");
-                script.GameOver();
-                Log("Call `script.GameOver` end");
 
-                Log("Call `FadeAudioAsync` asynchronously");
-                StartCoroutine(FadeAudioAsync());
+            Log("Call `GameManager.GameOver` begin");
+            if (GameManager.Instance.GameOver()) {
+                Log("Call `GameManager.GameOver` success");
             } else {
-                Log("Call `script.GameOver` failed", mode: 1);
+                Log("Call `GameManager.GameOver` failed", mode: 1);
             }
+
+            Log("Call `FadeAudioAsync` asynchronously");
+            StartCoroutine(FadeAudioAsync());
         }
     }
 
@@ -89,18 +87,6 @@ public class Anomaly23Ghost : AbstractAnomalyObject
                 Log("Call `GameManager.SetStageClear` begin");
                 GameManager.Instance.SetStageClear();
                 Log("Call `GameManager.SetStageClear` end");
-
-                // Code used before `GameManager` updates begin
-                GameObject controllerObject = GameObject.Find("AnomalyManager (23)(Clone)");
-                AbstractAnomalyObject controller = controllerObject.GetComponent<AbstractAnomalyObject>();
-
-                Log($"Call `{controller.Name}.ResetAnomaly` begin");
-                if (controller.ResetAnomaly()) {
-                    Log($"Call `{controller.Name}.ResetAnomaly` success");
-                } else {
-                    Log($"Call `{controller.Name}.ResetAnomaly` failed", mode: 1);
-                }
-                // Code used before `GameManager` updates end
             }
         }
     }

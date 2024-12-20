@@ -1266,7 +1266,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 589333374628169546, guid: 9e5b64cc1f2ea46498fc5952bf0d5895, type: 3}
   m_PrefabInstance: {fileID: 1162939157}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &80334034
+--- !u!114 &80334031
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1275,7 +1275,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 80334030}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a55ff71c373727419603887e590ca1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b540547a9e7bfd4f92514a389b8db70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &82428849
@@ -3461,7 +3461,6 @@ MonoBehaviour:
   promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
   interactionRange: 2
   sleepPrompt: "\uB178\uD2B8\uBD81\uC73C\uB85C \uC7A0\uC790\uAE30"
-  playerController: {fileID: 1169446210}
   setStageClear: 0
 --- !u!65 &202566268
 BoxCollider:
@@ -4566,7 +4565,6 @@ MonoBehaviour:
   promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
   interactionRange: 2
   sleepPrompt: "\uB178\uD2B8\uBD81\uC73C\uB85C \uC7A0\uC790\uAE30"
-  playerController: {fileID: 1169446210}
   setStageClear: 0
 --- !u!65 &231943381
 BoxCollider:
@@ -6092,7 +6090,6 @@ MonoBehaviour:
   promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
   interactionRange: 2
   sleepPrompt: "\uB178\uD2B8\uBD81\uC73C\uB85C \uC7A0\uC790\uAE30"
-  playerController: {fileID: 1169446210}
   setStageClear: 0
 --- !u!65 &279936515
 BoxCollider:
@@ -10209,7 +10206,6 @@ MonoBehaviour:
   promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
   interactionRange: 2
   sleepPrompt: "\uB178\uD2B8\uBD81\uC73C\uB85C \uC7A0\uC790\uAE30"
-  playerController: {fileID: 1169446210}
   setStageClear: 0
 --- !u!65 &473065237
 BoxCollider:
@@ -11246,7 +11242,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8253366189145917135, guid: 4dbfb06eecc5e57499f6ea0d7a944a7d, type: 3}
   m_PrefabInstance: {fileID: 1487742019}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &550563612
+--- !u!114 &550563609
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11255,19 +11251,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 550563608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c74fcacda5ca304409e13b81453d92a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &550563613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 550563608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6aa0d459c4e2b834fad9092d089c5c87, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b540547a9e7bfd4f92514a389b8db70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &552901641
@@ -26146,7 +26130,7 @@ GameObject:
   - component: {fileID: 1169446213}
   - component: {fileID: 1169446212}
   - component: {fileID: 1169446211}
-  - component: {fileID: 1169446210}
+  - component: {fileID: 1169446215}
   - component: {fileID: 1169446214}
   m_Layer: 0
   m_Name: Player
@@ -26155,42 +26139,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1169446210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1169446209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10c7fe8c31e314305b57f6249c073190, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 3
-  runSpeed: 6
-  mouseSensitivity: 6
-  maxVerticalAngle: 80
-  minVerticalAngle: -80
-  walkBobSpeed: 10
-  walkBobAmount: 0.05
-  runBobSpeed: 14
-  runBobAmount: 0.1
-  cameraHeight: 3
-  footstepSound: {fileID: 8300000, guid: 1aaf62174d59e4c40a611ec28b401000, type: 3}
-  walkVolume: 0.5
-  runVolume: 0.7
-  walkPitch: 1
-  runPitch: 1.6
-  walkStepInterval: 0.5
-  runStepInterval: 0.3
-  sleepAnimationDuration: 3
-  wakeUpAnimationDuration: 3
-  sleepCameraAngle: 60
-  sleepCameraHeight: 2
-  deathAnimationDuration: 2
-  deathCameraAngle: -90
-  deathCameraHeight: 0.3
 --- !u!54 &1169446211
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -26249,11 +26197,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6704a8d79f1f14bb6b60ed859cba1f65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionRange: 6
-  interactableLayer:
+  distanceInteractionMax: 6
+  layer:
     serializedVersion: 2
     m_Bits: 8
-  interactionCursor: {fileID: 924724807}
+--- !u!114 &1169446215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169446209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e34750f3735fc4449406d425cd429fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 3
+  runSpeed: 6
+  mouseSensitivity: 6
+  maxVerticalAngle: 80
+  minVerticalAngle: -80
+  walkBobSpeed: 10
+  walkBobAmount: 0.05
+  runBobSpeed: 14
+  runBobAmount: 0.1
+  cameraHeight: 3
+  footstepSound: {fileID: 8300000, guid: 1aaf62174d59e4c40a611ec28b401000, type: 3}
+  walkVolume: 0.5
+  runVolume: 0.7
+  walkPitch: 1
+  runPitch: 1.6
+  walkStepInterval: 0.5
+  runStepInterval: 0.3
+  sleepAnimationDuration: 3
+  wakeUpAnimationDuration: 3
+  sleepCameraAngle: 60
+  sleepCameraHeight: 2
+  deathAnimationDuration: 2
+  deathCameraAngle: -90
+  deathCameraHeight: 0.3
 --- !u!1 &1170134093
 GameObject:
   m_ObjectHideFlags: 0
@@ -32975,7 +32958,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1042280326}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48c9e4b5058bb344389c1cfed59a4c2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b540547a9e7bfd4f92514a389b8db70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1482182348
@@ -35145,7 +35128,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5499406867248628635, guid: 9e5b64cc1f2ea46498fc5952bf0d5895, type: 3}
   m_PrefabInstance: {fileID: 1162939157}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1636694569
+--- !u!114 &1636694566
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -35154,7 +35137,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1636694565}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a55ff71c373727419603887e590ca1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b540547a9e7bfd4f92514a389b8db70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1638073350
@@ -35353,6 +35336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4165c4d609d744a73ae0630863a0d750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numStage: 8
 --- !u!4 &1646071860
 Transform:
   m_ObjectHideFlags: 0
@@ -43222,7 +43206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c2ce232bfcee40989338ae684665221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anomalyPrefabs:
+  prefabs:
   - {fileID: 2638910833924830479, guid: f7b226ef0310953459ac93c68b15d9cc, type: 3}
   - {fileID: 8029531248133384330, guid: 3ddbcb1b5c4f04b45909d0075f680cb9, type: 3}
   - {fileID: 7880928048431957977, guid: d4696fd3b056d31448f49f7de66a6344, type: 3}
@@ -43254,10 +43238,10 @@ MonoBehaviour:
   - {fileID: 5650449145146738954, guid: 11a50fb479ce40a4698c9b8f9816f567, type: 3}
   - {fileID: 3233071982878084982, guid: 5156428cd2b781d4dabf6a30befa7685, type: 3}
   - {fileID: 5605359256125054964, guid: 48c8f10abe45bef4098efae902701f34, type: 3}
-  checkSpecificAnomaly: 1
-  checkIntersect: 0
-  SpecificAnomalyNum: 21
-  currentAnomalyInstance: {fileID: 8678062959089499939, guid: 6aadfcd777444a24180cf51012c6e89c, type: 3}
+  numStage: 8
+  numAnomaly: 31
+  testMode: 0
+  testAnomalyID: 0
 --- !u!4 &1964216256
 Transform:
   m_ObjectHideFlags: 0
@@ -47652,7 +47636,6 @@ MonoBehaviour:
   promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
   interactionRange: 2
   sleepPrompt: "\uB178\uD2B8\uBD81\uC73C\uB85C \uC7A0\uC790\uAE30"
-  playerController: {fileID: 1169446210}
   setStageClear: 0
 --- !u!65 &1987485592528700427
 BoxCollider:
@@ -47761,7 +47744,7 @@ PrefabInstance:
     - target: {fileID: 7190499244416527787, guid: e98bfaaf0938845d098edce033f7e7a2, type: 3}
       propertyPath: playerController
       value: 
-      objectReference: {fileID: 1169446210}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e98bfaaf0938845d098edce033f7e7a2, type: 3}
 --- !u!1 &2527128357329061376

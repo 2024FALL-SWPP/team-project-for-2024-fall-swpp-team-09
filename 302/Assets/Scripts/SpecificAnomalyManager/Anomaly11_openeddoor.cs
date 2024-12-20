@@ -23,18 +23,7 @@ public class Anomaly11_openeddoor : AbstractAnomalyInteractable
         Log("Call `GameManager.SetStageClear` begin");
         GameManager.Instance.SetStageClear();
         Log("Call `GameManager.SetStageClear` end");
-
-        // Code used before `GameManager` updates begin
-        GameObject controllerObject = GameObject.Find("AnomalyManager (11)(Clone)");
-        AbstractAnomalyObject controller = controllerObject.GetComponent<AbstractAnomalyObject>();
-
-        Log($"Call `{controller.Name}.ResetAnomaly` begin");
-        if (controller.ResetAnomaly()) {
-            Log($"Call `{controller.Name}.ResetAnomaly` success");
-        } else {
-            Log($"Call `{controller.Name}.ResetAnomaly` failed", mode: 1);
-        }
-    }
+   }
 
     // `Awake` 메시지 용 메서드
     protected override bool Awake_()
@@ -164,10 +153,6 @@ public class Anomaly11_openeddoor : AbstractAnomalyInteractable
 
         yield return new WaitForSeconds(0.5f);
 
-        PlayerController playerController = player.GetComponent<PlayerController>();
-        if (playerController != null)
-        {
-            playerController.GameOver();
-        }
+        PlayerManager.Instance.GameOver();
     }
 }

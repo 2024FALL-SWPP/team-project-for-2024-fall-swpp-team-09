@@ -35,11 +35,6 @@ public class Anomaly17Controller : AbstractAnomalyObject
         
         return res;
     }
-    
-    private void Start()
-    {
-        StartAnomaly();
-    }
 
     public void ReplaceToSplitMic()
     {

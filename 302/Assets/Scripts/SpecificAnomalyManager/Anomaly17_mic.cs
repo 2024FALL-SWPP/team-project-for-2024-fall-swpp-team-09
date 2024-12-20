@@ -4,7 +4,6 @@ using System.Collections;
 public class Anomaly17_mic : AbstractAnomalyInteractable
 {
     public override string Name { get; } = "Anomaly17_mic";
-    private Anomaly17Controller anomalyManager;
 
     // 스파크 세팅
     public int sparkSegments = 30;
@@ -26,7 +25,6 @@ public class Anomaly17_mic : AbstractAnomalyInteractable
 
     public override bool StartAnomaly()
     {
-        anomalyManager = FindObjectOfType<Anomaly17Controller>();
         GameObject mainCamera = GameObject.FindWithTag("MainCamera");
         if (mainCamera != null)
         {
@@ -71,17 +69,12 @@ public class Anomaly17_mic : AbstractAnomalyInteractable
 
     public override bool ResetAnomaly()
     {
-        if (anomalyManager != null)
-        {
-            anomalyManager.ReplaceToNormalMic();
+        // 전기 스파크 효과 중지
+        StopAllCoroutines();
+        lineRenderer.enabled = false;
 
-            // 전기 스파크 효과 중지
-            StopAllCoroutines();
-            lineRenderer.enabled = false;
-
-            // 오디오 중지
-            audioSource.Stop();
-        }
+        // 오디오 중지
+        audioSource.Stop();
 
         return true;
     }
@@ -168,7 +161,6 @@ public class Anomaly17_mic : AbstractAnomalyInteractable
         GameManager.Instance.SetStageClear();
 
         ResetAnomaly();
-        anomalyManager.ResetAnomaly();
     }
 
     public override bool CanInteract(float distance)

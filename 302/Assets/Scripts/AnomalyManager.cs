@@ -1,120 +1,209 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 
-public class AnomalyManager : MonoBehaviour
+public class AnomalyManager : AbstractStageObserver
 {
+    private HashSet<int> ANOMALIES_NOT_YET = new HashSet<int> { 4, 5, 7, 9, 14, 25, 26 };
+
+    /**********
+     * fields *
+     **********/
+
+    // 이상현상 컨트롤러 프리팹
+    public GameObject[] prefabs;
+
+    // 개수
+    public int numStage;
+    public int numAnomaly;
+
+    // 테스트용 수치
+    public int testMode;
+    public int testAnomalyID;
+
+    // 난수
+    private SCH_Random _random;
+
+    // 이상현상 색인 배열
+    private int[] _anomalyList;
+
+    /**************
+     * properties *
+     **************/
+
+    // 클래스 이름
+    public override string Name { get; } = "AnomalyManager";
+
+    // 클래스 인스턴스
     public static AnomalyManager Instance { get; private set; }
-    public GameObject[] anomalyPrefabs;                 // Anomaly1Manager ~ Anomaly31Manager 프리팹 보관용 리스트
-    private List<int> anomalyList = new List<int>();    // 이상현상 리스트
-    private const int AnomalyCount = 8;                 // 사이즈 8
-    private System.Random random = new System.Random();
-    public bool checkSpecificAnomaly;
-    public bool checkIntersect;
-    public int SpecificAnomalyNum;
-    public GameObject currentAnomalyInstance;          // 현재 활성화된 이상현상 인스턴스
-    // 하나의 AnomalyManager만 보장
-    private void Awake()
+
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
+
+    // `Awake` 메시지 용 메서드
+    protected override bool Awake_()
     {
-        if (Instance == null)
-        {
+        bool res = false;
+
+        if (Instance == null) {
+            Log($"`Instance` has not been set => set `Instance` as `{Name}`");
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            GenerateAnomalyList();
-        }
-        else
-        {
+            res = base.Awake_();
+        } else {
+            Log($"`Instance` has already been set => destroy `{gameObject.name}`");
             Destroy(gameObject);
         }
-        // 프리팹이 설정되어 있는지 확인
-        if (anomalyPrefabs == null || anomalyPrefabs.Length == 0)
-        {
-            Debug.LogError("Anomaly prefabs are missing! Please assign prefabs in the Inspector.");
-        }
+
+        return res;
     }
-    // 이상현상 리스트 생성
-    private void GenerateAnomalyList()
+
+    // 필드를 초기화하는 메서드
+    protected override bool InitFields()
     {
-        anomalyList.Clear();
-        HashSet<int> uniqueNumbers = new HashSet<int>();
+        bool res = base.InitFields();
+
+        _random = new SCH_Random();
+
+        _anomalyList = new int[numStage];
+
+        return res;
+    }
+
+    /*****************************************
+     * implementation: AbstractStageObserver *
+     *****************************************/
+
+    // 단계 변경 시 불리는 메서드
+    public override bool UpdateStage()
+    {
+        bool res = base.UpdateStage();
+
+        if (GameManager.Instance.Stage == 1) {
+            Log("Call `GenerateList` begin");
+            if (GenerateList()) {
+                Log("Call `GenerateList` sucess");
+            } else {
+                Log("Call `GenerateList` failed", mode: 1);
+                res = false;
+            }
+        }
+
+        return res;
+    }
+
+    /***************
+     * new methods *
+     ***************/
+
+    // 이상현상 컨트롤러를 생성 후 반환하는 메서드
+    public AbstractAnomalyObject GetAnomalyController()
+    {
+        GameObject obj;
+        AbstractAnomalyObject controller = null;
+        int stage = GameManager.Instance.Stage;
+
+        if (stage == 0) {
+            obj = Instantiate(prefabs[0]);
+            if (obj != null) {
+                controller = obj.GetComponent<AbstractAnomalyObject>();
+            } else {
+                Log($"Find `AbstractAnomalyObject` for {obj.name} failed", mode: 2);
+            }
+        } else if (stage > 0 && stage <= numStage) {
+            obj = Instantiate(prefabs[_anomalyList[stage - 1]]);
+            if (obj != null) {
+                controller = obj.GetComponent<AbstractAnomalyObject>();
+            } else {
+                Log($"Find `AbstractAnomalyObject` for {obj.name} failed", mode: 2);
+            }
+        } else {
+            Log($"Invalid stage: {stage}", mode: 2);
+        }
+
+        return controller;
+    }
+
+    // 이상현상 색인 리스트를 생성하는 메서드
+    private bool GenerateList()
+    {
+        bool res = true;
+
+        switch (testMode) {
+            case 0:
+                GenerateAnomalyListNormal();
+                break;
+            case 1:
+                GenerateAnomalyListTest1();
+                break;
+            case 2:
+                GenerateAnomalyListTest2();
+                break;
+            default:
+                Log("Generate `_anomalyList` failed", mode: 1);
+                res = false;
+                break;
+        }
+
+        return res;
+    }
+
+    // 일반 이상현상 색인 리스트를 생성하는 메서드
+    private void GenerateAnomalyListNormal()
+    {
         bool hasHighAnomaly = false;
 
-        for (int i = 0; i < AnomalyCount; i++)
-        {
-            int anomaly;
-            if (!checkSpecificAnomaly)
-            {
-                do
-                {
-                    anomaly = GenerateRandomAnomaly();
-                } while (i > 0 && anomaly == anomalyList[i - 1] // 연속 방지
-                        || (anomaly != 0 && !uniqueNumbers.Add(anomaly))); // 중복 방지
-                
-                if (anomaly >= 21)
-                {
-                    hasHighAnomaly = true;
+        while (!hasHighAnomaly) {
+            int idxLastZero = -2;
+
+            _anomalyList = _random.Permutation(numAnomaly - 1, numStage);
+            for (int idx = 0; idx < numStage; idx++) {
+                if (idx - idxLastZero > 1 && _random.UniformDist(0.0, 1.0) < 0.2) {
+                    // 직전 단계가 제0번이 아닌 경우 20 %의 확률로 제0번 생성
+                    _anomalyList[idx] = 0;
+                    idxLastZero = idx;
+                } else {
+                    // 0번을 위한 색인 조정
+                    _anomalyList[idx] += 1;
+
+                    if (ANOMALIES_NOT_YET.Contains(_anomalyList[idx])) {
+                        _anomalyList[idx] = 0;
+                    }
+
+                    // 적대적 이상현상 포함 확인
+                    if (_anomalyList[idx] > 20) {
+                        hasHighAnomaly = true;
+                    }
                 }
             }
-            else
-            {
-                if(checkIntersect && i%2==1) anomaly = 0;
-                else anomaly = SpecificAnomalyNum;
-            }
-            anomalyList.Add(anomaly);
         }
 
-        if(!hasHighAnomaly)
-        {
-            int randomIndex = random.Next(0, AnomalyCount);
-            int highAnomaly = random.Next(21, 32);
-            anomalyList[randomIndex] = highAnomaly;
-        }
-        Debug.Log($"[AnomalyManager] Generated Anomaly List: {string.Join(", ", anomalyList)}");
+        Log($"Generate `_anomalyList` success: [{string.Join(", ", _anomalyList)}]");
     }
-    // 20% 확률로 0, 나머지 확률로 1~31의 이상현상을 생성
-    private int GenerateRandomAnomaly()
+
+    // 테스트용 이상현상 색인 리스트를 생성하는 메서드 1
+    private void GenerateAnomalyListTest1()
     {
-        return random.Next(0, 100) < 20 ? 0 : random.Next(1, 31);
-    }
-    // 현재 스테이지에 맞는 이상현상을 로드
-    public void CheckAndInstantiateAnomaly()
-    {
-        int stageIndex = GameManager.Instance.GetCurrentStage() - 1;
-        if (stageIndex >= anomalyList.Count)
-        {
-            Debug.LogError("Invalid stage index in anomaly list.");
-            return;
-        } 
-        else if (stageIndex == -1)
-        {
-            Debug.Log($"[AnomalyManager] Current Stage : {GameManager.Instance.GetCurrentStage()}");
-            currentAnomalyInstance = Instantiate(anomalyPrefabs[0]);
-            return;
+        for (int idx = 0; idx < numStage; idx++) {
+            // 원하는 이상현상이 계속 나오도록
+            _anomalyList[idx] = testAnomalyID;
         }
-        int anomaly = anomalyList[stageIndex];
-        Debug.Log($"[AnomalyManager] Current Stage: {GameManager.Instance.GetCurrentStage()}, Anomaly Number: {anomaly}");
-        // 특정 인덱스에 해당하는 이상현상 프리팹만 인스턴스화
-        if (anomaly >= 0 && anomaly < anomalyPrefabs.Length && anomalyPrefabs[anomaly] != null)
-        {
-            currentAnomalyInstance = Instantiate(anomalyPrefabs[anomaly]);
-            if (currentAnomalyInstance == null)
-            {
-                Debug.LogError("Failed to instantiate anomaly prefab.");
-            }
-            else
-            {
-                Debug.Log("Anomaly instantiated successfully.");
+
+        Log($"Generate `_anomalyList` success: [{string.Join(", ", _anomalyList)}]");
+    }
+
+    // 테스트용 이상현상 색인 리스트를 생성하는 메서드 2
+    private void GenerateAnomalyListTest2()
+    {
+        for (int idx = 0; idx < numStage; idx++) {
+            // 원하는 이상현상과 제0번이 번갈아 나오도록
+            if (idx % 2 == 0) {
+                _anomalyList[idx] = testAnomalyID;
+            } else {
+                _anomalyList[idx] = 0;
             }
         }
-        else
-        {
-            Debug.LogError($"Anomaly prefab for anomaly {anomaly} is missing or not assigned in the prefab list.");
-        }
-    }
-    // 스테이지 실패 시 이상현상 리스트 재 생성
-    public void ResetAnomaliesOnFailure()
-    {
-        GenerateAnomalyList();
+
+        Log($"Generate `_anomalyList` success: [{string.Join(", ", _anomalyList)}]");
     }
 }

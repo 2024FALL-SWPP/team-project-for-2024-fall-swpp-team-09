@@ -30,7 +30,7 @@ public class Anomaly21_chase : AbstractAnomalyInteractable
     private float elapsedTime = 0f;
 
     // 클래스 이름
-    public override string Name { get; } = "Anomaly13_lookingeye"; 
+    public override string Name { get; } = "Anomaly21_chase";
 
 
     // 필드를 초기화하는 메서드
@@ -91,7 +91,7 @@ public class Anomaly21_chase : AbstractAnomalyInteractable
 
             if (elapsedTime >= 20f)
             {
-                ResetAnomaly();
+                GameManager.Instance.SetStageClear();
             }
         }
     }
@@ -101,11 +101,7 @@ public class Anomaly21_chase : AbstractAnomalyInteractable
         if (collision.collider.CompareTag("Player"))
         {
             StartCoroutine(FadeOutAudio());
-            var playerController = FindObjectOfType<PlayerController>();
-            if (playerController != null)
-            {
-                playerController.GameOver();
-            }
+            GameManager.Instance.GameOver();
         }
     }
 
@@ -130,8 +126,6 @@ public class Anomaly21_chase : AbstractAnomalyInteractable
         navAgent.enabled = false;
         LockPositionAndRotation();
         animator.SetBool("isChasing", false);
-
-        GameManager.Instance.SetStageClear();
 
         capsuleCollider.enabled = false;
 

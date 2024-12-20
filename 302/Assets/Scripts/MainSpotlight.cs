@@ -19,7 +19,6 @@ public class MainSpotlight : InteractableObject
     [SerializeField] private float spotAngle = 35f;
 
     private Light spotLight;
-    private PlayerController playerController;
     private Camera playerCamera;
     private bool isDancing = false;
     private Vector3 originalPlayerPosition;
@@ -47,13 +46,12 @@ public class MainSpotlight : InteractableObject
     private void Start()
     {
         promptMessage = "클릭하여 춤추기";
-        playerController = FindObjectOfType<PlayerController>();
-        playerCamera = playerController.GetComponentInChildren<Camera>();
+        playerCamera = PlayerManager.Instance.GetComponentInChildren<Camera>();
     }
 
     public override void OnInteract()
     {
-        if (!isDancing && playerController != null)
+        if (!isDancing && PlayerManager.Instance != null)
         {
             StartCoroutine(DanceSequence());
             GameManager.Instance.SetStageClear();
@@ -65,22 +63,22 @@ public class MainSpotlight : InteractableObject
         isDancing = true;
         canInteract = false;
 
-        originalPlayerPosition = playerController.transform.position;
-        playerController.enabled = false;
+        originalPlayerPosition = PlayerManager.Instance.transform.position;
+        PlayerManager.Instance.SetSpecialState(true);
 
         // 춤출 위치로 이동
         float moveProgress = 0f;
         while (moveProgress < 1f)
         {
             moveProgress += Time.deltaTime * moveSpeed;
-            playerController.transform.position = Vector3.Lerp(
+            PlayerManager.Instance.transform.position = Vector3.Lerp(
                 originalPlayerPosition, 
                 dancePosition, 
                 moveProgress
             );
             
             // -X축을 바라보도록 회전하고 카메라 각도 조정
-            playerController.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+            PlayerManager.Instance.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
             playerCamera.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);  // 정면을 바라보도록
             
             yield return null;
@@ -105,11 +103,11 @@ public class MainSpotlight : InteractableObject
                                 new Vector3(0f, bobOffset, swayOffset) + 
                                 transform.forward * forwardOffset;
 
-            playerController.transform.position = newPosition;
+            PlayerManager.Instance.transform.position = newPosition;
 
             // 미세한 좌우 회전
             float rotationOffset = Mathf.Sin(danceTimer * swaySpeed) * 15f;
-            playerController.transform.rotation = Quaternion.Euler(0f, 270f + rotationOffset, 0f);
+            PlayerManager.Instance.transform.rotation = Quaternion.Euler(0f, 270f + rotationOffset, 0f);
             playerCamera.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);  // 계속 정면 유지
 
             yield return null;
@@ -120,14 +118,14 @@ public class MainSpotlight : InteractableObject
         while (moveProgress < 1f)
         {
             moveProgress += Time.deltaTime * moveSpeed;
-            playerController.transform.position = Vector3.Lerp(
-                playerController.transform.position, 
+            PlayerManager.Instance.transform.position = Vector3.Lerp(
+                PlayerManager.Instance.transform.position, 
                 originalPlayerPosition, 
                 moveProgress
             );
             
-            playerController.transform.rotation = Quaternion.Lerp(
-                playerController.transform.rotation,
+            PlayerManager.Instance.transform.rotation = Quaternion.Lerp(
+                PlayerManager.Instance.transform.rotation,
                 Quaternion.Euler(0f, 0f, 0f),
                 moveProgress
             );
@@ -135,7 +133,7 @@ public class MainSpotlight : InteractableObject
             yield return null;
         }
 
-        playerController.enabled = true;
+        PlayerManager.Instance.SetSpecialState(false);
         isDancing = false;
         canInteract = true;
     }
