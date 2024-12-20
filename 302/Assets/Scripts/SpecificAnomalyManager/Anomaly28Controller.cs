@@ -5,7 +5,6 @@ public class Anomaly28Controller : AbstractAnomalyObject
 {
     public override string Name { get; } = "Anomaly28Controller";
 
-    private GameManager gameManager;
     private GameObject player;
 
     private float tiltMaxAngle = 15f; // Maximum tilt angle for heavy swaying
@@ -39,8 +38,7 @@ public class Anomaly28Controller : AbstractAnomalyObject
         StartCoroutine(DelayedStartSwaying());
 
         // Stage always clears after experiencing the anomaly
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        gameManager.SetStageClear();
+        GameManager.Instance.SetStageClear();
 
         // Find the player object and its Rigidbody
         player = GameObject.Find("Player");
@@ -67,11 +65,6 @@ public class Anomaly28Controller : AbstractAnomalyObject
         StartCoroutine(GradualReset());
         
         return res;
-    }
-    
-    private void Start()
-    {
-        StartAnomaly();
     }
 
     private void CreateClassroomParent()

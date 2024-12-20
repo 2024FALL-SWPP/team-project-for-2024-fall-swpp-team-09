@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class Anomaly16_marker : AbstractAnomalyInteractable
 {
     public override string Name { get; } = "Anomaly16_marker";
-    private Anomaly16Controller anomalyManager;
 
     private Transform cameraTransform;
 
@@ -36,8 +35,6 @@ public class Anomaly16_marker : AbstractAnomalyInteractable
         {
             cameraTransform = mainCamera.transform;
         }
-
-        anomalyManager = FindObjectOfType<Anomaly16Controller>();
 
         // Set up LineRenderer and AudioSource components
         lineRenderer = GetComponent<LineRenderer>();
@@ -88,7 +85,6 @@ public class Anomaly16_marker : AbstractAnomalyInteractable
         GameManager.Instance.SetStageClear();
 
         ResetAnomaly();
-        anomalyManager.ResetAnomaly();
     }
     
     private IEnumerator StartDrawingWithDelay()

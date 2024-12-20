@@ -1,7 +1,10 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class AnomalyManager : AbstractStageObserver
 {
+    private HashSet<int> ANOMALIES_NOT_YET = new HashSet<int> { 4, 5, 7, 9, 14, 25, 26 };
+
     /**********
      * fields *
      **********/
@@ -121,20 +124,6 @@ public class AnomalyManager : AbstractStageObserver
         return controller;
     }
 
-    // 모든 이상현상 컨트롤러가 `AbstractAnomalyObject`의 서브클래스이기 전에 쓸 메서드
-    public void StartAnomalyController()
-    {
-        int stage = GameManager.Instance.Stage;
-
-        if (stage == 0) {
-            Instantiate(prefabs[0]);
-        } else if (stage > 0 && stage <= numStage) {
-            Instantiate(prefabs[_anomalyList[stage - 1]]);
-        } else {
-            Log($"Invalid stage: {stage}", mode: 2);
-        }
-    }
-
     // 이상현상 색인 리스트를 생성하는 메서드
     private bool GenerateList()
     {
@@ -167,7 +156,7 @@ public class AnomalyManager : AbstractStageObserver
         while (!hasHighAnomaly) {
             int idxLastZero = -2;
 
-            _anomalyList = _random.Permutation(numAnomaly, numStage - 1);
+            _anomalyList = _random.Permutation(numAnomaly - 1, numStage);
             for (int idx = 0; idx < numStage; idx++) {
                 if (idx - idxLastZero > 1 && _random.UniformDist(0.0, 1.0) < 0.2) {
                     // 직전 단계가 제0번이 아닌 경우 20 %의 확률로 제0번 생성
@@ -176,6 +165,10 @@ public class AnomalyManager : AbstractStageObserver
                 } else {
                     // 0번을 위한 색인 조정
                     _anomalyList[idx] += 1;
+
+                    if (ANOMALIES_NOT_YET.Contains(_anomalyList[idx])) {
+                        _anomalyList[idx] = 0;
+                    }
 
                     // 적대적 이상현상 포함 확인
                     if (_anomalyList[idx] > 20) {

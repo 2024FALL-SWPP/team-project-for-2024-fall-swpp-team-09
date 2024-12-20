@@ -58,12 +58,6 @@ public class EndingDoor : MonoBehaviour
             yield return null;
         }
 
-        PlayerController playerController = player.GetComponent<PlayerController>();
-        if (playerController != null)
-        {
-            Destroy(playerController);
-        }
-
         yield return new WaitForSeconds(1f);
 
         if (endingAudioSource != null && endingMusic != null)

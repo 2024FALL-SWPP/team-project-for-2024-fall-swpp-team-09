@@ -10,7 +10,7 @@ public class GameManager : AbstractBehaviour
 
     // 신 이름
     private const string DEFAULT_SCENE = "DefaultGameScene";
-    private const string ENDING_SCENE = "GameEnding Scene";
+    private const string ENDING_SCENE = "GameEndingScene";
 
     /****************
      * enumerations *
@@ -20,11 +20,7 @@ public class GameManager : AbstractBehaviour
     {
         Playing,
         Ending,
-        Paused,
-
-        // deprecated states
-        Sleeping,
-        GameOver,
+        Paused
     }
 
     /**********
@@ -35,7 +31,7 @@ public class GameManager : AbstractBehaviour
     public int numStage;
 
     // 이상현상 컨트롤러
-/*  private AbstractAnomalyObject _anomalyController; */
+    private AbstractAnomalyObject _anomalyController;
 
     /**************
      * properties *
@@ -101,7 +97,7 @@ public class GameManager : AbstractBehaviour
         bool res = true;
 
         IsCleared = true;
-/*      if (_anomalyController != null) {
+        if (_anomalyController != null) {
             Log($"Call `{_anomalyController.Name}.ResetAnomaly` begin");
             if (_anomalyController.ResetAnomaly()) {
                 Log($"Call `{_anomalyController.Name}.ResetAnomaly` success");
@@ -112,7 +108,7 @@ public class GameManager : AbstractBehaviour
         } else {
             Log($"Call `ResetAnomaly` of the anomaly controller failed", mode: 2);
             res = false;
-        } */
+        }
 
         return res;
     }
@@ -121,14 +117,6 @@ public class GameManager : AbstractBehaviour
     public bool Sleep()
     {
         bool res = true;
-
-/*      Log("Call `PlayerManager.Sleep` begin");
-        if (PlayerManager.Instance.Sleep()) {
-            Log("Call `PlayerManager.Sleep` success");
-        } else {
-            Log("Call `PlayerManager.Sleep` failed", mode: 2);
-            res = false;
-        } */
 
         if (IsCleared) {
             Log("Stage clear => next stage");
@@ -160,14 +148,6 @@ public class GameManager : AbstractBehaviour
     {
         bool res = true;
 
-/*      Log("Call `PlayerManager.GameOver` begin");
-        if (PlayerManager.Instance.GameOver()) {
-            Log("Call `PlayerManager.GameOver` success");
-        } else {
-            Log("Call `PlayerManager.GameOver` failed", mode: 2);
-            res = false;
-        } */
-
         Stage = 1;
         IsCleared = false;
 
@@ -195,18 +175,8 @@ public class GameManager : AbstractBehaviour
             observers[idx].UpdateStage();
         }
 
-/*      _anomalyController = AnomalyManager.Instance.GetAnomalyController();
-        _anomalyController.StartAnomaly(); */
-        AnomalyManager.Instance.StartAnomalyController();
-
-/*      Log("Call `PlayerManager.WakeUp` begin");
-        if (PlayerManager.Instance.WakeUp()) {
-            Log("Call `PlayerManager.WakeUp` success");
-        } else {
-            Log("Call `PlayerManager.WakeUp` failed", mode: 2);
-            res = false;
-        } */
-        FindObjectOfType<PlayerController>().WakeUp();
+        _anomalyController = AnomalyManager.Instance.GetAnomalyController();
+        _anomalyController.StartAnomaly();
     }
 
     // 엔딩을 시작하는 메서드

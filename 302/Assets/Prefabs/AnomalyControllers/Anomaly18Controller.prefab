@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2594707081102709190
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2594707081102709241}
+  - component: {fileID: -7257790672791855}
+  m_Layer: 0
+  m_Name: Anomaly18Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2594707081102709241
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2594707081102709190}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-7257790672791855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2594707081102709190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 482965570cfb46f47a3c1dc8bb085118, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  names:
+  - WallBack
+  - clock
+  prefabs:
+  - {fileID: 3135954807459457769, guid: d37030a3e9613de409491dab9c926a06, type: 3}
+  - {fileID: 2824771154171234484, guid: d314417c861d1174caaa974bcaeb1a14, type: 3}
+  - {fileID: 6330698921243240140, guid: 67be1e6b104df81468a52f46aba49d8c, type: 3}
+  - {fileID: 8989905498966388834, guid: 6b079452df3a5da44aae624404efe648, type: 3}
+  - {fileID: 5419280097993429686, guid: 8009063ebbca7d14b9f119abdf467f48, type: 3}
+  - {fileID: 661700201260497465, guid: 147a5b1985730a849bd4568b4c7dd68d, type: 3}
+  - {fileID: 5839778339388796868, guid: e756aae9e6d5a2c4aa53edf63a90a73e, type: 3}
+  - {fileID: 1761092321075197500, guid: 189843821322f8d46a0c044b91aecd8a, type: 3}

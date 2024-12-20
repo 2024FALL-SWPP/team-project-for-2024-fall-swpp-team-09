@@ -26,7 +26,6 @@ public class Anomaly07_Gun : AbstractAnomalyInteractable
     private Quaternion originalRotation;
     private bool isAnimating = false;
     private Transform playerCameraTransform;
-    private PlayerController playerController;
     private Camera playerCamera;
     
     // 플래시 효과 관련 변수
@@ -90,84 +89,78 @@ public class Anomaly07_Gun : AbstractAnomalyInteractable
     }
 
     private IEnumerator RussianRouletteSequence()
-{
-    isAnimating = true;
-        
-    playerController = FindObjectOfType<PlayerController>();
-    playerCamera = playerController.GetComponentInChildren<Camera>();
-    playerCameraTransform = playerCamera.transform;
-        
-    playerController.enabled = false;
-
-    // 총을 들어올리는 애니메이션
-    float elapsedTime = 0f;
-    Vector3 startPosition = transform.position;
-    Quaternion startRotation = transform.rotation;
-
-    while (elapsedTime < animationDuration)
     {
-        elapsedTime += Time.deltaTime;
-        float t = elapsedTime / animationDuration;
-        float smoothT = t * t * (3f - 2f * t);
+        isAnimating = true;
 
-        Vector3 targetPosition = playerCameraTransform.TransformPoint(holdPosition);
-        Quaternion targetRotation = playerCameraTransform.rotation * Quaternion.Euler(holdRotation);
+        playerCamera = PlayerManager.Instance.GetComponentInChildren<Camera>();
+        playerCameraTransform = playerCamera.transform;
 
-        transform.position = Vector3.Lerp(startPosition, targetPosition, smoothT);
-        transform.rotation = Quaternion.Slerp(startRotation, targetRotation, smoothT);
+        PlayerManager.Instance.SetSpecialState(true);
 
-        yield return null;
-    }
+        // 총을 들어올리는 애니메이션
+        float elapsedTime = 0f;
+        Vector3 startPosition = transform.position;
+        Quaternion startRotation = transform.rotation;
 
-    audioSource.PlayOneShot(chamberSpinSound);
-    yield return new WaitForSeconds(1f);
-
-    bool survive = Random.value > 0.2f;
-
-    if (!survive)
-    {
-        audioSource.PlayOneShot(gunShotSound);
-        
-        // 총소리가 완전히 재생되도록 약간 대기
-        yield return new WaitForSeconds(2.2f);
-        StartCoroutine(FlashScreen());
-        // GameOver를 별도의 코루틴으로 실행
-        StartCoroutine(DelayedGameOver());
-    }
-    else
-    {
-        yield return new WaitForSeconds(returnDelay);
-
-        // 총을 원래 위치로
-        elapsedTime = 0f;
-        startPosition = transform.position;
-        startRotation = transform.rotation;
-
-        while (elapsedTime < animationDuration)
-        {
+        while (elapsedTime < animationDuration) {
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / animationDuration;
             float smoothT = t * t * (3f - 2f * t);
 
-            transform.position = Vector3.Lerp(startPosition, originalPosition, smoothT);
-            transform.rotation = Quaternion.Slerp(startRotation, originalRotation, smoothT);
+            Vector3 targetPosition = playerCameraTransform.TransformPoint(holdPosition);
+            Quaternion targetRotation = playerCameraTransform.rotation * Quaternion.Euler(holdRotation);
+
+            transform.position = Vector3.Lerp(startPosition, targetPosition, smoothT);
+            transform.rotation = Quaternion.Slerp(startRotation, targetRotation, smoothT);
 
             yield return null;
         }
 
-        GameManager.Instance.SetStageClear();
-        playerController.enabled = true;
+        audioSource.PlayOneShot(chamberSpinSound);
+        yield return new WaitForSeconds(1f);
+
+        bool survive = Random.value > 0.2f;
+
+        if (!survive) {
+            audioSource.PlayOneShot(gunShotSound);
+        
+            // 총소리가 완전히 재생되도록 약간 대기
+            yield return new WaitForSeconds(2.2f);
+            StartCoroutine(FlashScreen());
+            // GameOver를 별도의 코루틴으로 실행
+            StartCoroutine(DelayedGameOver());
+        } else {
+            yield return new WaitForSeconds(returnDelay);
+
+            // 총을 원래 위치로
+            elapsedTime = 0f;
+            startPosition = transform.position;
+            startRotation = transform.rotation;
+
+            while (elapsedTime < animationDuration) {
+                elapsedTime += Time.deltaTime;
+                float t = elapsedTime / animationDuration;
+                float smoothT = t * t * (3f - 2f * t);
+
+                transform.position = Vector3.Lerp(startPosition, originalPosition, smoothT);
+                transform.rotation = Quaternion.Slerp(startRotation, originalRotation, smoothT);
+
+                yield return null;
+            }
+
+            GameManager.Instance.SetStageClear();
+            PlayerManager.Instance.SetSpecialState(false);
+        }
+
+        isAnimating = false;
     }
 
-    isAnimating = false;
-}
-
-private IEnumerator DelayedGameOver()
-{
-    // GameOver가 총소리보다 먼저 실행되지 않도록 약간의 딜레이
-    yield return new WaitForSeconds(0.15f);
-    playerController.GameOver();
-}
+    private IEnumerator DelayedGameOver()
+    {
+        // GameOver가 총소리보다 먼저 실행되지 않도록 약간의 딜레이
+        yield return new WaitForSeconds(0.15f);
+        PlayerManager.Instance.GameOver();
+    }
 
     private void OnPostRenderCallback(Camera cam)
     {

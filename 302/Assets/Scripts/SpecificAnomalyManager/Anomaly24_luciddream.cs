@@ -68,16 +68,8 @@ public class Anomaly24_luciddream : AbstractAnomalyInteractable
 
             yield return null;
         }
-        if(GameManager.Instance.GetGameState() != GameManager.GameState.Sleeping)
-        {
-            GameManager.Instance.SetStageNoClear();
-        }
 
-        var playerController = FindObjectOfType<PlayerController>();
-        if (playerController != null)
-        {
-            playerController.GameOver();
-        }
+        GameManager.Instance.GameOver();
 
         StartCoroutine(FadeOutAudio());
     }

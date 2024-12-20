@@ -161,13 +161,8 @@ public class Anomaly26Controller : AbstractAnomalyComposite
     private void GameOver()
     {
         StartCoroutine(FadeOutMusic());
-        
-        // PlayerController를 찾아서 GameOver 애니메이션 실행
-        PlayerController player = FindObjectOfType<PlayerController>();
-        if (player != null)
-        {
-            player.GameOver();
-        }
+
+        PlayerManager.Instance.GameOver();
         
         this.enabled = false;
     }

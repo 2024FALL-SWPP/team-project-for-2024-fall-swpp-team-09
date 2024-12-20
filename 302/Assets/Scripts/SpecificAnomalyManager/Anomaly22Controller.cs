@@ -8,7 +8,6 @@ public class Anomaly22Controller : AbstractAnomalyObject
 
     private GameObject floor; // 모든 타일들의 Parent
     private GameManager gameManager;
-    private PlayerController playerController;
     public float interval = 1f;
     public float totalSeconds = 30f;
     private bool isPlayerDead = false;
@@ -24,7 +23,6 @@ public class Anomaly22Controller : AbstractAnomalyObject
     public override bool StartAnomaly()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         audioSource = gameObject.AddComponent<AudioSource>();
 
         floor = GameObject.FindWithTag("FloorEmpty");
@@ -58,15 +56,12 @@ public class Anomaly22Controller : AbstractAnomalyObject
     // 이상현상을 초기화하는 메서드
     public override bool ResetAnomaly()
     {
-        RestoreAllTiles();
-     
         bool res = base.ResetAnomaly();
+
+        audioSource.PlayOneShot(successSound);
+        StartCoroutine(RestoreAllTiles());
+
         return res;
-    }
-    
-    private void Start()
-    {
-        StartAnomaly();
     }
 
     private Transform FindPlatformTile()
@@ -147,9 +142,9 @@ public class Anomaly22Controller : AbstractAnomalyObject
     void Update()
     {
         // 아래로 떨어졌는지 확인해서 Game Over 처리
-        if (playerController.transform.position.y < -5f && !isPlayerDead)
+        if (PlayerManager.Instance.transform.position.y < -5f && !isPlayerDead)
         {
-            playerController.Sleep();
+            PlayerManager.Instance.Sleep();
             isPlayerDead = true;
         }
     }
@@ -179,8 +174,6 @@ public class Anomaly22Controller : AbstractAnomalyObject
         if (!isPlayerDead) // totalSeconds가 다 지날 때까지 생존 시 
         {
             gameManager.SetStageClear();
-            audioSource.PlayOneShot(successSound);
-            StartCoroutine(RestoreAllTiles());
         }
     }
 

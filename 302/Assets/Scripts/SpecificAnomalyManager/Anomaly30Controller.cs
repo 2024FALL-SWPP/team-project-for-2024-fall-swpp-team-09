@@ -52,11 +52,6 @@ public class Anomaly30Controller : AbstractAnomalyObject
         return res;
     }
 
-    private void Start()
-    {
-        StartAnomaly();
-    }
-
     public override bool ResetAnomaly()
     {
         bool res = base.ResetAnomaly();
@@ -106,7 +101,6 @@ public class Anomaly30Controller : AbstractAnomalyObject
     private IEnumerator EndWindowsOpeningAfterTime(float time)
     {
         yield return new WaitForSeconds(time);
-        ResetAnomaly();
     }
 
     private void CloseAllWindows()
@@ -140,10 +134,7 @@ public class Anomaly30Controller : AbstractAnomalyObject
         Vector3 targetPosition = new Vector3(this.player.transform.position.x, this.player.transform.position.y, -15f);
         StartCoroutine(MovePlayerToPosition(targetPosition));
 
-        PlayerController playerController = this.player.GetComponent<PlayerController>();
-        playerController.Sleep();
-
-        StartCoroutine(CallGameManagerSleepAfterDelay(3f));
+        PlayerManager.Instance.GameOver();
     }
 
     private IEnumerator MovePlayerToPosition(Vector3 targetPosition)
@@ -160,17 +151,6 @@ public class Anomaly30Controller : AbstractAnomalyObject
         }
 
         player.transform.position = targetPosition;
-    }
-
-    private IEnumerator CallGameManagerSleepAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        if (gameManager != null)
-        {
-            gameManager.SetStageNoClear(); // 혹시 날라갈동안 Anomaly time이 끝나서 성공할 수도 있으니
-            gameManager.Sleep();
-        }
     }
 
     public void StopAnomaly()

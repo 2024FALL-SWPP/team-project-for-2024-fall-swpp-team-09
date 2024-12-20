@@ -21008,10 +21008,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2960778f4e9343349a587d3d39be1a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: "\uD074\uB9AD\uD558\uC5EC \uC0C1\uD638\uC791\uC6A9"
-  interactionRange: 2
-  nameCamera: Main Camera
-  thresholdDistance: 10
 --- !u!1001 &1027390622
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23498,8 +23494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5f5a6a7b1f18884e843839632af5a6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameLeft: SlideLeft
-  nameRight: SlideRight
+  names: []
   numSlide: 15
   numStage: 8
 --- !u!4 &1164630180
@@ -33039,11 +33034,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b91f25b1ae6fa4d9727b23d45aab6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
-  direction: {x: 0, y: 0, z: 0}
-  valueNormal: 0
-  valueAnomaly: 0
-  duration: 0
 --- !u!1001 &1679000449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43701,6 +43691,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7013931049770212150, guid: e98bfaaf0938845d098edce033f7e7a2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7013931049770212150, guid: e98bfaaf0938845d098edce033f7e7a2, type: 3}
       propertyPath: screenImage
       value: 
       objectReference: {fileID: 0}
@@ -43713,10 +43707,16 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7190499244416527787, guid: e98bfaaf0938845d098edce033f7e7a2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7190499244416527787, guid: e98bfaaf0938845d098edce033f7e7a2, type: 3}
       propertyPath: playerController
       value: 
       objectReference: {fileID: 1169446210}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7013931049770212150, guid: e98bfaaf0938845d098edce033f7e7a2, type: 3}
+    - {fileID: 7190499244416527787, guid: e98bfaaf0938845d098edce033f7e7a2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e98bfaaf0938845d098edce033f7e7a2, type: 3}
 --- !u!33 &4416639437346922720
 MeshFilter:

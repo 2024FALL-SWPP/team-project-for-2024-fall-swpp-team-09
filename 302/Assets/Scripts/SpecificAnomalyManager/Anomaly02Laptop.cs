@@ -32,18 +32,6 @@ public class Anomaly02Laptop : AbstractAnomalyInteractable
         Log("Call `GameManager.SetStageClear` begin");
         GameManager.Instance.SetStageClear();
         Log("Call `GameManager.SetStageClear` end");
-
-        // Code used before `GameManager` updates begin
-        GameObject controllerObject = GameObject.Find("AnomalyManager (2)(Clone)");
-        AbstractAnomalyObject controller = controllerObject.GetComponent<AbstractAnomalyObject>();
-
-        Log($"Call `{controller.Name}.ResetAnomaly` begin");
-        if (controller.ResetAnomaly()) {
-            Log($"Call `{controller.Name}.ResetAnomaly` success");
-        } else {
-            Log($"Call `{controller.Name}.ResetAnomaly` failed", mode: 1);
-        }
-        // Code used before `GameManager` updates end
     }
 
     /*************************************

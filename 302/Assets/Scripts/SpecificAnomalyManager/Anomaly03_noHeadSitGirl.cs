@@ -19,18 +19,6 @@ public class Anomaly03_noHeadSitGirl : AbstractAnomalyInteractable
         Log("Call `GameManager.SetStageClear` begin");
         GameManager.Instance.SetStageClear();
         Log("Call `GameManager.SetStageClear` end");
-
-        // Code used before `GameManager` updates begin
-        GameObject controllerObject = GameObject.Find("AnomalyManager (3)(Clone)");
-        AbstractAnomalyObject controller = controllerObject.GetComponent<AbstractAnomalyObject>();
-
-        Log($"Call `{controller.Name}.ResetAnomaly` begin");
-        if (controller.ResetAnomaly()) {
-            Log($"Call `{controller.Name}.ResetAnomaly` success");
-        } else {
-            Log($"Call `{controller.Name}.ResetAnomaly` failed", mode: 1);
-        }
-        // Code used before `GameManager` updates end
     }
 
     // 현재 상호작용 가능한지 여부 반환
