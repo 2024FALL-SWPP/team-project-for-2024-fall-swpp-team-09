@@ -2,26 +2,16 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
-public class Anomaly04Controller : AbstractAnomalyComposite
+public class Anomaly04Controller : AbstractAnomalyObject
 {
     public override string Name { get; } = "Anomaly04Controller";
     private GameObject mainLaptop;
     private List<GameObject> laptopList = new List<GameObject>();
 
-    void OnEnable()
+    public override bool StartAnomaly()
     {
-        StartAnomaly();
-    }
-
-    public override bool StartAnomaly() {
         bool res = base.StartAnomaly();
         StartCoroutine(InitializeSequence());
-        return res;
-    }
-
-    public override bool ResetAnomaly() {
-        bool res = base.ResetAnomaly();
-        StartCoroutine(ScreenChangeSequence());
         return res;
     }
 
@@ -107,7 +97,7 @@ public class Anomaly04Controller : AbstractAnomalyComposite
         }
 
         // 5단계: 화면 변경 시퀀스 시작
-        ResetAnomaly();
+        StartCoroutine(ScreenChangeSequence());
     }
 
     private IEnumerator ScreenChangeSequence()

@@ -7,29 +7,25 @@ public class Anomaly05_SideGirl : AbstractAnomalyInteractable
     public override string Name { get; } = "SideGirl";
     [Header("Side Girl Settings")]
     private MeshRenderer meshRenderer;
-    private bool hasInteracted = false; 
-    private Anomaly05Controller anomalyManager;
-    protected override bool Awake_()
+
+    protected override bool InitFields()
     {
-        bool res = base.Awake_();
+        bool res = base.InitFields();
+
         meshRenderer = GetComponent<MeshRenderer>();
-        // Anomaly5Manager 찾기
-        anomalyManager = FindObjectOfType<Anomaly05Controller>();
+
         return res;
     }
 
     public override void OnInteract()
     {
         base.OnInteract();
-        if (anomalyManager != null){
-        anomalyManager.StopAnomalyMusic();
-        }
-        hasInteracted = true;
-        StartCoroutine(FadeOutAllMeshRenderers(gameObject));
+
         GameManager.Instance.SetStageClear();
+        StartCoroutine(FadeOutAllMeshRenderers(gameObject));
     }
 
-   private IEnumerator FadeOutAllMeshRenderers(GameObject target)
+    private IEnumerator FadeOutAllMeshRenderers(GameObject target)
     {
         // 모든 하위 MeshRenderer 컴포넌트들을 찾음
         MeshRenderer[] meshRenderers = target.GetComponentsInChildren<MeshRenderer>();

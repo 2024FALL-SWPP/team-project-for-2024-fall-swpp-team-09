@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Anomaly05Controller : AbstractAnomalyComposite
+public class Anomaly05Controller : AbstractAnomalyObject
 {
     public override string Name { get; } = "Anomaly05Controller";
     [SerializeField] private float moveDistance = 5f;
@@ -11,9 +11,10 @@ public class Anomaly05Controller : AbstractAnomalyComposite
     [SerializeField] private AudioSource audioSource;
     private GameObject sideGirl;
 
-    protected override bool Awake_() 
+    protected override bool InitFields() 
     {
-        bool res = base.Awake_();
+        bool res = base.InitFields();
+
         sideGirl = GameObject.FindGameObjectWithTag("sideGirl");
         if(sideGirl != null) 
         {
@@ -26,7 +27,6 @@ public class Anomaly05Controller : AbstractAnomalyComposite
         {
             Instantiate(sideGirlPrefab, spawnPosition, Quaternion.Euler(0, 180, 0));
         }
-        StartAnomaly();
         
         return res;
     }
@@ -34,14 +34,25 @@ public class Anomaly05Controller : AbstractAnomalyComposite
     public override bool StartAnomaly()
     {
         bool res = base.StartAnomaly();
+
         StartCoroutine(PlayMusicAfterDelay());
+
+        return res;
+    }
+
+    public override bool ResetAnomaly()
+    {
+        bool res = base.StartAnomaly();
+
+        StopAnomalyMusic();
+
         return res;
     }
 
     IEnumerator PlayMusicAfterDelay() 
     {
         yield return new WaitForSeconds(15f);
-        if(sideGirl != null)
+        if (sideGirl != null)
         {
             // Anomaly5Manager 게임오브젝트를 사이드걸 위치로 이동
             transform.position = sideGirl.transform.position;
@@ -51,7 +62,7 @@ public class Anomaly05Controller : AbstractAnomalyComposite
 
     public void StopAnomalyMusic() 
     {
-        if(audioSource != null && audioSource.isPlaying) 
+        if (audioSource != null && audioSource.isPlaying) 
         {
             audioSource.Stop();
         }

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 public class AnomalyManager : AbstractStageObserver
 {
-    private HashSet<int> ANOMALIES_NOT_YET = new HashSet<int> { 4, 5 };
-
     /**********
      * fields *
      **********/
@@ -165,10 +163,6 @@ public class AnomalyManager : AbstractStageObserver
                 } else {
                     // 0번을 위한 색인 조정
                     _anomalyList[idx] += 1;
-
-                    if (ANOMALIES_NOT_YET.Contains(_anomalyList[idx])) {
-                        _anomalyList[idx] = 0;
-                    }
 
                     // 적대적 이상현상 포함 확인
                     if (_anomalyList[idx] > 20) {
