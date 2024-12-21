@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class Anomaly14_WallyGlasses : InteractableObject
 {
-    private bool hasInteracted = false; 
-
     public override void OnInteract()
     {
-        if (hasInteracted) return;
-        hasInteracted = true;
-        StartCoroutine(FadeOutAllMeshRenderers(gameObject));
+        base.OnInteract();
+
         GameManager.Instance.SetStageClear();
+        StartCoroutine(FadeOutAllMeshRenderers(gameObject));
     }
-    
+
     private IEnumerator FadeOutAllMeshRenderers(GameObject target)
     {
         // 모든 하위 MeshRenderer 컴포넌트들을 찾음
@@ -23,8 +21,7 @@ public class Anomaly14_WallyGlasses : InteractableObject
 
         // 시작할 때의 모든 머티리얼 저장
         Material[] originalMaterials = new Material[meshRenderers.Length];
-        for (int i = 0; i < meshRenderers.Length; i++)
-        {
+        for (int i = 0; i < meshRenderers.Length; i++) {
             // 각 MeshRenderer의 머티리얼을 복제하여 저장
             originalMaterials[i] = new Material(meshRenderers[i].material);
             // 투명도를 사용하기 위해 셰이더 모드 변경
@@ -45,8 +42,7 @@ public class Anomaly14_WallyGlasses : InteractableObject
             float alpha = 1f - (elapsedTime / fadeTime);
 
             // 모든 MeshRenderer의 알파값 업데이트
-            foreach (MeshRenderer renderer in meshRenderers)
-            {
+            foreach (MeshRenderer renderer in meshRenderers) {
                 Color color = renderer.material.color;
                 color.a = alpha;
                 renderer.material.color = color;
@@ -57,6 +53,5 @@ public class Anomaly14_WallyGlasses : InteractableObject
 
         // 완전히 투명해지면 오브젝트 비활성화
         target.SetActive(false);
-
     }
 }

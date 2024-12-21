@@ -1,35 +1,53 @@
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-using UnityEngine;
-
-public class Anomaly14Controller : AbstractAnomalyComposite
+public class Anomaly14Controller : AbstractAnomalyObject
 {
-    public override string Name { get; } = "Anomaly14Controller";
+    /**********
+     * fields *
+     **********/
+
     public GameObject SweaterSitGirlPrefab;
     public GameObject DifferentPrefab; // 다른 종류의 프리팹
     public float yRotation = 180f;
     private AudioSource audioSource;
 
-    private void Start()
+    /**************
+     * properties *
+     **************/
+
+    public override string Name { get; } = "Anomaly14Controller";
+
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
+
+    protected override bool InitFields()
     {
+        bool res = base.InitFields();
+
         audioSource = GetComponent<AudioSource>();
+
+        return res;
     }
-       // 이상현상을 시작하는 메서드
+
+    /*****************************************
+     * implementation: AbstractAnomalyObject *
+     *****************************************/
+
+    // 이상현상을 시작하는 메서드
     public override bool StartAnomaly()
     {
         bool res = base.StartAnomaly();
 
-        if (audioSource != null)
-        {
+        if (audioSource != null) {
             audioSource.Play();
         }
 
         // 기존의 floatable 태그 오브젝트들 제거
         GameObject[] floatableObjects = GameObject.FindGameObjectsWithTag("floatable");
-        foreach (GameObject obj in floatableObjects)
-        {
+        foreach (GameObject obj in floatableObjects) {
             Debug.Log($"Destroying floatable object: {obj.name}");
             Destroy(obj);
         }
@@ -43,10 +61,8 @@ public class Anomaly14Controller : AbstractAnomalyComposite
         int totalCount = rowCount * columnCount;
         int randomIndex = Random.Range(0, totalCount);
         
-        for (int row = 0; row < rowCount; row++)
-        {
-            for (int col = 0; col < columnCount; col++)
-            {
+        for (int row = 0; row < rowCount; row++) {
+            for (int col = 0; col < columnCount; col++) {
                 Vector3 position = startPosition + new Vector3(col * spacing, 0f, row * spacing);
                 Quaternion rotation = Quaternion.Euler(0f, yRotation, 0f);
 
@@ -54,13 +70,10 @@ public class Anomaly14Controller : AbstractAnomalyComposite
                 int currentIndex = row * columnCount + col;
 
                 // 랜덤으로 선택된 위치면 다른 프리팹을, 아니면 기본 프리팹을 생성
-                if (currentIndex == randomIndex)
-                {
+                if (currentIndex == randomIndex) {
                     Instantiate(DifferentPrefab, position, rotation);
                     Debug.Log($"Different prefab spawned at position: {position}");
-                }
-                else
-                {
+                } else {
                     Instantiate(SweaterSitGirlPrefab, position, rotation);
                 }
             }
@@ -73,22 +86,10 @@ public class Anomaly14Controller : AbstractAnomalyComposite
     {
         bool res = base.ResetAnomaly();
 
-        if (audioSource != null && audioSource.isPlaying)
-        {
+        if (audioSource != null && audioSource.isPlaying) {
             audioSource.Stop();
         }
 
         return res;
-    }
-
-    private void OnEnable()
-    {
-        StartAnomaly();
-    }
-    
-
-    private void OnDisable()
-    {
-        ResetAnomaly();
     }
 }
