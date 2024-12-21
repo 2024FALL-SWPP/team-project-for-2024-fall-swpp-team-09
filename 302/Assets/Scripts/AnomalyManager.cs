@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class AnomalyManager : AbstractStageObserver
 {
-    private HashSet<int> ANOMALIES_NOT_YET = new HashSet<int> { 4, 5, 7 };
+    private HashSet<int> ANOMALIES_NOT_YET = new HashSet<int> { 4, 5 };
 
     /**********
      * fields *

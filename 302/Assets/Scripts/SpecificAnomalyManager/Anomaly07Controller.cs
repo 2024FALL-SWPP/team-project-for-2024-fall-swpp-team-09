@@ -6,9 +6,13 @@ public class Anomaly07Controller : AbstractAnomalyComposite
     [SerializeField] private GameObject gunPrefab;
     [SerializeField] private Vector3 gunSpawnPosition = new Vector3(10.8f, 1.5f, 8.4f);
     
-    private void OnEnable()
+    public override bool StartAnomaly()
     {
+        bool res = base.StartAnomaly();
+
         SpawnGun();
+
+        return res;
     }
 
     private void SpawnGun()
