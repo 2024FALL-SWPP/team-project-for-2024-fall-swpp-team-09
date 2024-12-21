@@ -46,7 +46,7 @@ public class InteractionManager : AbstractStageObserver
 
     void Update()
     {
-        if (cursor != null) {
+        if (cursor != null && Time.timeScale != 0.0f) {
             if (PlayerManager.Instance.State == PlayerManager.PlayerState.Normal) {
                 Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
                 RaycastHit hit;

@@ -110,6 +110,7 @@ public class PauseManager : AbstractStageObserver
             _canvas = obj.GetComponent<Canvas>();
             if (_canvas != null) {
                 Log("Find `Canvas` success");
+                _canvas.gameObject.SetActive(false);
             } else {
                 Log("Find `Canvas` failed", mode: 1);
                 res = false;

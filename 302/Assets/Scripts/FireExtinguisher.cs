@@ -44,7 +44,7 @@ public class FireExtinguisher : InteractableObject
 
             CheckFireCollision();
 
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1) && Time.timeScale != 0.0f)
             {
                 PutDown();
             }

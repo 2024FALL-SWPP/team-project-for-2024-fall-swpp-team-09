@@ -89,14 +89,14 @@ public class PlayerManager : AbstractStageObserver
 
     void FixedUpdate()
     {
-        if (State == PlayerState.Normal) {
+        if (State == PlayerState.Normal && Time.timeScale != 0.0f) {
             HandleMovement();
         }
     }
 
     void Update()
     {
-        if (State == PlayerState.Normal) {
+        if (State == PlayerState.Normal && Time.timeScale != 0.0f) {
             HandleInput();
             HandleCamera();
         }
