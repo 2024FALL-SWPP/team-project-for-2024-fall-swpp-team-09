@@ -7,7 +7,7 @@ public class Anomaly29_banana : MonoBehaviour
 
     void Start()
     {
-       anomalyManager = FindObjectOfType<Anomaly29Controller>();
+        anomalyManager = FindObjectOfType<Anomaly29Controller>();
     }
 
     private void OnCollisionEnter(Collision collision)

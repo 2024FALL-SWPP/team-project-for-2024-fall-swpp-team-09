@@ -10,9 +10,13 @@ public class Anomaly15_spider : AbstractAnomalyInteractable
     private Transform cameraTransform;
     private AudioSource audioSource;
 
-    private void Start()
+    protected override bool Start_()
     {
+        bool res = base.Start_();
+
         StartAnomaly();
+
+        return res;
     }
 
     public override bool StartAnomaly()

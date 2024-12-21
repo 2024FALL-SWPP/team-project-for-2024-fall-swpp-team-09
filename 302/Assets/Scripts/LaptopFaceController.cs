@@ -38,9 +38,6 @@ public class LaptopFaceController : LaptopScreenController
      * fields *
      **********/
 
-    // 오브젝트
-    public GameObject player;
-
     // 내부 수치
     private int TANGENT_MAX = 25;
     private float TANGENT_CONST = 12.5f;
@@ -134,6 +131,7 @@ public class LaptopFaceController : LaptopScreenController
     // 쳐다보기 화면을 갱신하는 메서드
     private void UpdateGazing()
     {
+        GameObject player = GameObject.Find("Main Camera");
         Vector3 forward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
         Vector3 direction = Vector3.ProjectOnPlane(player.transform.position - transform.position, Vector3.up);
         float dotProd = Vector3.Dot(direction, forward);

@@ -20,6 +20,9 @@ public class InteractionManager : AbstractStageObserver
     // 클래스 이름
     public override string Name { get; } = "InteractionManager";
 
+    // 클래스 인스턴스
+    public static InteractionManager Instance { get; private set; }
+
     /************
      * messages *
      ************/
@@ -43,7 +46,7 @@ public class InteractionManager : AbstractStageObserver
 
     void Update()
     {
-        if (cursor != null) {
+        if (cursor != null && Time.timeScale != 0.0f) {
             if (PlayerManager.Instance.State == PlayerManager.PlayerState.Normal) {
                 Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
                 RaycastHit hit;
@@ -69,6 +72,24 @@ public class InteractionManager : AbstractStageObserver
     /*************************************
      * implementation: AbstractBehaviour *
      *************************************/
+
+    // `Awake` 메시지 용 메서드
+    protected override bool Awake_()
+    {
+        bool res = false;
+
+        if (Instance == null) {
+            Log($"`Instance` has not been set => set `Instance` as `{Name}`");
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            res = base.Awake_();
+        } else {
+            Log($"`Instance` has already been set => destroy `{gameObject.name}`");
+            Destroy(gameObject);
+        }
+
+        return res;
+    }
 
     // 필드를 초기화하는 메서드
     protected override bool InitFields()
