@@ -777,9 +777,11 @@ MonoBehaviour:
   speedInit: 1
   speedDelta: 5
   durationChase: 25
-  durationBlow: 5
+  durationBlow: 8
   timeAudioStart: 3
   durationFade: 3
+  numRotate: 240
+  speedBlow: 20
 --- !u!82 &3035267094544484457
 AudioSource:
   m_ObjectHideFlags: 0
