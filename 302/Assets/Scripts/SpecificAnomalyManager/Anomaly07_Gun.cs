@@ -159,6 +159,7 @@ public class Anomaly07_Gun : AbstractAnomalyInteractable
     {
         // GameOver가 총소리보다 먼저 실행되지 않도록 약간의 딜레이
         yield return new WaitForSeconds(0.15f);
+        PlayerManager.Instance.SetSpecialState(false);
         PlayerManager.Instance.GameOver();
     }
 

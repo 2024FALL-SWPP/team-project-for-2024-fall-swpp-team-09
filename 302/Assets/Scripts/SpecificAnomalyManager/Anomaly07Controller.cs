@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Anomaly07Controller : AbstractAnomalyComposite
+public class Anomaly07Controller : AbstractAnomalyObject
 {
     [Header("Russian Roulette Settings")]
     [SerializeField] private GameObject gunPrefab;
