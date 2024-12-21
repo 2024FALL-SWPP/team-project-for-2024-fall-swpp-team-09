@@ -14,7 +14,7 @@ public class Anomaly13_lookingeye : AbstractAnomalyInteractable
     public override string Name { get; } = "Anomaly13_lookingeye"; 
 
     // 상호작용 시 실행될 메서드
-    public virtual void OnInteract()
+    public override void OnInteract()
     {
         base.OnInteract();
 

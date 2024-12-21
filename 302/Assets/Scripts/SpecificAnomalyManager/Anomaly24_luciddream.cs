@@ -25,15 +25,7 @@ public class Anomaly24_luciddream : AbstractAnomalyInteractable
             Debug.LogError("Main Camera not found!");
             res = false;
         }
-
-        return res;
-    }
-
-    // 이상현상을 시작하는 메서드
-    public override bool StartAnomaly()
-    {
-        bool res = base.StartAnomaly();
-
+        
         StartCoroutine(LucidDreamSequence());
 
         return res;
@@ -42,6 +34,8 @@ public class Anomaly24_luciddream : AbstractAnomalyInteractable
     private IEnumerator LucidDreamSequence()
     {
         GameManager.Instance.SetStageClear();
+
+        Debug.Log("Waiting for 10 seconds.");
 
         yield return new WaitForSeconds(10f);
 

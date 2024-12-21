@@ -12,7 +12,7 @@ public class Anomaly03_noHeadSitGirl : AbstractAnomalyInteractable
     private float distanceToCamera;     // Distance between player and anomaly object
 
     // 상호작용 시 실행될 메서드
-    public virtual void OnInteract()
+    public override void OnInteract()
     {
         base.OnInteract();
 
@@ -22,7 +22,7 @@ public class Anomaly03_noHeadSitGirl : AbstractAnomalyInteractable
     }
 
     // 현재 상호작용 가능한지 여부 반환
-    public virtual bool CanInteract(float distance)
+    public override bool CanInteract(float distance)
     {
         bool res = base.CanInteract(distance);
 

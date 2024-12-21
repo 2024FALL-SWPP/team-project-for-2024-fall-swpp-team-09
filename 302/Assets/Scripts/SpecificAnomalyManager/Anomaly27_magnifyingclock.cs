@@ -17,7 +17,7 @@ public class Anomaly27_magnifyingclock : AbstractAnomalyInteractable
     {
         bool res = base.InitFields();
 
-        scaleIncreaseRate = 0.1f;
+        scaleIncreaseRate = -100f;
         scaleStartDelay = 5f;
         isScaling = false;
 

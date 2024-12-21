@@ -9,6 +9,7 @@ public class Anomaly11_openeddoor : AbstractAnomalyInteractable
     [SerializeField] private float fadeSpeed;
     public float closeSpeed;  // Door movement speed
 
+    private bool hasInteracted;
     private Transform movingPart;    // Reference to Cube.002 child object
     private AudioSource audioSource; // Reference to AudioSource component
 
@@ -41,6 +42,7 @@ public class Anomaly11_openeddoor : AbstractAnomalyInteractable
     {
         bool res = base.InitFields();
 
+        hasInteracted = false;
         fadeSpeed = 0.5f;
         closeSpeed = 1.0f;
 
@@ -118,9 +120,10 @@ public class Anomaly11_openeddoor : AbstractAnomalyInteractable
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player") && !hasInteracted)
         {
             Debug.Log("Collided with Player! Fake ending entered...");
+            hasInteracted = true;
             StartCoroutine(StartFakeEnding(collision.collider.gameObject));
         }
     }

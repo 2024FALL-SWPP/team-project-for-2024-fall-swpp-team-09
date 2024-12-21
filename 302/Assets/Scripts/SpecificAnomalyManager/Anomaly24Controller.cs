@@ -11,6 +11,8 @@ public class Anomaly24Controller : AbstractAnomalyObject
     {
         bool res = base.StartAnomaly();
 
+        sitGirls = GameObject.Find("SitGirls");
+
         if (sitGirls != null)
         {
             childTransforms = new Transform[sitGirls.transform.childCount];

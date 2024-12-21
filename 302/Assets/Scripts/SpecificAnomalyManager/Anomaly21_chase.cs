@@ -98,7 +98,7 @@ public class Anomaly21_chase : AbstractAnomalyInteractable
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player") && isChasing)
         {
             StartCoroutine(FadeOutAudio());
             GameManager.Instance.GameOver();
@@ -127,7 +127,7 @@ public class Anomaly21_chase : AbstractAnomalyInteractable
         LockPositionAndRotation();
         animator.SetBool("isChasing", false);
 
-        capsuleCollider.enabled = false;
+        GameManager.Instance.SetStageClear();
 
         elapsedTime = 0f;
     }

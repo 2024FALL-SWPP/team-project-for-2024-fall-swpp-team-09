@@ -43781,8 +43781,8 @@ MonoBehaviour:
   - {fileID: 5605359256125054964, guid: 48c8f10abe45bef4098efae902701f34, type: 3}
   numStage: 8
   numAnomaly: 31
-  testMode: 0
-  testAnomalyID: 0
+  testMode: 2
+  testAnomalyID: 24
 --- !u!4 &1964216256
 Transform:
   m_ObjectHideFlags: 0
