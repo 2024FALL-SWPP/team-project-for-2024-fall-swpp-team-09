@@ -2,9 +2,12 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Anomaly09Controller : AbstractAnomalyComposite
+public class Anomaly09Controller : AbstractAnomalyObject
 {
-     public override string Name { get; } = "Anomaly09Controller";
+    /**********
+     * fields *
+     **********/
+
     [Header("Anomaly Settings")]
     public float anomalyDelay = 15f;
 
@@ -61,57 +64,48 @@ public class Anomaly09Controller : AbstractAnomalyComposite
     private List<GameObject> spawnedLights = new List<GameObject>();
     private Coroutine anomalyCoroutine;
 
-    protected override bool Awake_()
+    /**************
+     * properties *
+     **************/
+
+    public override string Name { get; } = "Anomaly09Controller";
+
+    /*************************************
+     * implementation: AbstractBehaviour *
+     *************************************/
+
+    protected override bool InitFields()
     {
-        bool res = base.Awake_();
+        bool res = base.InitFields();
+
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = anomalyMusic;
         audioSource.volume = musicVolume;
         audioSource.loop = true;
         audioSource.playOnAwake = false;
+
+        sceneLights = FindScenePointLights();
+        SaveOriginalIntensities();
+
         return res;
     }
 
-    void Start()
-    {
-        sceneLights = FindScenePointLights();
-        SaveOriginalIntensities();
-    }
-
-    void OnEnable()
-    {
-        StartAnomaly();
-        Debug.Log($"이상현상 발생 - {anomalyDelay}초 후 나타납니다.");
-    }
-
-    void OnDisable()
-    {
-        ResetAnomaly();
-    }
+    /*****************************************
+     * implementation: AbstractAnomalyObject *
+     *****************************************/
 
     public override bool StartAnomaly()
     {
         bool res = base.StartAnomaly();
+
         anomalyCoroutine = StartCoroutine(StartAnomalyWithDelay());
-        return res;
-    }
-
-    public override bool ResetAnomaly()
-    {
-        bool res = base.ResetAnomaly();
-
-        if (anomalyCoroutine != null)
-        {
-            StopCoroutine(anomalyCoroutine);
-            anomalyCoroutine = null;
-        }
-
-        StopAnomalyMusic();
-        CleanupSpawnedObjects();
-        RestoreOriginalLightIntensities();
 
         return res;
     }
+
+    /***************
+     * new methods *
+     ***************/
 
     IEnumerator StartAnomalyWithDelay()
     {
@@ -120,16 +114,19 @@ public class Anomaly09Controller : AbstractAnomalyComposite
         DimSceneLights();
         SpawnLights();
         SpawnDancingGirls();
-        if (mainSpotlightPrefab != null)
-        {
-            spawnedSpotlight = Instantiate(mainSpotlightPrefab, spotlightPosition, Quaternion.Euler(90f, spotlightRotation, -90f));
+        if (mainSpotlightPrefab != null) {
+            spawnedSpotlight = Instantiate(
+                mainSpotlightPrefab, spotlightPosition,
+                Quaternion.Euler(90f, spotlightRotation, -90f)
+            );
         }
         
-        if (fadeInMusic)
+        if (fadeInMusic) {
             StartCoroutine(FadeInMusic());
-        else
+        } else {
             PlayAnomalyMusic();
-        
+        }
+
         Debug.Log("이상현상 발생 완료");
     }
 
@@ -138,10 +135,8 @@ public class Anomaly09Controller : AbstractAnomalyComposite
         Light[] allLights = FindObjectsOfType<Light>();
         List<Light> pointLights = new List<Light>();
 
-        foreach (Light light in allLights)
-        {
-            if (light.type == LightType.Point)
-            {
+        foreach (Light light in allLights) {
+            if (light.type == LightType.Point) {
                 pointLights.Add(light);
                 Debug.Log($"Found Point Light: {light.gameObject.name}");
             }
@@ -152,53 +147,53 @@ public class Anomaly09Controller : AbstractAnomalyComposite
 
     void SaveOriginalIntensities()
     {
-        if (sceneLights != null)
-        {
+        if (sceneLights != null) {
             originalIntensities = new float[sceneLights.Length];
-            for (int i = 0; i < sceneLights.Length; i++)
-            {
-                if (sceneLights[i] != null)
+            for (int i = 0; i < sceneLights.Length; i++) {
+                if (sceneLights[i] != null) {
                     originalIntensities[i] = sceneLights[i].intensity;
+                }
             }
         }
     }
 
     void DimSceneLights()
     {
-        if (sceneLights != null)
-        {
-            foreach (Light light in sceneLights)
-            {
-                if (light != null)
+        if (sceneLights != null) {
+            foreach (Light light in sceneLights) {
+                if (light != null) {
                     light.intensity = dimmedIntensity;
+                }
             }
         }
     }
 
     void RestoreOriginalLightIntensities()
     {
-        if (sceneLights != null && originalIntensities != null)
-        {
-            for (int i = 0; i < sceneLights.Length; i++)
-            {
-                if (sceneLights[i] != null)
+        if (sceneLights != null && originalIntensities != null) {
+            for (int i = 0; i < sceneLights.Length; i++) {
+                if (sceneLights[i] != null) {
                     sceneLights[i].intensity = originalIntensities[i];
+                }
             }
         }
     }
 
     void SpawnLights()
     {
-        if (lightPrefab == null) return;
-
-        foreach (GameObject light in spawnedLights)
-        {
-            if (light != null) Destroy(light);
+        if (lightPrefab == null) {
+            return;
         }
+
+        foreach (GameObject light in spawnedLights) {
+            if (light != null) {
+                Destroy(light);
+            }
+        }
+
         spawnedLights.Clear();
 
-        for (int i = 0; i < numberOfLights; i++)
-        {
+        for (int i = 0; i < numberOfLights; i++) {
             float angle = i * (360f / numberOfLights);
             float x = radius * Mathf.Cos(angle * Mathf.Deg2Rad);
             float z = radius * Mathf.Sin(angle * Mathf.Deg2Rad);
@@ -215,12 +210,16 @@ public class Anomaly09Controller : AbstractAnomalyComposite
 
     void SpawnDancingGirls()
     {
-        if (dancingGirlPrefab == null) return;
-
-        foreach (GameObject girl in spawnedGirls)
-        {
-            if (girl != null) Destroy(girl);
+        if (dancingGirlPrefab == null) {
+            return;
         }
+
+        foreach (GameObject girl in spawnedGirls) {
+            if (girl != null) {
+                Destroy(girl);
+            }
+        }
+ 
         spawnedGirls.Clear();
 
         SpawnGirl(position1, rotation1);
@@ -237,15 +236,16 @@ public class Anomaly09Controller : AbstractAnomalyComposite
 
     void SpawnGirl(Vector3 position, float yRotation)
     {
-        GameObject girl = Instantiate(dancingGirlPrefab, position, 
-            Quaternion.Euler(0, yRotation, 0));
+        GameObject girl = Instantiate(
+            dancingGirlPrefab, position, Quaternion.Euler(0, yRotation, 0)
+        );
+
         spawnedGirls.Add(girl);
     }
 
     void PlayAnomalyMusic()
     {
-        if (anomalyMusic != null && audioSource != null)
-        {
+        if (anomalyMusic != null && audioSource != null) {
             audioSource.volume = musicVolume;
             audioSource.Play();
         }
@@ -253,14 +253,12 @@ public class Anomaly09Controller : AbstractAnomalyComposite
 
     IEnumerator FadeInMusic()
     {
-        if (anomalyMusic != null && audioSource != null)
-        {
+        if (anomalyMusic != null && audioSource != null) {
             audioSource.volume = 0f;
             audioSource.Play();
 
             float currentTime = 0;
-            while (currentTime < fadeInDuration)
-            {
+            while (currentTime < fadeInDuration) {
                 currentTime += Time.deltaTime;
                 audioSource.volume = Mathf.Lerp(0, musicVolume, currentTime / fadeInDuration);
                 yield return null;
@@ -271,22 +269,23 @@ public class Anomaly09Controller : AbstractAnomalyComposite
 
     void StopAnomalyMusic()
     {
-        if (audioSource != null && audioSource.isPlaying)
+        if (audioSource != null && audioSource.isPlaying) {
             audioSource.Stop();
+        }
     }
 
     void CleanupSpawnedObjects()
     {
-        foreach (GameObject girl in spawnedGirls)
-        {
+        foreach (GameObject girl in spawnedGirls) {
             if (girl != null) Destroy(girl);
         }
+
         spawnedGirls.Clear();
 
-        foreach (GameObject light in spawnedLights)
-        {
+        foreach (GameObject light in spawnedLights) {
             if (light != null) Destroy(light);
         }
+
         spawnedLights.Clear();
     }
 }
