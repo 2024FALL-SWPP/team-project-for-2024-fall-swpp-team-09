@@ -94,13 +94,6 @@ public class PlayerManager : AbstractStageObserver
         }
     }
 
-    void Start()
-    {
-        SetupComponents();
-        SetupPhysics();
-        Cursor.lockState = CursorLockMode.Locked;
-    }
-
     void Update()
     {
         if (State == PlayerState.Normal) {
@@ -142,6 +135,10 @@ public class PlayerManager : AbstractStageObserver
 
             screenFader = obj.AddComponent<ScreenFader>();
         }
+
+        SetupComponents();
+        SetupPhysics();
+        Cursor.lockState = CursorLockMode.Locked;
 
         return res;
     }
