@@ -62,9 +62,13 @@ public class Anomaly17_mic : AbstractAnomalyInteractable
         return true;
     }
 
-    private void Start()
+    protected override bool Start_()
     {
+        bool res = base.Start_();
+
         StartAnomaly();
+
+        return res;
     }
 
     public override bool ResetAnomaly()

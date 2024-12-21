@@ -23,9 +23,13 @@ public class Anomaly30_window : AbstractAnomalyInteractable
     private AudioSource audioSource;
     private static GameObject coroutineRunner;
 
-    private void Start()
+    protected override bool Start_()
     {
+        bool res = base.Start_();
+
         StartAnomaly();
+
+        return res;
     }
 
     public override bool StartAnomaly()

@@ -21,7 +21,7 @@ public class InteractionManager : AbstractStageObserver
     public override string Name { get; } = "InteractionManager";
 
     // 클래스 인스턴스
-    public static PlayerManager Instance { get; private set; }
+    public static InteractionManager Instance { get; private set; }
 
     /************
      * messages *
