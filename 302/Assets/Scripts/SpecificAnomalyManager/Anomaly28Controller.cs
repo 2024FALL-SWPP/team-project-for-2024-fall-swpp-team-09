@@ -37,9 +37,6 @@ public class Anomaly28Controller : AbstractAnomalyObject
         // Start the gradual swaying with delay
         StartCoroutine(DelayedStartSwaying());
 
-        // Stage always clears after experiencing the anomaly
-        GameManager.Instance.SetStageClear();
-
         // Find the player object and its Rigidbody
         player = GameObject.Find("Player");
         if (player != null)
@@ -143,7 +140,7 @@ public class Anomaly28Controller : AbstractAnomalyObject
             yield return null; // Wait for the next frame
         }
 
-        ResetAnomaly();
+        GameManager.Instance.SetStageClear(); // ResetAnomaly 간접 호출
     }
 
     private IEnumerator GradualReset()

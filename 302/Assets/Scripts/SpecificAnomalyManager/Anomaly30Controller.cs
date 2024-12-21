@@ -7,7 +7,6 @@ public class Anomaly30Controller : AbstractAnomalyObject
     public override string Name { get; } = "Anomaly30Controller";
     public GameObject[] windows;
     private GameObject player;
-    private GameManager gameManager;
     private Camera mainCamera;
     public VideoClip stormVideoClip;
     public AudioClip stormAudioClip;
@@ -24,7 +23,6 @@ public class Anomaly30Controller : AbstractAnomalyObject
     {
         bool res = base.StartAnomaly();
 
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         player = GameObject.Find("Player");
         mainCamera = Camera.main;
         
@@ -49,6 +47,8 @@ public class Anomaly30Controller : AbstractAnomalyObject
         // 20초 후 창문 열기 중지
         StartCoroutine(EndWindowsOpeningAfterTime(20f));
 
+        GameManager.Instance.SetStageClear();
+
         return res;
     }
 
@@ -58,7 +58,6 @@ public class Anomaly30Controller : AbstractAnomalyObject
      
         isAnomalyStopped = true;
         StopAnomaly();
-        gameManager.SetStageClear();
 
         thunderstorm.DestroyThunderstormScreen(); // 비디오 화면 제거
         CloseAllWindows();
