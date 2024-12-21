@@ -176,6 +176,9 @@ public class GameManager : AbstractBehaviour
         }
 
         _anomalyController = AnomalyManager.Instance.GetAnomalyController();
+
+        yield return null;
+
         _anomalyController.StartAnomaly();
     }
 
