@@ -127,12 +127,15 @@ public class PlayerManager : AbstractStageObserver
     // 필드를 초기화하는 메서드
     protected override bool InitFields()
     {
+        GameObject obj = GameObject.Find("ScreenFader");
         bool res = base.InitFields();
 
-        screenFader = FindObjectOfType<ScreenFader>();
-        if (screenFader == null) {
-            GameObject obj = new GameObject("ScreenFader");
-
+        if (obj != null) {
+            Log("Find `ScreenFader` success => Get `ScreenFader`");
+            screenFader = obj.GetComponent<ScreenFader>();
+        } else {
+            Log("Find `ScreenFader` failed => New `ScreenFader`");
+            obj = new GameObject("ScreenFader");
             screenFader = obj.AddComponent<ScreenFader>();
         }
 
